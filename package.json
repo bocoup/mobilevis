@@ -1,0 +1,46 @@
+{
+  "name": "mobilevis",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Mobile Data Visualization Collection",
+  "author": "Irene Ros",
+  "main": "api/app.js",
+
+  "scripts": {
+    "install": "bower install",
+    "sqlite3": "node app.js sqlite3",
+    "start": "node app.js",
+    "test": "mocha -R spec api/test/test.js"
+  },
+
+  "dependencies": {
+    "express": "~3.4.7",
+    "lodash": "~2.2.1",
+    "pg": "~2.11.0",
+    "checkit": "~0.2.0-pre",
+    "when": "~2.7.1",
+    "express-routebuilder": "~0.1.0",
+    "remapped": "~0.2.1",
+    "bookshelf": "0.6.2",
+    "endpoints-controller": "~0.1.2"
+  },
+
+  "devDependencies": {
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt": "^0.4.4",
+    "grunt-contrib-stylus": "^0.13.2",
+    "grunt-contrib-jade": "^0.11.0",
+    "grunt-contrib-requirejs": "^0.4.3",
+    "grunt-contrib-handlebars": "^0.7.0",
+    "matchdep": "^0.3.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "sqlite3": "~2.1.19",
+    "supertest": "~0.9.0",
+    "mocha": "~1.14.0",
+    "chai": "~1.8.0",
+    "grunt-mocha-test": "~0.8.1",
+    "chai-as-promised": "~4.1.0",
+    "mocha-as-promised": "~2.0.0"
+  }
+}
