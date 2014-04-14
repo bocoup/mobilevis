@@ -29,18 +29,10 @@ global.dbSetup = function (rollback) {
 
   var ready = true;
 
-  // always drop db data first
-  // ready = sequence([
-  //   function () {return DB.knex.schema.dropTableIfExists('submissions');},
-  //   function () {return DB.knex.schema.dropTableIfExists('tags');},
-  //   function () {return DB.knex.schema.dropTableIfExists('submission_tags');},
-  //   function () {return DB.knex.schema.dropTableIfExists('images');},
-  //   function () {return DB.knex.schema.dropTableIfExists('comments');},
-  // ]);
-
-  var d = when.defer();
-  ready = d.promise;
-  d.resolve();
+  // if requested, drop all data in database
+  if (rollback) {
+    ready = DB.knex.migrate.rollback(config);
+  }
 
   // load most current migration and all data
   return when(ready).then(function () {
