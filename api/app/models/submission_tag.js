@@ -3,10 +3,10 @@ const BaseModel = require('../base/model');
 var instanceProps = {
   tableName: 'submission_tags',
   submission: function () {
-    return this.belongsTo(require('./submission'));
+    return this.hasOne(require('./submission'));
   },
   tag: function () {
-    return this.belongsTo(require('./tag'));
+    return this.hasOne(require('./tag'));
   }
 };
 
