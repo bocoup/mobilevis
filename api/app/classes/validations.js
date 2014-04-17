@@ -1,4 +1,7 @@
-const DB = require('./database')();
+const config = require("../../config/db");
+const db_config = require(config.db_config);
+const DB = require('./database')(db_config);
+
 var Checkit = require('checkit');
 
 Checkit.Validators.unused = function (val, table, column) {
