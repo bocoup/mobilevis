@@ -3,8 +3,7 @@ const BaseModel = require('../base/model');
 var instanceProps = {
   tableName: 'tags',
   submissions: function () {
-    return this.belongsToMany(require('./submission'))
-      .through(require('./submission_tag'));
+    return this.belongsToMany(require('./submission'), 'submission_tags');
   },
 };
 
@@ -13,7 +12,12 @@ var classProps = {
     'id',
     'tag',
     'timestamp'
-  ]
+  ],
+  byName: function(name) {
+    return this.collection().query(function() {
+      this.where({ tag : name });
+    }).fetchOne();
+  }
 };
 
 module.exports = BaseModel.extend(instanceProps, classProps);

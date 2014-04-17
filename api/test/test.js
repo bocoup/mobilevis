@@ -4,6 +4,7 @@ const mocha = require('mocha-as-promised')();
 const chai = require('chai');
 const when = require('when');
 const sequence = require('when/sequence');
+
 const config = require('./config/db');
 const DB = require('../app/classes/database')(config);
 
@@ -23,7 +24,7 @@ global.express = require('express');
 global.supertest = require('supertest');
 global.routeBuilder = require('express-routebuilder');
 
-global.app = require('../app/api');
+global.app = require('../index');
 
 global.dbSetup = function (rollback) {
 
@@ -51,15 +52,15 @@ global.dbSetup = function (rollback) {
 
 describe('API', function () {
 
-  before(function () {
-    return dbSetup();
+  before(function() {
+    return dbSetup(false);
   });
 
   describe('Models', function () {
     require('./models/submission');
-    // require('./models/comments');
-    // require('./models/tags');
-    // require('./models/images');
+    require('./models/comment');
+    require('./models/tag');
+    require('./models/image');
   });
 
 });
