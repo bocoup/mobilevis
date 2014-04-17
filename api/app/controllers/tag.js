@@ -10,8 +10,8 @@ module.exports = BaseController.extend({
       id : params.id,
     }).fetch({
       withRelated : ['submissions']
-    }).then(function(submissions) {
-      req.output = submissions.relations.submissions.models;
+    }).then(function(tag) {
+      req.output = tag;
       next();
     });
   }

@@ -14,7 +14,11 @@ module.exports = BaseRouter.extend({
       "/:id" : [
         Controller.getOne,
         Controller.serialize
-      ]
+      ],
+      "/:id/comments" : [
+        Controller.comments,
+        Controller.serialize
+      ],
     }
   }
 });
