@@ -19,6 +19,13 @@ module.exports = BaseRouter.extend({
         Controller.comments,
         Controller.serialize
       ],
+    },
+
+    post: {
+      "/:id/tag" : [
+        Controller.tag,
+        Controller.serialize
+      ]
     }
   }
 });
