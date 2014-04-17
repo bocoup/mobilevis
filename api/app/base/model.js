@@ -1,5 +1,7 @@
-const config = require('../../config/api');
-const DB = require('../classes/database')();
+const config = require("../../config/db");
+const db_config = require(config.db_config);
+const DB = require('../classes/database')(db_config);
+
 const Validate = require('../classes/validations');
 const _ = require('lodash');
 const Promise = require('when');
@@ -46,7 +48,7 @@ var instanceProps = {
       result.links = {};
     }
     links.forEach(function (link) {
-      var url = [config.prefix, this.tableName, this.get('id'), link].join('/');
+      var url = [db_config.prefix, this.tableName, this.get('id'), link].join('/');
       result.links[link] = url;
     }, this);
     return result;
