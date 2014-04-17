@@ -13,9 +13,20 @@ module.exports = BaseController.extend({
   },
 
   getOne: function(req, res, next) {
+    (new req.Model({ id : req.params.id })).fetch({
+        withRelated : ['tags', 'images']
+      }).then(function(submission) {
+        req.output = submission;
+        next();
+      });
+  },
+
+  comments: function(req, res, next) {
     var params = req.params;
-    req.Model.byId(params.id).then(function(submission) {
-      req.output = submission;
+    new req.Model({ id : params.id }).fetch({
+      withRelated : ['comments']
+    }).then(function(submission) {
+      req.output = submission.relations.comments.models;
       next();
     });
   }
