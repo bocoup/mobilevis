@@ -1,0 +1,22 @@
+{
+  "name": "mobilevis",
+  "version": "0.0.0",
+  "authors": [
+    "Irene Ros <imirene@gmail.com>"
+  ],
+  "description": "Mobile Vis Pattern Collection",
+  "main": "app/app.js",
+  "keywords": [
+    "visualization",
+    "mobile"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
