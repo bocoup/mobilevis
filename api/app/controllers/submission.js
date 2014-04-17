@@ -15,7 +15,6 @@ module.exports = BaseController.extend({
   getOne: function(req, res, next) {
     var params = req.params;
     req.Model.byId(params.id).then(function(submission) {
-      console.log(submission);
       req.output = submission;
       next();
     });
