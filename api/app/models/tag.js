@@ -5,6 +5,11 @@ var instanceProps = {
   submissions: function () {
     return this.belongsToMany(require('./submission'), 'submission_tags');
   },
+  toJSON: function() {
+    var result = BaseModel.prototype.toJSON.apply(this);
+    delete result.timestamp;
+    return result;
+  }
 };
 
 var classProps = {

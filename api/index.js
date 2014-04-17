@@ -4,7 +4,8 @@ const routeBuilder = require('express-routebuilder');
 const Inflector = require('inflection');
 
 const resources = [
-  'submission'
+  'submission',
+  'tag'
 ];
 
 var app = express();
