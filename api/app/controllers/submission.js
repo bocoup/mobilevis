@@ -29,7 +29,18 @@ module.exports = BaseController.extend({
       req.output = submission.relations.comments.models;
       next();
     });
-  }
+  },
 
   // ==== POST ====
+
+  // tag a submission with a new tag
+  tag: function(req, res, next) {
+    (new req.Model({ id : req.params.id }))
+      .fetch().then(function(submission) {
+        submission.tagAs(req.body.tag).then(function(submission) {
+          req.output = submission;
+          next();
+        });
+      });
+  }
 });
