@@ -1,6 +1,35 @@
 var config = require('../../config/api');
 
-module.exports = function(passport) {
+module.exports = function(passport, app) {
+
+  app.get('/auth/twitter', passport.authenticate('twitter',
+    {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })
+  );
+
+  app.get('/auth/twitter/callback',
+
+    passport.authenticate('twitter', {
+      failureRedirect: '/login'
+    }),
+
+    function(req, res, next) {
+      res.redirect('/');
+    }
+  );
+
+  app.get('/logout',
+    function(res, req, next) {
+      req.session.destroy(function(err) {
+        res.redirect('/');
+      });
+
+    }
+  );
+
+  /*
   return {
     get : {
 
@@ -49,4 +78,6 @@ module.exports = function(passport) {
       ]
     }
   };
+
+  */
 };
