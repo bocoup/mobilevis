@@ -1,0 +1,35 @@
+require.config({
+
+  // Make all requires relative to /.
+  baseUrl: '../',
+
+  deps: ['src/main'],
+
+  // Map components to nice paths.
+  paths: {
+    'backbone': 'bower_components/backbone/backbone',
+    'jquery': 'bower_components/jquery/jquery',
+    'lodash': 'bower_components/lodash/dist/lodash.underscore',
+    'tmpl': 'bower_components/lodash-template-loader/loader',
+    'underscore': 'bower_components/underscore/underscore',
+
+    // Commonly-used application subdirectories
+    'core': 'src/modules/core',
+    'components': 'src/modules/components',
+    'layouts': 'src/modules/layouts',
+    'services': 'src/modules/services',
+
+    // This must work in the browser AND not explode in the r.js build step.
+    'livereload': 'http://' + (typeof location !== 'undefined' ?
+      location.hostname : 'localhost') + ':35729/livereload.js?snipver=1'
+  },
+
+  // Load non-AMD dependencies.
+  shim: {
+    'backbone': {
+      deps: ['lodash', 'jquery'],
+      exports: 'Backbone'
+    }
+  }
+
+});
