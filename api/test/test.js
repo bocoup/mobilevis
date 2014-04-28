@@ -7,7 +7,7 @@ const when = require('when');
 const sequence = require('when/sequence');
 
 const config = require('./config/db');
-const DB = require('../app/classes/database')(config);
+const DB = require('../app/classes/database');
 
 global.expect = chai.expect;
 global.AssertionError = chai.AssertionError;
