@@ -33,7 +33,6 @@ module.exports = {
         // asynchronous verification, for effect...
         process.nextTick(function () {
 
-          debugger;
           // To keep the example simple, the user's Twitter profile is returned to
           // represent the logged-in user.  In a typical application, you would want
           // to associate the Twitter account with a user record in your database,
