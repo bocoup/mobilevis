@@ -1,0 +1,30 @@
+<div class="layout single">
+  <div class="wrapper">
+    <header>
+      <h1>MobileVis</h1>
+      <div class="links">
+        <ul>
+          <li><a href="/">home</a></li>
+          <% if (loggedIn) { %>
+            <li><a href="/add">add</a></li>
+            <li>Logged in as <a href="/profile">@<%= user.get("username") %></a></li>
+            <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
+          <% } else { %>
+            <li><a href="<%= routes.auth.twitter_login %>">
+                login with twitter
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </header>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="content">
+
+      </div>
+    </div>
+  </section>
+</div>

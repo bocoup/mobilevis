@@ -1,6 +1,7 @@
 process.env.testing = true;
 
-const mocha = require('mocha-as-promised')();
+require('mocha-as-promised')();
+
 const chai = require('chai');
 const when = require('when');
 const sequence = require('when/sequence');
