@@ -1,6 +1,6 @@
 const config = require("../../config/db");
 const db_config = require(config.db_config);
-const DB = require('../classes/database')(db_config);
+const DB = require('../classes/database');
 
 const Validate = require('../classes/validations');
 const _ = require('lodash');

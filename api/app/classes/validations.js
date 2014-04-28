@@ -1,6 +1,5 @@
 const config = require("../../config/db");
-const db_config = require(config.db_config);
-const DB = require('./database')(db_config);
+const DB = require('./database');
 
 var Checkit = require('checkit');
 

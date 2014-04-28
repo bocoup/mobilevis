@@ -42,5 +42,11 @@ module.exports = BaseController.extend({
           next();
         });
       });
+  },
+
+  add: function(req, res, next) {
+    debugger;
+    console.log(req.body, req.files);
+    next();
   }
 });

@@ -1,6 +1,7 @@
 const Model = require('../models/submission');
 const Controller = require('../controllers/submission');
 const BaseRouter = require('../base/router');
+const StreamToS3 = require('../middlewares/stream_to_s3');
 
 module.exports = BaseRouter.extend({
   model: Model,
@@ -22,8 +23,17 @@ module.exports = BaseRouter.extend({
     },
 
     post: {
+
+      // tag submission
       "/:id/tag" : [
         Controller.tag,
+        Controller.serialize
+      ],
+
+      // add new submission
+      "/" : [
+        StreamToS3,
+        Controller.add,
         Controller.serialize
       ]
     }

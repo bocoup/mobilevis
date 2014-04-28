@@ -12,6 +12,7 @@ require.config({
     'lodash': 'bower_components/lodash/dist/lodash.underscore',
     'tmpl': 'bower_components/lodash-template-loader/loader',
     'underscore': 'bower_components/underscore/underscore',
+    'moment' : 'bower_components/momentjs/moment',
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
