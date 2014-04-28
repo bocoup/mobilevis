@@ -7,19 +7,15 @@ const Inflector = require('inflection');
 
 var P = require('./app/classes/passport');
 
-const resources = [
-  'submission',
-  'tag',
-  'user'
-];
-
 var app = express();
 var passport = P.init();
 
-
-  app.use(express.logger());
+app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.methodOverride());
+
+  // session secret key
+  app.use(express.session({ secret: session.secret }));
 
   // body parsing
   app.use(express.json());
@@ -31,37 +27,37 @@ var passport = P.init();
   // route debugging
   app.use(require('./app/middlewares/debug'));
 
-  // session secret key
-  app.use(express.session({ secret: session.secret }));
-
-
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
-  require('./app/routes/passport')(passport, app);
 
   // router
   app.use(app.router);
+});
 
-  // Resource routers:
-  if(!process.env.testing) {
-    resources.forEach(function (resource) {
-      var routes = require('./app/routes/'+resource);
-      var namespace = config.prefix+'/'+Inflector.pluralize(resource);
-      var subapp = routeBuilder(express, routes);
+// ====== Routes ======
 
-      console.log(namespace);
-      subapp.locals = app.locals;
-      app.use(namespace, subapp);
-    });
-  }
+// == Non resource routes:
+app.use(routeBuilder(express, require('./app/routes/passport')(passport)));
 
-  //app.use(routeBuilder(express, require('./app/routes/passport')(passport)));
-  require('./app/routes/passport')(passport, app);
+// == Resource routes:
+const resources = [
+  'submission',
+  'tag',
+  'user'
+];
 
+if(!process.env.testing) {
+  resources.forEach(function (resource) {
+    var routes = require('./app/routes/'+resource);
+    var namespace = config.prefix+'/'+Inflector.pluralize(resource);
+    var subapp = routeBuilder(express, routes);
 
-
-
+    console.log(namespace);
+    subapp.locals = app.locals;
+    app.use(namespace, subapp);
+  });
+}
 
 module.exports = app;

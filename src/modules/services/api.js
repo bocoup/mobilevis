@@ -14,7 +14,7 @@ define(function(require) {
 
   routes.auth = {
     twitter_login: "auth/twitter",
-    twitter_logout: routes.prefix + "logout",
+    twitter_logout: "logout",
   };
 
   return routes;
