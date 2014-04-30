@@ -71,5 +71,15 @@ module.exports = function (req, res, next) {
       next();
     }
   });
+
+  busboy.on('finish', function() {
+    done = true;
+    // if nothing was uploaded, continue
+    if (!anything) {
+      next();
+    }
+  });
+
   req.pipe(busboy);
+
 };

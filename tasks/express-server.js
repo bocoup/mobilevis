@@ -6,7 +6,8 @@ module.exports = function(grunt) {
         script: './app.js',
         background: true,
         port: 8000,
-        debug: true
+        debug: true,
+        args: ['sqlite3']
       }
     }
   });

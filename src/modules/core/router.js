@@ -12,18 +12,28 @@ define(function(require){
     },
 
     routes: {
-      "" : "index"
+      "" : "index",
+      "add": "add"
     },
 
     index: function() {
-
       Session.getProfile().always(function(user) {
         new SingleColLayout({
           el: "#main",
-          user: user
+          user: user,
+          page: "index"
         }).render().place();
       });
+    },
 
+    add: function() {
+      Session.getProfile().then(function(user) {
+        new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "add"
+        }).render().place();
+      });
     }
 
   });
