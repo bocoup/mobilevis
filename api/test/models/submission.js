@@ -8,6 +8,12 @@ describe('Submission', function () {
     return dbSetup(true);
   });
 
+  it('should find all submissions', function() {
+    return Submission.collection().fetch().then(function(result) {
+      expect(result.models).to.have.length(2);
+    });
+  });
+
   it('should find submission', function () {
     return Submission.byId(DATA.submissions[0].id).then(function(result) {
       var serializedResult = result.toJSON();
@@ -93,4 +99,149 @@ describe('Submission', function () {
     });
   });
 
+  describe("when adding a submission it", function() {
+
+    describe("should succeed", function() {
+      var submissionAdd;
+      beforeEach(function() {
+        submissionAdd = Submission.add({
+          name : "test_name",
+          twitter_handle: "test_twitter_handle",
+          creator: "test_creator",
+          original_url: "http://test.com",
+          images: ["test_images"],
+          tags: ["Bar Chart", "NEW TAG"]
+        });
+      });
+
+      it('by adding a new submission', function() {
+        return submissionAdd.then(function(submission) {
+
+          return Submission.findByName("test_name").then(function(submission) {
+            // check that we found the submission
+            expect(submission.attributes.name).to.equal("test_name");
+          });
+        }, function(err) {
+          expect(false).to.equal(true, err);
+        });
+      });
+
+      it('by adding tags correctly', function() {
+        return submissionAdd.then(function(submission) {
+          expect(submission.relations.tags.models.length).to.equal(2);
+
+          return submission.tags().fetch().then(function(tags) {
+            expect(tags.models.length).to.equal(2);
+            var foundTags = tags.models.map(function(tag) {
+              return tag.attributes.tag
+            });
+            expect(["Bar Chart", "NEW TAG"]).to.have.members(foundTags);
+          });
+        });
+      });
+
+      it('by adding images correctly', function() {
+        return submissionAdd.then(function(submission) {
+
+          expect(submission.relations.images.models.length).to.equal(1);
+
+          return submission.images().fetch().then(function(images) {
+            expect(images.models.length).to.equal(1);
+            var foundImages = images.models.map(function(image) {
+              return image.attributes.url;
+            });
+            expect(["test_images"]).to.have.members(foundImages);
+          });
+        });
+      });
+    });
+
+    describe("should fail if", function() {
+      it("it has no title", function() {
+        return Submission.add({
+          twitter_handle: "test_twitter_handle",
+          creator: "test_creator",
+          original_url: "http://test.com",
+          images: ["test_images"],
+          tags: ["Bar Chart", "NEW TAG"]
+        }).then(function() {
+          expect(false).to.equal(true, "It shouldn't be saved");
+        }, function(err) {
+          expect(err.message.indexOf("name is required")).not.to.equal(-1);
+        });
+      });
+
+      it("it has no creator", function() {
+        return Submission.add({
+          twitter_handle: "test_twitter_handle",
+          name: "test_name",
+          original_url: "http://test.com",
+          images: ["test_images"],
+          tags: ["Bar Chart", "NEW TAG"]
+        }).then(function() {
+          expect(false).to.equal(true, "It shouldn't be saved");
+        }, function(err) {
+          expect(err.message.indexOf("creator is required")).not.to.equal(-1);
+        });
+      });
+
+      it("it has no original_url", function() {
+        return Submission.add({
+          twitter_handle: "test_twitter_handle",
+          name: "test_name",
+          creator: "test_creator",
+          images: ["test_images"],
+          tags: ["Bar Chart", "NEW TAG"]
+        }).then(function() {
+          expect(false).to.equal(true, "It shouldn't be saved");
+        }, function(err) {
+          expect(err.message.indexOf("original_url is required")).not.to.equal(-1);
+        });
+      });
+
+      it("it has no images", function() {
+        return Submission.add({
+          twitter_handle: "test_twitter_handle",
+          name: "test_name",
+          creator: "test_creator",
+          original_url: "http//a.com",
+          tags: ["Bar Chart", "NEW TAG"]
+        }).then(function() {
+          expect(false).to.equal(true, "It shouldn't be saved");
+        }, function(err) {
+          expect(err.message.indexOf("images are required")).not.to.equal(-1);
+        });
+      });
+
+      it("it has images but they aren't an array", function() {
+        return Submission.add({
+          twitter_handle: "test_twitter_handle",
+          name: "test_name",
+          creator: "test_creator",
+          original_url: "http//a.com",
+          images: "a string",
+          tags: ["Bar Chart", "NEW TAG"]
+        }).then(function() {
+          expect(false).to.equal(true, "It shouldn't be saved");
+        }, function(err) {
+          expect(err.message.indexOf("images should be defined")).not.to.equal(-1);
+        });
+      });
+
+      it("it as an original_url that isn't a url", function() {
+        return Submission.add({
+          twitter_handle: "test_twitter_handle",
+          name: "test_name",
+          creator: "test_creator",
+          original_url: "just some words",
+          images: ["test_images"],
+          tags: ["Bar Chart", "NEW TAG"]
+        }).then(function() {
+          expect(false).to.equal(true, "It shouldn't be saved");
+        }, function(err) {
+          expect(err.message.indexOf("original_url isn't a URL")).not.to.equal(-1);
+        });
+      });
+    });
+  });
 });

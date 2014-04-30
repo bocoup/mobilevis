@@ -9,6 +9,51 @@ body {
   padding: 0;
   background: #f8f8f8;
 }
+.content {
+  padding: 20px;
+}
+
+ul.submissions {
+  margin: 0px;
+  padding: 0px;
+}
+ul.submissions li.submission {
+  background-color: #eaeaea;
+  display: inline-block;
+  float: left;
+  width: 220px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+  padding: 10px;
+}
+ul.submissions li.submission h3.title {
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+ul.submissions li.submission div.creator {
+  font-size: 0.8em;
+  color: #444;
+  margin-bottom: 10px;
+}
+ul.submissions li.submission div.submitted_by {
+  font-size: 0.8em;
+  color: #444;
+}
+ul.submissions li.submission div.tags {
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+ul.submissions li.submission div.tags span.tag {
+  padding: 3px;
+  background-color: #4682b4;
+  color: #fff;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+}
+ul.submissions li.submission div.tags span.tag:hover {
+  background-color: #ffa500;
+}
 
 .layout.single header {
   background-color: #ad3fad;

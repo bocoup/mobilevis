@@ -1,0 +1,60 @@
+<form class="form-horizontal" enctype="multipart/form-data" action="/api/v1/submissions/" method="post">
+  <fieldset>
+
+    <!-- Form Name -->
+    <legend>Form Name</legend>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="name">Name</label>
+      <div class="controls">
+        <input id="name" name="name" type="text" placeholder="" class="input-xlarge" required="">
+        <p class="help-block">Visualization Name</p>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="creator">Original author:</label>
+      <div class="controls">
+        <input id="creator" name="creator" type="text" placeholder="" class="input-xlarge" required="">
+        <p class="help-block">Name of person or organization that created this visualization</p>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="original_url">URL</label>
+      <div class="controls">
+        <input id="original_url" name="original_url" type="text" placeholder="" class="input-xlarge">
+        <p class="help-block">Link to the original visualization</p>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="tags">Tags</label>
+      <div class="controls">
+        <input id="tags" name="tags" type="text" placeholder="" class="input-xlarge">
+        <p class="help-block">For example: Visualization type like "bar chart" or "scatterplot"</p>
+      </div>
+    </div>
+
+    <!-- File Button -->
+    <div class="control-group">
+      <label class="control-label" for="image-mobile">Mobile Screenshot</label>
+      <div class="controls">
+        <input id="image-mobile" name="image-mobile" class="input-file" type="file">
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="control-group">
+      <label class="control-label" for="submit">Save</label>
+      <div class="controls">
+        <button id="submit" name="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
