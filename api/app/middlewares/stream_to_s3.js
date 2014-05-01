@@ -38,7 +38,7 @@ module.exports = function (req, res, next) {
     streaming++;
     anything = true;
     // stream it to S3
-    s3.writeStream(stream).then(function (uuid) {
+    s3.writeStream(stream, filename).then(function (uuid) {
       streaming--;
       // push file details to a stack for later
       req.files.push({
