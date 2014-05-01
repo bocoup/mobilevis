@@ -49,7 +49,8 @@ exports.extend = function (opts) {
       '/:id': [
         //exports.isAuthenticated,
         controller.findById,
-        controller.destroyCascade
+        controller.destroyCascade,
+        controller.serialize
       ]
     }
   };
