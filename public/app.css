@@ -9,6 +9,12 @@ body {
   padding: 0;
   background: #f8f8f8;
 }
+#flash {
+  display: none;
+  padding: 10px;
+  background-color: #ffffe0;
+  border: 1px solid #ff0;
+}
 .content {
   padding: 20px;
 }
