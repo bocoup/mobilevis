@@ -8,7 +8,7 @@ define(function(require){
 
   var Router = Backbone.Router.extend({
     initialize: function() {
-
+      this.currentLayout = null;
     },
 
     routes: {
@@ -17,8 +17,10 @@ define(function(require){
     },
 
     index: function() {
+      var self = this;
+
       Session.getProfile().always(function(user) {
-        new SingleColLayout({
+        self.currentLayout = new SingleColLayout({
           el: "#main",
           user: user,
           page: "index"
