@@ -20,7 +20,7 @@
     "express-routebuilder": "~0.1.0",
     "remapped": "~0.2.1",
     "bookshelf": "0.6.8",
-    "endpoints-controller": "~0.1.2",
+    "endpoints-controller": "~0.1.5",
     "endpoints-router": "~0.1.1",
     "inflection": "~1.3.5",
     "passport": "~0.2.0",
@@ -30,7 +30,8 @@
     "knox": "~0.8.9",
     "knox-mpu": "~0.1.6",
     "busboy": "~0.2.5",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "mime": "~1.2.11"
   },
   "devDependencies": {
     "grunt-express-server": "~0.4.17",
