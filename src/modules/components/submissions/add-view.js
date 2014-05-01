@@ -1,5 +1,6 @@
 define(function(require) {
 
+  var $ = require('jquery');
   var BaseView = require('src/modules/core/base-view');
   var template = require('tmpl!src/modules/components/submissions/add-view');
 
@@ -7,7 +8,7 @@ define(function(require) {
     template: template,
 
     events: {
-      // "submit form" : "submit"
+      "submit form" : "submit"
     },
 
     serialize: function() {
@@ -16,22 +17,38 @@ define(function(require) {
       };
     },
 
-    // submit: function(e) {
-    //   e.preventDefault();
+    submit: function(e) {
+      var self = this;
+      e.preventDefault();
 
-    //   // serialize fields (all but files)
-    //   var map = {};
-    //   var fields = $(e.target).serializeArray().map(function(pair) {
-    //     map[pair.key] = pair.value;
-    //   });
+      var form = $(e.target);
+      var data = new FormData();
 
-    //   // handle file
+      data.append('name', form.find('#name').val());
+      data.append('creator', form.find('#creator').val());
+      data.append('original_url', form.find('#original_url').val());
+      data.append('tags', form.find('#tags').val());
+      data.append('image-mobile', form.find('#image-mobile')[0].files[0]);
 
-    //   // TODO do form submission here
-    //   // name: this.$('input[name=name]').val(),
-    //   // key: this.$('input[name=key]').val()
+      console.log(data);
 
-    //   return false;
-    // }
+      $.ajax({
+        url: '/api/v1/submissions/',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(submission){
+          // REDIRECT TO SUBMISSION PAGE
+          self.trigger('created', submission);
+        },
+        error: function(jqXhr) {
+          self.trigger('error', JSON.parse(jqXhr.responseText));
+        }
+      });
+
+      return false;
+    }
   });
 });
