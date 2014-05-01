@@ -29,12 +29,19 @@ define(function(require){
     },
 
     add: function() {
+      var self = this;
+
       Session.getProfile().then(function(user) {
-        new SingleColLayout({
+        self.currentLayout = new SingleColLayout({
           el: "#main",
           user: user,
           page: "add"
         }).render().place();
+
+        self.currentLayout.on('submission:created', function(submission) {
+          // TODO: navigate to individual submission rather than index.
+          self.navigate('', { trigger: true });
+        });
       });
     }
 
