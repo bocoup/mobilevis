@@ -11,7 +11,7 @@ module.exports = BaseController.extend({
     }).fetch({
       withRelated : ['submissions']
     }).then(function(tag) {
-      req.output = tag;
+      res.data = tag;
       next();
     });
   }

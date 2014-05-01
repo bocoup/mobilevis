@@ -9,11 +9,12 @@ ul.submissions {
     width: 220px;
     border: 1px solid #ddd;
     margin-right: 10px;
-    padding: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
 
     h3.title {
       margin-bottom: 0px;
-      margin-top: 10px;
+      margin-top: 0px;
     }
 
     div.creator {
@@ -27,16 +28,36 @@ ul.submissions {
       color: #444;
     }
 
+    div.image {
+      div {
+        margin-top: 10px;
+        background-position: 50% 25%;
+        display: inline-block;
+        height: 180px;
+        position: relative;
+        transition: ease 750ms background-position;
+        width: 180px;
+      }
+
+      div:hover {
+        background-color: #eee;
+        background-position: 50% 75%;
+        text-decoration: none;
+      }
+    }
+
     div.tags {
       font-size: 0.8em;
       margin-top: 10px;
 
       span.tag {
+        margin-top: 3px;
         padding: 3px;
         background-color: steelblue;
         color: white;
         border-radius: 3px 3px 3px 3px;
         cursor: pointer;
+        display: inline-block;
       }
 
       span.tag:hover {

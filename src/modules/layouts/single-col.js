@@ -2,6 +2,7 @@ define(function(require) {
   var BaseView = require('src/modules/core/base-view');
   var template = require('tmpl!src/modules/layouts/single-col');
   var API = require("src/modules/services/api");
+  var flash = require('src/modules/core/flash');
 
   // views: index page
   var SubmissionsView = require('src/modules/components/submissions/collection-view');
@@ -18,6 +19,7 @@ define(function(require) {
       this.user = options.user;
       this.page = options.page || "index";
     },
+
     postRender: function() {
       if (this.page === "index") {
         this.postRenderIndex();
@@ -54,12 +56,20 @@ define(function(require) {
 
       var self = this;
 
-      self.addSubView({
+      var addView = self.addSubView({
         viewType: SubmissionAddView,
         container: '.content',
         options: {
           model : new Submission()
         }
+      });
+
+      addView.on('created', function(submission) {
+        self.trigger('submission:created', submission);
+      });
+
+      addView.on('error', function(response) {
+        flash.display(response.message);
       });
     },
 
