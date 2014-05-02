@@ -17,6 +17,9 @@ module.exports = function(grunt) {
       dest: 'public/app.css',
     },
     public: {
+      options: {
+        compress: false,
+      },
       src: '<%= stylus.dev.src %>',
       dest: '<%= stylus.dev.dest %>',
     },
