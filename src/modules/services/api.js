@@ -21,7 +21,8 @@ define(function(require) {
 
   // submission routes
   routes.submissions = {
-    all: routes.prefix + "submissions/"
+    all: routes.prefix + "submissions/",
+    show: routes.prefix + "submissions/"
   };
 
   return routes;

@@ -1,5 +1,6 @@
 define(function(require) {
 
+  var $ = require('jquery');
   var BaseView = require('src/modules/core/base-view');
   var template = require('tmpl!src/modules/components/submissions/collection-view');
 
@@ -7,6 +8,10 @@ define(function(require) {
     template: template,
     tagName: 'ul',
     className: 'submissions',
+
+    events: {
+      "click li" : "show"
+    },
 
     initialize: function() {
       this.listenTo(this.collection, "add remove update reset", this.render);
@@ -16,6 +21,11 @@ define(function(require) {
       return {
         submissions: this.collection.toJSON()
       };
+    },
+
+    show: function(ev) {
+      var submission = $(ev.target).closest('li.submission').data('submission-id');
+      this.trigger('submission:show', submission);
     }
   });
 });

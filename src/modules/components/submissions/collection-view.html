@@ -1,6 +1,6 @@
 <ul class="submissions">
   <% _.each(submissions, function(submission) { %>
-    <li class="submission" id="submission-<%= submission.id %>">
+    <li class="submission" data-submission-id="<%= submission.id %>">
       <h3 class="title"><%= submission.name %></h3>
       <div class="creator">by <%= submission.creator %></div>
       <div class="submitted_by">
