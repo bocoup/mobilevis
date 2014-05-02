@@ -20,7 +20,7 @@
     "express-routebuilder": "~0.1.0",
     "remapped": "~0.2.1",
     "bookshelf": "0.6.8",
-    "endpoints-controller": "~0.1.5",
+    "endpoints-controller": "~0.2.0",
     "endpoints-router": "~0.1.1",
     "inflection": "~1.3.5",
     "passport": "~0.2.0",
