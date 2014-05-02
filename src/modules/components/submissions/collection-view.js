@@ -10,7 +10,8 @@ define(function(require) {
     className: 'submissions',
 
     events: {
-      "click li" : "show"
+      "click li" : "show",
+      "click .tag" : "showTagSubmissions"
     },
 
     initialize: function() {
@@ -26,6 +27,13 @@ define(function(require) {
     show: function(ev) {
       var submission = $(ev.target).closest('li.submission').data('submission-id');
       this.trigger('submission:show', submission);
+    },
+
+    showTagSubmissions: function(ev) {
+      ev.stopPropagation();
+      var tag = $(ev.target).data('tag-id');
+      this.trigger('tag:show', tag);
+      return false;
     }
   });
 });

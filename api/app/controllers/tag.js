@@ -8,11 +8,11 @@ module.exports = BaseController.extend({
 
     new req.Model({
       id : params.id,
-    }).fetch({
-      withRelated : ['submissions']
-    }).then(function(tag) {
-      res.data = tag;
-      next();
+    }).fetch().then(function(tag) {
+      tag.load(['submissions', 'submissions.tags', 'submissions.images']).then(function(full_tag) {
+        res.data = tag;
+        next();
+      });
     });
   }
 

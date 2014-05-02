@@ -25,5 +25,10 @@ define(function(require) {
     show: routes.prefix + "submissions/"
   };
 
+  // tag routes
+  routes.tags = {
+    show : routes.prefix + "tags/"
+  };
+
   return routes;
 });
