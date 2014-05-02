@@ -15,6 +15,10 @@ define(function(require) {
   // views: show page
   var SubmissionShowView = require('src/modules/components/submissions/show-view');
 
+  // views: tag submissions gallery show
+  var Tag = require('src/modules/components/tags/model');
+  var BreadcrumbsView = require('src/modules/components/helpers/breadcrumbs');
+
   return BaseView.extend({
     template: template,
     initialize: function(options) {
@@ -35,6 +39,10 @@ define(function(require) {
       }
       if (this.page === "show") {
         this.postRenderShow();
+        return;
+      }
+      if (this.page === "tagSubmissionShow") {
+        this.postRenderTagSubmissionShow();
         return;
       }
     },
@@ -58,6 +66,10 @@ define(function(require) {
 
         indexView.on('submission:show', function(id) {
           self.trigger('submission:show', id);
+        });
+
+        indexView.on('tag:show', function(id) {
+          self.trigger('tag:show', id);
         });
       });
     },
@@ -96,6 +108,42 @@ define(function(require) {
               model : new Submission(submission)
             }
           });
+        });
+    },
+
+    postRenderTagSubmissionShow: function() {
+      var self = this;
+      var tag = new Tag({ id : self.options.id });
+      tag.fetch()
+        .then(function() {
+
+          // add breadcrumbs details
+          self.addSubView({
+            viewType: BreadcrumbsView,
+            container: '#breadcrumbs',
+            options: {
+              model : tag
+            }
+          }).render().place();
+
+          // add submissions gallery
+          var indexView = self.addSubView({
+            viewType : SubmissionsView,
+            container: '.content',
+            options: {
+              collection: tag.get('submissions')
+            }
+          });
+
+          indexView.on('tag:show', function(id) {
+            self.trigger('tag:show', id);
+          });
+
+          indexView.on('submission:show', function(id) {
+            self.trigger('submission:show', id);
+          });
+
+
         });
     },
 
