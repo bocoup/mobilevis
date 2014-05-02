@@ -14,7 +14,8 @@ define(function(require){
     routes: {
       "" : "index",
       "add": "add",
-      "submission/:id": "show"
+      "submission/:id": "show",
+      "tag/:id": "tagSubmissionShow"
     },
 
     index: function() {
@@ -29,6 +30,10 @@ define(function(require){
 
         self.currentLayout.on('submission:show', function(submission_id) {
           self.navigate('submission/' + submission_id, { trigger : true });
+        });
+
+        self.currentLayout.on('tag:show', function(tag_id) {
+          self.navigate('tag/' + tag_id, { trigger : true });
         });
       });
     },
@@ -62,7 +67,31 @@ define(function(require){
           }
         }).render().place();
       });
+    },
+
+    tagSubmissionShow: function(id) {
+      var self = this;
+
+      Session.getProfile().always(function(user) {
+        self.currentLayout = new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "tagSubmissionShow",
+          options: {
+            id : id
+          }
+        }).render().place();
+
+        self.currentLayout.on('submission:show', function(submission_id) {
+          self.navigate('submission/' + submission_id, { trigger : true });
+        });
+
+        self.currentLayout.on('tag:show', function(tag_id) {
+          self.navigate('tag/' + tag_id, { trigger : true });
+        });
+      });
     }
+
 
   });
 
