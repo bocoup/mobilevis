@@ -12,12 +12,16 @@ define(function(require) {
   var SubmissionAddView = require('src/modules/components/submissions/add-view');
   var Submission = require('src/modules/components/submissions/model');
 
+  // views: show page
+  var SubmissionShowView = require('src/modules/components/submissions/show-view');
+
   return BaseView.extend({
     template: template,
     initialize: function(options) {
       options = options || {};
       this.user = options.user;
       this.page = options.page || "index";
+      this.options = options.options || {};
     },
 
     postRender: function() {
@@ -27,6 +31,10 @@ define(function(require) {
       }
       if (this.page === "add") {
         this.postRenderAdd();
+        return;
+      }
+      if (this.page === "show") {
+        this.postRenderShow();
         return;
       }
     },
@@ -40,7 +48,7 @@ define(function(require) {
       submissions.fetch().then(function() {
 
         // add submissions gallery
-        self.addSubView({
+        var indexView = self.addSubView({
           viewType : SubmissionsView,
           container: '.content',
           options: {
@@ -48,6 +56,9 @@ define(function(require) {
           }
         });
 
+        indexView.on('submission:show', function(id) {
+          self.trigger('submission:show', id);
+        });
       });
     },
 
@@ -71,6 +82,21 @@ define(function(require) {
       addView.on('error', function(response) {
         flash.display(response.message);
       });
+    },
+
+    postRenderShow: function(options) {
+      var self = this;
+      new Submission({ id : self.options.id })
+        .fetch()
+        .then(function(submission) {
+          self.addSubView({
+            viewType : SubmissionShowView,
+            container: '.content',
+            options: {
+              model : new Submission(submission)
+            }
+          });
+        });
     },
 
     serialize: function() {
