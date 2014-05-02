@@ -15,8 +15,8 @@ define(function(require) {
 
   // auth routes
   routes.auth = {
-    twitter_login: "auth/twitter",
-    twitter_logout: routes.prefix + "logout",
+    twitter_login: "/auth/twitter",
+    twitter_logout: "/logout",
   };
 
   // submission routes

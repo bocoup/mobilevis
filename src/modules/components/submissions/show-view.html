@@ -9,16 +9,16 @@
       <%= submission.timestamp %>
   </div>
 
-  <div class="image">
-    <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= submission.images[0].url %>" />
-  </div>
-
   <div class="tags">
     <% if (submission.tags.length) { %>
       <% submission.tags.forEach(function(tag) { %>
         <span class="tag" data-tag="<%= tag.tag %>" data-tag-id="<%= tag.id %>"><%= tag.tag %></span>
       <% }); %>
     <% } %>
+  </div>
+
+  <div class="image">
+    <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= submission.images[0].url %>" />
   </div>
 
 </div>
