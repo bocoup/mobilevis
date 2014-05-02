@@ -13,7 +13,8 @@ define(function(require){
 
     routes: {
       "" : "index",
-      "add": "add"
+      "add": "add",
+      "submission/:id": "show"
     },
 
     index: function() {
@@ -25,6 +26,10 @@ define(function(require){
           user: user,
           page: "index"
         }).render().place();
+
+        self.currentLayout.on('submission:show', function(submission_id) {
+          self.navigate('submission/' + submission_id, { trigger : true });
+        });
       });
     },
 
@@ -42,6 +47,20 @@ define(function(require){
           // TODO: navigate to individual submission rather than index.
           self.navigate('', { trigger: true });
         });
+      });
+    },
+
+    show: function(id) {
+      var self = this;
+      Session.getProfile().always(function(user) {
+        self.currentLayout = new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "show",
+          options: {
+            id : id
+          }
+        }).render().place();
       });
     }
 

@@ -19,6 +19,7 @@ body {
   padding: 20px;
 }
 
+/* gallery submissions */
 ul.submissions {
   margin: 0px;
   padding: 0px;
@@ -64,11 +65,29 @@ ul.submissions li.submission div.image div:hover {
   background-position: 50% 75%;
   text-decoration: none;
 }
-ul.submissions li.submission div.tags {
+
+.content .submission h3.title {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.content .submission div.creator {
+  font-size: 0.8em;
+  color: #444;
+  margin-bottom: 10px;
+}
+.content .submission div.submitted_by {
+  font-size: 0.8em;
+  color: #444;
+}
+.content .submission div.image img {
+  width: 60%;
+}
+
+div.tags {
   font-size: 0.8em;
   margin-top: 10px;
 }
-ul.submissions li.submission div.tags span.tag {
+div.tags span.tag {
   margin-top: 3px;
   padding: 3px;
   background-color: #4682b4;
@@ -78,7 +97,7 @@ ul.submissions li.submission div.tags span.tag {
   cursor: pointer;
   display: inline-block;
 }
-ul.submissions li.submission div.tags span.tag:hover {
+div.tags span.tag:hover {
   background-color: #ffa500;
 }
 
