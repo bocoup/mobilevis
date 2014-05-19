@@ -13,6 +13,7 @@ require.config({
     'tmpl': 'bower_components/lodash-template-loader/loader',
     'underscore': 'bower_components/underscore/underscore',
     'moment' : 'bower_components/momentjs/moment',
+    'masonry' : 'bower_components/masonry/dist/masonry.pkgd',
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
@@ -30,6 +31,11 @@ require.config({
     'backbone': {
       deps: ['lodash', 'jquery'],
       exports: 'Backbone'
+    },
+
+    'masonry' : {
+      deps: ['jquery'],
+      exports: 'Masonry'
     }
   }
 
