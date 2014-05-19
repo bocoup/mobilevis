@@ -1,0 +1,35 @@
+<div class="comments">
+
+  <h4>
+    Comments
+  </h4>
+
+  <% var leaveComments = loggedIn; %>
+  <% if (comments.length) { %>
+
+    <% _.each(comments, function(comment) { %>
+
+      <div class="comment">
+        <div class="body">
+          <%= comment.comment %>
+        </div>
+
+        <div class="author">
+          Posted by: <a href="http://twitter.com/<%= comment.twitter_handle %>">
+            @<%= comment.twitter_handle %></a>,
+            <%= comment.timestamp %>
+        </div>
+
+      </div>
+    <% }); %>
+
+  <% } else { %>
+    There are no comments yet.
+  <% } %>
+
+  <% if (leaveComments) { %>
+    Comment form
+  <% } else { %>
+    You must be logged in to leave a comment.
+  <% } %>
+</div>

@@ -42,9 +42,25 @@ module.exports = BaseController.extend({
     new req.Model({ id : params.id }).fetch({
       withRelated : ['comments']
     }).then(function(submission) {
-      res.data = submission.relations.comments.models;
+      if (submission === null) {
+        res.code = 404;
+        res.data = {
+          errors : [
+            { message : "Submission not found", status : "Not Found" }
+          ]
+        };
+      } else {
+        res.data = submission.relations.comments.models;
+      }
       next();
-    });
+    }, function(err) {
+        res.code = 400;
+        res.data = {
+          errors : [
+            { message : err, status : "Bad Request" }
+          ]
+        };
+      });
   },
 
   // ==== POST ====

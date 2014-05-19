@@ -25,6 +25,13 @@ define(function(require) {
     show: routes.prefix + "submissions/"
   };
 
+  // comment routes
+  routes.comments = {
+    submission: function(submissionId) {
+      return routes.prefix + "submissions/" + submissionId + "/comments";
+    }
+  };
+
   // tag routes
   routes.tags = {
     show : routes.prefix + "tags/"
