@@ -3,6 +3,8 @@ const Controller = require('../controllers/submission');
 const BaseRouter = require('../base/router');
 const StreamToS3 = require('../middlewares/stream_to_s3');
 
+const CommentsController = require('../controllers/comment');
+
 module.exports = BaseRouter.extend({
   model: Model,
   controller: Controller,
@@ -17,8 +19,8 @@ module.exports = BaseRouter.extend({
         Controller.serialize
       ],
       "/:id/comments" : [
-        Controller.comments,
-        Controller.serialize
+        CommentsController.getAll,
+        CommentsController.serialize
       ],
     },
 
@@ -28,6 +30,11 @@ module.exports = BaseRouter.extend({
       "/:id/tag" : [
         Controller.tag,
         Controller.serialize
+      ],
+
+      "/:id/comment" : [
+        CommentsController.add,
+        CommentsController.serialize
       ],
 
       // add new submission
