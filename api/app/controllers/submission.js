@@ -37,32 +37,6 @@ module.exports = BaseController.extend({
       });
   },
 
-  comments: function(req, res, next) {
-    var params = req.params;
-    new req.Model({ id : params.id }).fetch({
-      withRelated : ['comments']
-    }).then(function(submission) {
-      if (submission === null) {
-        res.code = 404;
-        res.data = {
-          errors : [
-            { message : "Submission not found", status : "Not Found" }
-          ]
-        };
-      } else {
-        res.data = submission.relations.comments.models;
-      }
-      next();
-    }, function(err) {
-        res.code = 400;
-        res.data = {
-          errors : [
-            { message : err, status : "Bad Request" }
-          ]
-        };
-      });
-  },
-
   // ==== POST ====
 
   // tag a submission with a new tag
