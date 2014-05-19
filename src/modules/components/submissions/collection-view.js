@@ -4,6 +4,8 @@ define(function(require) {
   var BaseView = require('src/modules/core/base-view');
   var template = require('tmpl!src/modules/components/submissions/collection-view');
 
+  var Masonry = require('masonry');
+
   return BaseView.extend({
     template: template,
     tagName: 'ul',
@@ -22,6 +24,15 @@ define(function(require) {
       return {
         submissions: this.collection.toJSON()
       };
+    },
+
+    postPlace: function() {
+
+      new Masonry( this.el, {
+        itemSelector: 'li.submission',
+        columnWidth: 240
+      });
+
     },
 
     show: function(ev) {
