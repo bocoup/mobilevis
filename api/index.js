@@ -54,7 +54,6 @@ if(!process.env.testing) {
     var namespace = config.prefix+'/'+Inflector.pluralize(resource);
     var subapp = routeBuilder(express, routes);
 
-    console.log(namespace);
     subapp.locals = app.locals;
     app.use(namespace, subapp);
   });
