@@ -3,6 +3,7 @@ define(function(require) {
   var template = require('tmpl!src/modules/layouts/single-col');
   var API = require("src/modules/services/api");
   var flash = require('src/modules/core/flash');
+  var $ = require('jquery');
 
   // views: index page
   var SubmissionsView = require('src/modules/components/submissions/collection-view');
@@ -18,6 +19,10 @@ define(function(require) {
   // views: tag submissions gallery show
   var Tag = require('src/modules/components/tags/model');
   var BreadcrumbsView = require('src/modules/components/helpers/breadcrumbs');
+
+  // views: comments for submission show
+  var SubmissionComments = require('src/modules/components/comments/collection');
+  var SubmissionCommentsView = require('src/modules/components/comments/collection-view');
 
   return BaseView.extend({
     template: template,
@@ -98,15 +103,35 @@ define(function(require) {
 
     postRenderShow: function(options) {
       var self = this;
+      var def = $.Deferred();
+
       new Submission({ id : self.options.id })
         .fetch()
         .then(function(submission) {
-          self.addSubView({
+          var showView = self.addSubView({
             viewType : SubmissionShowView,
             container: '.content',
             options: {
               model : new Submission(submission)
             }
+          });
+
+          def.resolve(showView);
+        });
+
+      new SubmissionComments({ submission_id : self.options.id })
+        .fetch()
+        .then(function(comments) {
+          $.when(def.promise()).then(function(showView) {
+            showView.addSubView({
+              viewType: SubmissionCommentsView,
+              container: '.extra',
+              options: {
+                collection: new SubmissionComments(comments),
+                user: self.user,
+                loggedIn: self.user ? true : false
+              }
+            });
           });
         });
     },
