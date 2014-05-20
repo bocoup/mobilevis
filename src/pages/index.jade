@@ -8,7 +8,7 @@ html(lang='en')
     //if lt IE 9
       script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')
   body
-    div#main(role='main')
+    div#main.container(role='main')
     if target === 'dev'
       script(data-main="/src/requirejs/config", src="/bower_components/requirejs/require.js")
     else
