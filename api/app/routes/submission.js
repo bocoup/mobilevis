@@ -32,7 +32,7 @@ module.exports = BaseRouter.extend({
         Controller.serialize
       ],
 
-      "/:id/comment" : [
+      "/:id/comments" : [
         CommentsController.add,
         CommentsController.serialize
       ],
