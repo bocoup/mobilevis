@@ -15,6 +15,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # user otherwise when we do things like checkout code or run our awscli commands our config files will be missing
   config.vm.provision :shell, :path => 'deploy/ubuntu_bootstrap.sh', :privileged => false
 
-  # Remove backup script from dev VMs
-  config.vm.provision :shell, :inline => 'sudo rm /usr/local/bin/mobilevis-backup'
 end
