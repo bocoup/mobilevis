@@ -33,24 +33,27 @@ module.exports = BaseController.extend({
 
   // ===== post =====
   add: function(req, res, next) {
+
     if (req.user.username) {
 
       // make sure we have a submission id
-      if (!req.body.submission_id) {
+      if (!req.params.id) {
         // missing submission id
         res.code = 400;
         res.data = [
           { message : "Submission id required.", status: "Bad Request" }
         ];
+        next();
       } else {
 
         // try to find comments for submission
         Model.add({
-          submisson_id : req.body.submission_id,
+          submission_id : req.params.id,
           comment : req.body.comment,
           twitter_handle: req.user.username
         }).then(function(comment) {
             res.data = comment;
+            next();
           }, function(err) {
             res.code = 404;
             res.data = {
@@ -58,8 +61,8 @@ module.exports = BaseController.extend({
                 { message : "Submission not found", status : "Not Found" }
               ]
             };
+            next();
           });
-
       }
 
     } else {
@@ -69,6 +72,7 @@ module.exports = BaseController.extend({
       res.data = [
         { message : "You must be logged in to comment.", status: "Unauthorized" }
       ];
+      next();
     }
   },
 });
