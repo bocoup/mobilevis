@@ -64,7 +64,6 @@ module.exports = BaseController.extend({
         images: req.files.map(function(file) {
           return file.uuid;
         }),
-        timestamp: new Date().toString(),
         twitter_handle: req.user.username
       }).then(function(submission) {
         res.data = submission;
