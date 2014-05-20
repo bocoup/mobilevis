@@ -31,7 +31,13 @@
     "knox-mpu": "~0.1.6",
     "busboy": "~0.2.5",
     "node-uuid": "~1.4.1",
-    "mime": "~1.2.11"
+    "mime": "~1.2.11",
+    "sanitize-html": "~1.1.4",
+    "moment": "~2.6.0",
+    "mocha": "~1.14.0",
+    "chai": "~1.8.0",
+    "chai-as-promised": "~4.1.0",
+    "mocha-as-promised": "~2.0.0"
   },
   "devDependencies": {
     "grunt-express-server": "~0.4.17",
@@ -46,11 +52,7 @@
     "grunt-contrib-clean": "^0.5.0",
     "sqlite3": "~2.1.19",
     "supertest": "~0.9.0",
-    "mocha": "~1.14.0",
-    "chai": "~1.8.0",
     "grunt-mocha-test": "~0.8.1",
-    "chai-as-promised": "~4.1.0",
-    "mocha-as-promised": "~2.0.0",
     "grunt-simple-mocha": "~0.4.0",
     "grunt-contrib-connect": "~0.7.1",
     "grunt-contrib-jshint": "~0.10.0",
