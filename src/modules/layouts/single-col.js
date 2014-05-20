@@ -127,6 +127,7 @@ define(function(require) {
               viewType: SubmissionCommentsView,
               container: '.extra',
               options: {
+                submission_id : self.options.id,
                 collection: new SubmissionComments(comments),
                 user: self.user,
                 loggedIn: self.user ? true : false
