@@ -1,9 +1,11 @@
 const BaseModel = require('../base/model');
 const when = require('when');
 const Validator = require('validator');
+const moment = require('moment');
+const sanitizeHtml = require('sanitize-html');
 
-var chai = require("chai");
-var assert = chai.assert;
+const chai = require("chai");
+const assert = chai.assert;
 
 var instanceProps = {
   tableName: 'comments',
@@ -34,11 +36,21 @@ var classProps = {
     try {
 
       // validate props
-      assert.isDefined(props.comment, "comment is required");
       assert.isDefined(props.twitter_handle, "twitter_handle is required");
+      assert.isDefined(props.comment, "comment is required");
+
+      // sanitize content
+      props.comment = sanitizeHtml(props.comment, {
+         allowedTags: [ 'b', 'i', 'em', 'strong' ]
+      });
+
+      // verify comment still exists after sanitization.
+      assert.isDefined(props.comment.length > 0, "comment is required");
 
       // create new comment
-      return self.create(props).then(function(comment) {
+      props.timestamp = moment().format('MM DD YYYY HH:mm:ss');
+
+      self.create(props).then(function(comment) {
         def.resolve(comment);
       }, function(err) {
         def.reject(err);
