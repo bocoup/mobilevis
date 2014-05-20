@@ -50,6 +50,8 @@ sudo initctl reload-configuration
 # Backup and Restore Scripts
 sudo ln -s /vagrant/deploy/backup/mobilevis-backup /usr/local/bin/mobilevis-backup
 sudo ln -s /vagrant/deploy/backup/mobilevis-restore /usr/local/bin/mobilevis-restore
+chmod 777 /vagrant/deploy/backup/mobilevis-backup
+chmod 777 /vagrant/deploy/backup/mobilevis-restore
 
 # NGINX Config
 mkdir -p /vagrant/logs
@@ -63,7 +65,7 @@ sudo -- sh -c "echo 127.0.0.1 mobilevis.loc>> /etc/hosts"
 
 # Restore the base level backup which will also create the DB
 # will run the deploy/db/schema.sql
-/usr/local/bin/mobilevis-restore base
+/vagrant/deploy/backup/mobilevis-restore base
 
 # Start API Daemon
 sudo start mobilevis
