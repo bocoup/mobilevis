@@ -30,9 +30,13 @@ then
   psql -U bocoup -d postgres < ${WORKING_DIR}deploy/db/${BACKUP_FILE_NAME}
 
 else
+
+  # drop existing
+  psql -U bocoup -d postgres -c "DROP DATABASE mobilevis"
+
   BACKUP_FILE_NAME=mobilevis-backup-${timestamp}.sql.gz
 
-  aws s3 cp s3://mobilevis-backup/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
+  aws s3 cp s3://mobilevis.bocoup.com/db-backups/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
 
   #gunzip it
   gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U bocoup -d postgres
