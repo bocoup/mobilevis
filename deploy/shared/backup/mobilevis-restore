@@ -4,7 +4,7 @@
 # decrypts it, and restores it. This should be re-written to be more general in the future
 #
 
-if [ "$#" -ne 1 ]
+if [ "$#" -ne 2 ]
 then
   # TECH DEBT: Ideally we'd list out all available files
   echo "ERROR: Must provide the timestamp of the backup to restore in %Y%m%d%H%M format. Check S3 for available backups."
@@ -25,15 +25,15 @@ then
   BACKUP_FILE_NAME=schema.sql
 
   # drop existing
-  psql -U bocoup -d postgres -c "DROP DATABASE mobilevis"
+  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
 
   # setup new one
-  psql -U bocoup -d postgres < ${WORKING_DIR}deploy/db/${BACKUP_FILE_NAME}
+  psql -U bocoup -d postgres < ${WORKING_DIR}deploy/shared/db/${BACKUP_FILE_NAME}
 
 else
 
   # drop existing
-  psql -U bocoup -d postgres -c "DROP DATABASE mobilevis"
+  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
 
   BACKUP_FILE_NAME=mobilevis-backup-${timestamp}.sql.gz
 

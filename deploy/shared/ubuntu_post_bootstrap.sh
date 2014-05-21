@@ -20,8 +20,9 @@ mobilevis-restore base
 
 cd /vagrant
 sudo npm install -g grunt-cli bower
+sudo rmdir ~/tmp
 npm install
-bower install
+bower --config.interactive=false install
 
 # Daemonize API
 # upstart HATES symlinks so we have to manually reload the upstart configuration
