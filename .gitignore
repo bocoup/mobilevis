@@ -1,4 +1,6 @@
 *.sqlite3
 node_modules
 bower_components
-deploy/shared/keys/*
+deploy/shared/keys/aws_config
+deploy/shared/keys/id_rsa
+deploy/shared/keys/id_rsa.pub
