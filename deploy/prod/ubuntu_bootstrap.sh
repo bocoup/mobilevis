@@ -21,8 +21,9 @@ echo "Host gh
 ssh-keyscan -H github.com | sudo tee /etc/ssh/ssh_known_hosts
 
 # checkout source code into our working directory
+cd /
+git clone git@github.com:bocoup/mobilevis.git /vagrant
 cd /vagrant
-git clone git@github.com:bocoup/mobilevis.git
 
 # Backup and Restore Scripts
 sudo ln -s /vagrant/deploy/prod/backup/mobilevis-backup /usr/local/bin/mobilevis-backup
