@@ -1,0 +1,9 @@
+#!/bin/bash
+# mobilevis-backup
+# Dumps the bocoup database from postgres, encrypts it and copies it to S3, expects:
+#  - aws cli is installed (@see: http://aws.amazon.com/cli/)
+#
+# This should be refactored so it can be used as a generic postgres backup helper
+
+chmod 777 /vagrant/deploy/shared/mobilevis-backup
+./vagrant/deploy/shared/mobilevis-backup db-backups-dev

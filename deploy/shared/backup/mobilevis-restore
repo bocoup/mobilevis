@@ -16,6 +16,7 @@ fi
 
 args=("$@");
 timestamp=${args[0]}
+folder=${args[1]}
 
 WORKING_DIR=/vagrant/
 
@@ -36,7 +37,7 @@ else
 
   BACKUP_FILE_NAME=mobilevis-backup-${timestamp}.sql.gz
 
-  aws s3 cp s3://mobilevis.bocoup.com/db-backups/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
+  aws s3 cp s3://mobilevis.bocoup.com/${folder}/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
 
   #gunzip it
   gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U bocoup -d postgres
