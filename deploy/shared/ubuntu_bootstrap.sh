@@ -8,7 +8,8 @@ echo ">>> Running shared setup"
 # nodejs PPA
 sudo apt-get update
 sudo apt-get -y install python-software-properties
-sudo apt-add-repository -y ppa:chris-lea/node.js
+sudo apt-add-repository ppa:chris-lea/node.js
+sudo apt-get update
 
 # Install Deps
 sudo apt-get -y install build-essential
