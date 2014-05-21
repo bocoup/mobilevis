@@ -1,0 +1,8 @@
+#!/bin/bash
+# mobilevis-restore
+# Shell script that takes a timestamp of a backup which is available on S3, downloads the backup,
+# decrypts it, and restores it. This should be re-written to be more general in the future
+#
+
+chmod 777 /vagrant/deploy/shared/mobilevis-restore
+./vagrant/deploy/shared/mobilevis-restore $1 db-backups-dev
