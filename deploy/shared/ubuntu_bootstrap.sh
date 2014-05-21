@@ -32,8 +32,3 @@ sudo chmod 644 /home/vagrant/.aws/config
 # Create API Daemon Log File
 sudo touch /var/log/mobilevis.log
 sudo chmod 666 /var/log/mobilevis.log
-
-# NGINX Config
-mkdir -p /vagrant/logs
-touch /vagrant/logs/nginx-mobilevis-access.log
-touch /vagrant/logs/nginx-mobilevis-error.log

@@ -3,6 +3,11 @@
 # dev/prod bootstrapping ran. All this has to run once the source is on the
 # vm, which means it is either shared, or needs to be checked out of git.
 
+# NGINX Config
+mkdir -p /vagrant/logs
+touch /vagrant/logs/nginx-mobilevis-access.log
+touch /vagrant/logs/nginx-mobilevis-error.log
+
 # Configure Postgres restart postgres
 sudo -u postgres createuser -s bocoup
 sudo ln -sf /vagrant/deploy/shared/postgres/pg_hba.conf /etc/postgresql/9.1/main/pg_hba.conf
