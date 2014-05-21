@@ -4,5 +4,5 @@
 # decrypts it, and restores it. This should be re-written to be more general in the future
 #
 
-chmod 777 /vagrant/deploy/shared/mobilevis-restore
-./vagrant/deploy/shared/mobilevis-restore $1 db-backups
+chmod 777 /vagrant/deploy/shared/backup/mobilevis-restore
+/vagrant/deploy/shared/backup/mobilevis-restore ${$1} db-backups
