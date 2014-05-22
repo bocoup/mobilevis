@@ -31,5 +31,9 @@ chmod 777 /vagrant/deploy/prod/backup/mobilevis-backup
 sudo ln -s /vagrant/deploy/prod/backup/mobilevis-restore /usr/local/bin/mobilevis-restore
 chmod 777 /vagrant/deploy/prod/backup/mobilevis-restore
 
+# Source updating script
+sudo ln -s /vagrant/deploy/prod/source/update-source /usr/local/bin/update-source
+chmod 777 /vagrant/deploy/prod/source/update-source
+
 # NGINX Conf - change this file to eventually point at production url!
 sudo ln -s /vagrant/deploy/prod/nginx/mobilevis.conf /etc/nginx/conf.d/mobilevis.conf
