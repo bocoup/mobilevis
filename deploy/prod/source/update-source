@@ -1,0 +1,19 @@
+#! /bin/sh
+# This script is responsible for updating the mobilevis app source in
+# production. This involves:
+#   checking out updates from git
+#   running npm install & bower install
+#   grunt build
+#   restart mobilevis app
+# TODO: figure out how to run migrations?
+
+cd /vagrant
+
+# reset to recent head, so we don't have to deal with checkout conflicts.
+git reset --hard
+git pull origin master
+npm install
+bower install
+grunt build
+sudo stop mobilevis
+sudo start mobilevis
