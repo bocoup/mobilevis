@@ -10,7 +10,7 @@ define(function(require) {
   // require('livereload');
 
   // Need the Router before we call history.start
-  require('core/Router');
+  require('src/modules/core/router');
 
   // Trigger the initial route and enable HTML5 History API support, set the
   // root folder to '/' by default.  Change in app.js.
