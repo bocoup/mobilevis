@@ -1,0 +1,7 @@
+module.exports =  {
+  prefix: 'images/',
+  cache_dir: __dirname+'/../../.cache/',
+  key: 'YOUR KEY',
+  secret: 'YOUR SECRET',
+  bucket: 'mobilevis.bocoup.com'
+};
