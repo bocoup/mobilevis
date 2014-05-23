@@ -12,6 +12,14 @@ cd /vagrant
 # reset to recent head, so we don't have to deal with checkout conflicts.
 git reset --hard
 git pull origin master
+
+# reset permissions on executables
+chmod 777 /vagrant/deploy/prod/backup/mobilevis-backup
+chmod 777 /vagrant/deploy/prod/backup/mobilevis-restore
+chmod 777 /vagrant/deploy/shared/backup/mobilevis-backup
+chmod 777 /vagrant/deploy/shared/backup/mobilevis-restore
+chmod 777 /vagrant/deploy/prod/source/update-source
+
 npm install
 bower install
 grunt build
