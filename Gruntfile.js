@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('dev',
     'Start a live-reloading dev webserver on localhost.',
-    ['jshint', 'clean', 'jade:dev', 'stylus:dev', 'cssmin', 'express:dev', 'watch']);
+    ['jshint', 'clean', 'jade:dev', 'stylus:dev', 'cssmin', 'watch']);
 
   grunt.registerTask('server',
     'Start dev REST server followed by static connect server.',
