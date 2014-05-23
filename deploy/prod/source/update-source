@@ -23,5 +23,4 @@ chmod 777 /vagrant/deploy/prod/source/update-source
 npm install
 bower install
 grunt build
-sudo stop mobilevis
-sudo start mobilevis
+sudo forever restartall
