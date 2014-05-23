@@ -25,6 +25,7 @@ sudo apt-get -y install nodejs
 sudo apt-get -y install curl
 sudo apt-get -y install g++
 sudo apt-get -y install make
+sudo apt-get -y install imagemagick
 
 sudo pip install awscli
 sudo chmod 644 /home/vagrant/.aws/config
