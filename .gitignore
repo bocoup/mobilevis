@@ -4,3 +4,5 @@ bower_components
 deploy/shared/keys/aws_config
 deploy/shared/keys/id_rsa
 deploy/shared/keys/id_rsa.pub
+api/config/twitter.js
+api/config/s3.js
