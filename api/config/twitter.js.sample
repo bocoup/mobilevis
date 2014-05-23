@@ -1,0 +1,5 @@
+module.exports = {
+  CONSUMER_KEY : 'YOUR KEY',
+  CONSUMER_SECRET : 'YOUR SECRET',
+  redirect_host: "http://mobilevis.bocoup.com"
+};
