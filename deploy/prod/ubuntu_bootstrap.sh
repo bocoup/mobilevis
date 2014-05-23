@@ -20,6 +20,9 @@ echo "Host gh
 # Add github to known hosts so we aren't prompted when cloning
 ssh-keyscan -H github.com | sudo tee /etc/ssh/ssh_known_hosts
 
+# install forever, to keep the server up
+sudo npm install forever -g
+
 # checkout source code into our working directory
 cd /
 git clone git@github.com:bocoup/mobilevis.git /vagrant
@@ -37,3 +40,7 @@ chmod 777 /vagrant/deploy/prod/source/update-source
 
 # NGINX Conf - change this file to eventually point at production url!
 sudo ln -s /vagrant/deploy/prod/nginx/mobilevis.conf /etc/nginx/conf.d/mobilevis.conf
+
+# TO RUN WITH FOREVER:
+# sudo forever start --debug -l /vagrant/logs/forever-mobilevis.log \
+# -c /usr/bin/node -o /vagrant/logs/upstart-mobilevis.log -a /vagrant/app.js

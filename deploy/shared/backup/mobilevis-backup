@@ -12,7 +12,7 @@ BACKUP_FILE_NAME=mobilevis-backup-$(date -d "today" +"%Y%m%d%H%M").sql.gz
 pg_dump --create mobilevis -U bocoup | gzip -c > ${WORKING_DIR}${BACKUP_FILE_NAME}
 
 # copy to S3
-aws s3 cp ${WORKING_DIR}${BACKUP_FILE_NAME} s3://mobilevis.bocoup.com/${$1}/
+aws s3 cp ${WORKING_DIR}${BACKUP_FILE_NAME} s3://mobilevis.bocoup.com/$@/
 
 # cleanup
 rm ${WORKING_DIR}${BACKUP_FILE_NAME}
