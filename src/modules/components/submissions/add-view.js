@@ -28,7 +28,14 @@ define(function(require) {
       data.append('creator', form.find('#creator').val());
       data.append('original_url', form.find('#original_url').val());
       data.append('tags', form.find('#tags').val());
-      data.append('image-mobile', form.find('#image-mobile')[0].files[0]);
+
+      // attach images to the data
+      var files = form.find('#image-mobile')[0].files;
+      for(var i = 0; i < files.length; i++) {
+        var file = files[i];
+        data.append('image-mobile['+i+']', file);
+      }
+
 
       console.log(data);
 

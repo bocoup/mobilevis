@@ -29,6 +29,7 @@ module.exports = function (req, res, next) {
 
   // detect each file as it arrives
   busboy.on('file', function (field, stream, filename) {
+
     // if there is no filename, there is no file.
     if (!filename) {
       // read the stream or busboy will never end
@@ -63,7 +64,7 @@ module.exports = function (req, res, next) {
     });
   });
 
-  // flag that no more data will arrive
+  //flag that no more data will arrive
   busboy.on('end', function() {
     done = true;
     // if nothing was uploaded, continue
