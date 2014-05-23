@@ -1,4 +1,4 @@
-<form class="form-horizontal" enctype="multipart/form-data">
+<form class="form-horizontal dropzone" enctype="multipart/form-data">
   <fieldset>
 
     <!-- Form Name -->
@@ -42,14 +42,21 @@
 
     <!-- File Button -->
     <div class="control-group">
-      <label class="control-label" for="image-mobile">Mobile Screenshot</label>
+      <label class="control-label" for="image-mobile">Mobile Screenshots</label>
       <div class="controls">
-        <input id="image-mobile" multiple name="image-mobile[]" class="input-file" type="file">
+        <!-- <input id="image-mobile" multiple name="image-mobile[]" class="input-file" type="file"> -->
+        <div class="image-dropzone">
+          <span class="btn btn-success fileinput-button dz-clickable">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add images...</span>
+          </span>
+        <h4>Or  Drag and Drop your images here</h4></div>
+        <div id="image-previews"></div>
       </div>
     </div>
 
     <!-- Button -->
-    <div class="control-group">
+    <div class="control-group" style="clear: left;">
       <label class="control-label" for="submit">Save</label>
       <div class="controls">
         <button id="submit" name="submit" class="btn btn-primary">Save</button>

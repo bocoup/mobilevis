@@ -3,6 +3,10 @@ define(function(require) {
   var $ = require('jquery');
   var BaseView = require('src/modules/core/base-view');
   var template = require('tmpl!src/modules/components/submissions/add-view');
+  var imagePreviewTemplate = require('tmpl!src/modules/components/submissions/add-image-preview');
+
+  var Dropzone = require('dropzone');
+  var myDropzone;
 
   return BaseView.extend({
     template: template,
@@ -15,6 +19,23 @@ define(function(require) {
       return {
         submission: this.model.toJSON()
       };
+    },
+
+    postPlace: function() {
+      var self = this;
+      setTimeout(function() {
+        myDropzone = new Dropzone(self.el, {
+          thumbnailWidth: 80,
+          thumbnailHeight: 80,
+          parallelUploads: 20,
+          url: 'bla',
+          previewTemplate: imagePreviewTemplate(),
+          autoQueue: false,
+          previewsContainer: "#image-previews",
+          clickable: '.fileinput-button'
+        });
+    },1000);
+
     },
 
     submit: function(e) {
@@ -30,7 +51,8 @@ define(function(require) {
       data.append('tags', form.find('#tags').val());
 
       // attach images to the data
-      var files = form.find('#image-mobile')[0].files;
+      // var files = form.find('#image-mobile')[0].files;
+      var files = myDropzone.getFilesWithStatus(Dropzone.ADDED);
       for(var i = 0; i < files.length; i++) {
         var file = files[i];
         data.append('image-mobile['+i+']', file);
