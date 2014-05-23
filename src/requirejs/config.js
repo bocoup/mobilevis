@@ -14,6 +14,7 @@ require.config({
     'underscore': 'bower_components/underscore/underscore',
     'moment' : 'bower_components/momentjs/moment',
     'masonry' : 'bower_components/masonry/dist/masonry.pkgd',
+    'dropzone': 'bower_components/dropzone/downloads/dropzone-amd-module',
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
