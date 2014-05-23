@@ -5,6 +5,8 @@
 
 echo ">>> Running dev specific setup"
 
+npm install -g node-inspector
+
 # Bind /etc/hosts to configured domains
 sudo -- sh -c "echo 127.0.0.1 mobilevis.loc>> /etc/hosts"
 
