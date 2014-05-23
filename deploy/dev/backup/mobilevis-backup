@@ -6,4 +6,4 @@
 # This should be refactored so it can be used as a generic postgres backup helper
 
 chmod 777 /vagrant/deploy/shared/backup/mobilevis-backup
-/vagrant/deploy/shared/mobilevis-backup db-backups-dev
+/vagrant/deploy/shared/backup/mobilevis-backup db-backups-dev
