@@ -51,6 +51,7 @@ var classProps = {
     'twitter_handle',
     'name',
     'creator',
+    'description',
     'original_url',
     'timestamp',
     'is_published'

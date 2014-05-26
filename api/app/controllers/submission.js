@@ -59,6 +59,7 @@ module.exports = BaseController.extend({
         name : req.body.name,
         creator: req.body.creator,
         original_url: req.body.original_url,
+        description: req.body.description,
         is_published: true,
         tags: req.body.tags.split(","),
         images: req.files.map(function(file) {
