@@ -48,6 +48,7 @@ define(function(require) {
       data.append('name', form.find('#name').val());
       data.append('creator', form.find('#creator').val());
       data.append('original_url', form.find('#original_url').val());
+      data.append('description', form.find('#description').val());
       data.append('tags', form.find('#tags').val());
 
       // attach images to the data
