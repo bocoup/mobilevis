@@ -15,6 +15,8 @@ require.config({
     'moment' : 'bower_components/momentjs/moment',
     'masonry' : 'bower_components/masonry/dist/masonry.pkgd',
     'dropzone': 'bower_components/dropzone/downloads/dropzone-amd-module',
+    'swiper': 'bower_components/swiper/dist/idangerous.swiper',
+    'imagesloaded': 'bower_components/imagesloaded/imagesloaded.pkgd',
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
