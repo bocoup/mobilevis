@@ -1,6 +1,8 @@
 const config = require("../../config/db");
 const db_config = require(config.db_config);
 const DB = require('../classes/database');
+const when = require('when');
+const sequence = require('when/sequence');
 
 const Validate = require('../classes/validations');
 const _ = require('lodash');
@@ -27,6 +29,16 @@ var instanceProps = {
     } else {
       return saveMethod.call(self, params, opts);
     }
+  },
+  destroyCascade: function () {
+    var self = this;
+    var queries = this.constructor.cascadeDeletes(this.get('id'));
+    var deleteDependents = sequence(queries.map(function (query) {
+      return query.del.bind(query);
+    }));
+    return deleteDependents.then(function () {
+      return self.destroy();
+    });
   },
   toJSON: function () {
     var result = DB.Model.prototype.toJSON.call(this);
@@ -91,6 +103,39 @@ var classProps = {
         });
       }
     });
+  },
+  // recursively build a tree of dependent tables
+  depMap: function () {
+    var map = {};
+    var deps = this.dependents;
+    deps.forEach(function (dep) {
+      var relation = this.prototype[dep]().relatedData;
+      map[dep] = {
+        model: relation.target,
+        key: relation.foreignKey,
+        deps: relation.target.depMap()
+      };
+    }, this);
+    return map;
+  },
+  // build an array of queries that must be executed in order to
+  // delete a given model.
+  cascadeDeletes: function (parent) {
+    var queries = [];
+    var deps = this.depMap();
+    Object.keys(deps).forEach(function (dep) {
+      var query;
+      var relation = deps[dep];
+      var table = relation.model.prototype.tableName;
+      if(_.isNumber(parent)) {
+        query = DB.knex(table).column('id').where(relation.key, parent);
+      } else {
+        query = DB.knex(table).column('id').whereRaw(relation.key+' IN ('+parent.toString()+')');
+      }
+      queries.push(query);
+      queries.push(relation.model.cascadeDeletes(query).reverse());
+    }, this);
+    return _.flatten(_.compact(queries)).reverse();
   }
 };
 
