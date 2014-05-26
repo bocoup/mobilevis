@@ -23,6 +23,10 @@ define(function(require){
         self.navigate('submission/' + submission_id, { trigger : true });
       });
 
+      self.currentLayout.on('submission:delete', function(submission_id) {
+        self.navigate('/', { trigger : true });
+      });
+
       self.currentLayout.on('submission:created', function(submission) {
         // TODO: navigate to individual submission rather than index.
         self.navigate('', { trigger: true });

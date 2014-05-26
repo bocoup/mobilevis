@@ -115,12 +115,17 @@ define(function(require) {
             viewType : SubmissionShowView,
             container: '.content',
             options: {
-              model : new Submission(submission)
+              model : new Submission(submission),
+              user: self.user
             }
           });
 
           showView.on('tag:show', function(id) {
             self.trigger('tag:show', id);
+          });
+
+          showView.on('submission:delete', function(id) {
+            self.trigger('submission:delete', id);
           });
 
           def.resolve(showView);
