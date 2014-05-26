@@ -10,6 +10,11 @@
         <%= submission.timestamp %>
     </div>
 
+    <div class="description">
+      <p>
+        <%= submission.description %>
+      </p>
+    </div>
     <div class="tags">
       <% if (submission.tags.length) { %>
         <% submission.tags.forEach(function(tag) { %>
