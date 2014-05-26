@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('submissions', function (t) {
-    t.increments('id');
+    t.increments('id').primary();
     t.text('twitter_handle').notNullable();
     t.text('name').notNullable();
     t.text('creator');

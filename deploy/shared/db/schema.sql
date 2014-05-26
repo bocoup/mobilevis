@@ -9,19 +9,31 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+-- Name: mobilevis; Type: DATABASE; Schema: -; Owner: bocoup
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
 CREATE DATABASE mobilevis WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+
 
 ALTER DATABASE mobilevis OWNER TO bocoup;
 
 \connect mobilevis
 
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -34,7 +46,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: bocoup; Tablespace:
+-- Name: comments; Type: TABLE; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 CREATE TABLE comments (
@@ -46,7 +58,7 @@ CREATE TABLE comments (
 );
 
 
-ALTER TABLE comments OWNER TO bocoup;
+ALTER TABLE public.comments OWNER TO bocoup;
 
 --
 -- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: bocoup
@@ -60,7 +72,7 @@ CREATE SEQUENCE comments_id_seq
     CACHE 1;
 
 
-ALTER TABLE comments_id_seq OWNER TO bocoup;
+ALTER TABLE public.comments_id_seq OWNER TO bocoup;
 
 --
 -- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bocoup
@@ -70,7 +82,7 @@ ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
--- Name: images; Type: TABLE; Schema: public; Owner: bocoup; Tablespace:
+-- Name: images; Type: TABLE; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 CREATE TABLE images (
@@ -81,7 +93,7 @@ CREATE TABLE images (
 );
 
 
-ALTER TABLE images OWNER TO bocoup;
+ALTER TABLE public.images OWNER TO bocoup;
 
 --
 -- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: bocoup
@@ -95,7 +107,7 @@ CREATE SEQUENCE images_id_seq
     CACHE 1;
 
 
-ALTER TABLE images_id_seq OWNER TO bocoup;
+ALTER TABLE public.images_id_seq OWNER TO bocoup;
 
 --
 -- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bocoup
@@ -105,7 +117,7 @@ ALTER SEQUENCE images_id_seq OWNED BY images.id;
 
 
 --
--- Name: knex_version; Type: TABLE; Schema: public; Owner: bocoup; Tablespace:
+-- Name: knex_version; Type: TABLE; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 CREATE TABLE knex_version (
@@ -116,7 +128,7 @@ CREATE TABLE knex_version (
 );
 
 
-ALTER TABLE knex_version OWNER TO bocoup;
+ALTER TABLE public.knex_version OWNER TO bocoup;
 
 --
 -- Name: knex_version_id_seq; Type: SEQUENCE; Schema: public; Owner: bocoup
@@ -130,7 +142,7 @@ CREATE SEQUENCE knex_version_id_seq
     CACHE 1;
 
 
-ALTER TABLE knex_version_id_seq OWNER TO bocoup;
+ALTER TABLE public.knex_version_id_seq OWNER TO bocoup;
 
 --
 -- Name: knex_version_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bocoup
@@ -140,7 +152,7 @@ ALTER SEQUENCE knex_version_id_seq OWNED BY knex_version.id;
 
 
 --
--- Name: submission_tags; Type: TABLE; Schema: public; Owner: bocoup; Tablespace:
+-- Name: submission_tags; Type: TABLE; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 CREATE TABLE submission_tags (
@@ -151,7 +163,7 @@ CREATE TABLE submission_tags (
 );
 
 
-ALTER TABLE submission_tags OWNER TO bocoup;
+ALTER TABLE public.submission_tags OWNER TO bocoup;
 
 --
 -- Name: submission_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: bocoup
@@ -165,7 +177,7 @@ CREATE SEQUENCE submission_tags_id_seq
     CACHE 1;
 
 
-ALTER TABLE submission_tags_id_seq OWNER TO bocoup;
+ALTER TABLE public.submission_tags_id_seq OWNER TO bocoup;
 
 --
 -- Name: submission_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bocoup
@@ -175,7 +187,7 @@ ALTER SEQUENCE submission_tags_id_seq OWNED BY submission_tags.id;
 
 
 --
--- Name: submissions; Type: TABLE; Schema: public; Owner: bocoup; Tablespace:
+-- Name: submissions; Type: TABLE; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 CREATE TABLE submissions (
@@ -185,11 +197,12 @@ CREATE TABLE submissions (
     creator text,
     original_url text,
     "timestamp" timestamp without time zone DEFAULT now() NOT NULL,
-    is_published boolean DEFAULT false
+    is_published boolean DEFAULT false,
+    description text
 );
 
 
-ALTER TABLE submissions OWNER TO bocoup;
+ALTER TABLE public.submissions OWNER TO bocoup;
 
 --
 -- Name: submissions_id_seq; Type: SEQUENCE; Schema: public; Owner: bocoup
@@ -203,7 +216,7 @@ CREATE SEQUENCE submissions_id_seq
     CACHE 1;
 
 
-ALTER TABLE submissions_id_seq OWNER TO bocoup;
+ALTER TABLE public.submissions_id_seq OWNER TO bocoup;
 
 --
 -- Name: submissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bocoup
@@ -213,7 +226,7 @@ ALTER SEQUENCE submissions_id_seq OWNED BY submissions.id;
 
 
 --
--- Name: tags; Type: TABLE; Schema: public; Owner: bocoup; Tablespace:
+-- Name: tags; Type: TABLE; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 CREATE TABLE tags (
@@ -223,7 +236,7 @@ CREATE TABLE tags (
 );
 
 
-ALTER TABLE tags OWNER TO bocoup;
+ALTER TABLE public.tags OWNER TO bocoup;
 
 --
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: bocoup
@@ -237,7 +250,7 @@ CREATE SEQUENCE tags_id_seq
     CACHE 1;
 
 
-ALTER TABLE tags_id_seq OWNER TO bocoup;
+ALTER TABLE public.tags_id_seq OWNER TO bocoup;
 
 --
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bocoup
@@ -315,7 +328,7 @@ COPY images (id, submission_id, url, "timestamp") FROM stdin;
 -- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bocoup
 --
 
-SELECT pg_catalog.setval('images_id_seq', 1, false);
+SELECT pg_catalog.setval('images_id_seq', 2, true);
 
 
 --
@@ -323,11 +336,12 @@ SELECT pg_catalog.setval('images_id_seq', 1, false);
 --
 
 COPY knex_version (id, name, batch, migration_time) FROM stdin;
-1	001-submissions.js	1	2014-05-20 18:52:24.45
-2	002-images.js	1	2014-05-20 18:52:24.487
-3	003-tags.js	1	2014-05-20 18:52:24.502
-4	004-submission_tags.js	1	2014-05-20 18:52:24.535
-5	005-comments.js	1	2014-05-20 18:52:24.556
+1	001-submissions.js	1	2014-05-26 20:14:40.22
+2	002-images.js	1	2014-05-26 20:14:40.247
+3	003-tags.js	1	2014-05-26 20:14:40.259
+4	004-submission_tags.js	1	2014-05-26 20:14:40.272
+5	005-comments.js	1	2014-05-26 20:14:40.286
+6	006-add-description-to-submission.js	1	2014-05-26 20:14:40.291
 \.
 
 
@@ -335,7 +349,7 @@ COPY knex_version (id, name, batch, migration_time) FROM stdin;
 -- Name: knex_version_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bocoup
 --
 
-SELECT pg_catalog.setval('knex_version_id_seq', 5, true);
+SELECT pg_catalog.setval('knex_version_id_seq', 6, true);
 
 
 --
@@ -350,14 +364,14 @@ COPY submission_tags (id, tag_id, submission_id, "timestamp") FROM stdin;
 -- Name: submission_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bocoup
 --
 
-SELECT pg_catalog.setval('submission_tags_id_seq', 1, false);
+SELECT pg_catalog.setval('submission_tags_id_seq', 3, true);
 
 
 --
 -- Data for Name: submissions; Type: TABLE DATA; Schema: public; Owner: bocoup
 --
 
-COPY submissions (id, twitter_handle, name, creator, original_url, "timestamp", is_published) FROM stdin;
+COPY submissions (id, twitter_handle, name, creator, original_url, "timestamp", is_published, description) FROM stdin;
 \.
 
 
@@ -365,7 +379,7 @@ COPY submissions (id, twitter_handle, name, creator, original_url, "timestamp", 
 -- Name: submissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bocoup
 --
 
-SELECT pg_catalog.setval('submissions_id_seq', 1, false);
+SELECT pg_catalog.setval('submissions_id_seq', 1, true);
 
 
 --
@@ -373,6 +387,9 @@ SELECT pg_catalog.setval('submissions_id_seq', 1, false);
 --
 
 COPY tags (id, tag, "timestamp") FROM stdin;
+1	tag1	2014-05-26 20:15:14.229818
+2	 tag2	2014-05-26 20:15:14.239638
+3	 tag3	2014-05-26 20:15:14.247772
 \.
 
 
@@ -380,11 +397,11 @@ COPY tags (id, tag, "timestamp") FROM stdin;
 -- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bocoup
 --
 
-SELECT pg_catalog.setval('tags_id_seq', 1, false);
+SELECT pg_catalog.setval('tags_id_seq', 3, true);
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace:
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 ALTER TABLE ONLY comments
@@ -392,7 +409,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace:
+-- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 ALTER TABLE ONLY images
@@ -400,7 +417,7 @@ ALTER TABLE ONLY images
 
 
 --
--- Name: knex_version_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace:
+-- Name: knex_version_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 ALTER TABLE ONLY knex_version
@@ -408,7 +425,7 @@ ALTER TABLE ONLY knex_version
 
 
 --
--- Name: submission_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace:
+-- Name: submission_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 ALTER TABLE ONLY submission_tags
@@ -416,7 +433,7 @@ ALTER TABLE ONLY submission_tags
 
 
 --
--- Name: submissions_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace:
+-- Name: submissions_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 ALTER TABLE ONLY submissions
@@ -424,7 +441,7 @@ ALTER TABLE ONLY submissions
 
 
 --
--- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace:
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: bocoup; Tablespace: 
 --
 
 ALTER TABLE ONLY tags
@@ -436,7 +453,7 @@ ALTER TABLE ONLY tags
 --
 
 ALTER TABLE ONLY comments
-    ADD CONSTRAINT comments_submission_id_foreign FOREIGN KEY (submission_id) REFERENCES submissions(id);
+    ADD CONSTRAINT comments_submission_id_foreign FOREIGN KEY (submission_id) REFERENCES submissions(id) ON DELETE CASCADE;
 
 
 --
@@ -444,7 +461,7 @@ ALTER TABLE ONLY comments
 --
 
 ALTER TABLE ONLY images
-    ADD CONSTRAINT images_submission_id_foreign FOREIGN KEY (submission_id) REFERENCES submissions(id);
+    ADD CONSTRAINT images_submission_id_foreign FOREIGN KEY (submission_id) REFERENCES submissions(id) ON DELETE CASCADE;
 
 
 --
@@ -452,7 +469,7 @@ ALTER TABLE ONLY images
 --
 
 ALTER TABLE ONLY submission_tags
-    ADD CONSTRAINT submission_tags_submission_id_foreign FOREIGN KEY (submission_id) REFERENCES submissions(id);
+    ADD CONSTRAINT submission_tags_submission_id_foreign FOREIGN KEY (submission_id) REFERENCES submissions(id) ON DELETE CASCADE;
 
 
 --
@@ -460,7 +477,7 @@ ALTER TABLE ONLY submission_tags
 --
 
 ALTER TABLE ONLY submission_tags
-    ADD CONSTRAINT submission_tags_tag_id_foreign FOREIGN KEY (tag_id) REFERENCES tags(id);
+    ADD CONSTRAINT submission_tags_tag_id_foreign FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE;
 
 
 --
