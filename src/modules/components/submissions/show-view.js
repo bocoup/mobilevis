@@ -12,7 +12,12 @@ define(function(require) {
 
     events: {
       'click .image-control' : 'adjustSlideshow',
-      'click .tag' : 'showTagSubmissions'
+      'click .tag' : 'showTagSubmissions',
+      'click a#delete' : 'deleteSubmission'
+    },
+
+    initialize: function(options) {
+      this.user = options.user;
     },
 
     postPlace: function() {
@@ -68,9 +73,27 @@ define(function(require) {
       return false;
     },
 
+    deleteSubmission: function(ev) {
+      ev.stopPropagation();
+      var self = this;
+      this.model.destroy({
+        wait: true,
+        success: function(model) {
+          self.trigger('submission:delete', model);
+        },
+        error: function(err) {
+          self.trigger('error', err);
+        }
+      });
+      return false;
+    },
+
     serialize: function() {
+
+      console.log(this.user);
       return {
-        submission: this.model.toJSON()
+        submission: this.model.toJSON(),
+        user: this.user ? this.user.toJSON() : {}
       };
     }
 
