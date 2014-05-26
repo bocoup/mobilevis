@@ -1,6 +1,6 @@
 exports.assignModel = require('./router/assign_model');
+exports.isAdmin = require('./router/is_admin');
 // exports.createdBy = require('./lib/created_by');
-// exports.isAdmin = require('./lib/is_admin');
 // exports.isAuthenticated = require('./lib/is_authenticated');
 
 exports.extend = function (opts) {
@@ -17,7 +17,6 @@ exports.extend = function (opts) {
   var baseRouter = {
     all: {
       '*': [
-        //exports.isAuthenticated,
         exports.assignModel(model)
       ]
     },
@@ -47,7 +46,7 @@ exports.extend = function (opts) {
     },
     delete: {
       '/:id': [
-        //exports.isAuthenticated,
+        exports.isAdmin(true), // actual fail if not admin
         controller.findById,
         controller.destroyCascade,
         controller.serialize
