@@ -1,4 +1,4 @@
-<div class="submission row`">
+<div class="submission row">
 
   <div class="metadata col-md-7">
     <h3 class="title"><%= submission.name %></h3>
@@ -18,10 +18,23 @@
       <% } %>
     </div>
 
-    <div class="image">
-      <% _.each(submission.images, function(image) { %>
-        <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
-      <% }); %>
+    <!-- uses swipe to see multiple images -->
+    <div class="image-container">
+
+      <% if (submission.images.length > 1) { %>
+        <div class="image-control image-before"></div>
+        <div class="image-control image-after"></div>
+      <% } %>
+
+      <div class="image" class="images">
+        <div class="swiper-wrapper">
+          <% _.each(submission.images, function(image) { %>
+            <div class="swiper-slide">
+              <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
+            </div>
+          <% }); %>
+        </div>
+      </div>
     </div>
   </div>
 

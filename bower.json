@@ -31,6 +31,8 @@
     "momentjs": "~2.6.0",
     "bootstrap": "~3.1.1",
     "masonry": "~3.1.5",
-    "dropzone": "~3.10.1"
+    "dropzone": "~3.10.1",
+    "swiper": "~2.6.1",
+    "imagesloaded": "~3.1.5"
   }
 }
