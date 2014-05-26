@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('tags', function (t) {
-    t.increments('id');
+    t.increments('id').primary();
     t.text('tag').notNullable();
     t.timestamp('timestamp').notNullable().defaultTo(knex.raw('CURRENT_TIMESTAMP'));
   });
