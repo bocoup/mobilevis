@@ -11,7 +11,8 @@ define(function(require) {
     template: template,
 
     events: {
-      'click .image-control' : 'adjustSlideshow'
+      'click .image-control' : 'adjustSlideshow',
+      'click .tag' : 'showTagSubmissions'
     },
 
     postPlace: function() {
@@ -58,6 +59,13 @@ define(function(require) {
           swiperInstance.swipeNext();
         }
       }
+    },
+
+    showTagSubmissions: function(ev) {
+      ev.stopPropagation();
+      var tag = $(ev.target).data('tag-id');
+      this.trigger('tag:show', tag);
+      return false;
     },
 
     serialize: function() {
