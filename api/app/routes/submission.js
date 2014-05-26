@@ -2,8 +2,9 @@ const Model = require('../models/submission');
 const Controller = require('../controllers/submission');
 const BaseRouter = require('../base/router');
 const StreamToS3 = require('../middlewares/stream_to_s3');
-
+const RemoveFromS3 = require('../middlewares/remove_from_s3');
 const CommentsController = require('../controllers/comment');
+exports.isAdmin = require('../base/router/is_admin');
 
 module.exports = BaseRouter.extend({
   model: Model,
@@ -41,6 +42,16 @@ module.exports = BaseRouter.extend({
       "/" : [
         StreamToS3,
         Controller.add,
+        Controller.serialize
+      ]
+    },
+
+    delete: {
+      '/:id': [
+        exports.isAdmin(true), // actual fail if not admin
+        Controller.findById,
+        RemoveFromS3,
+        Controller.destroyCascade,
         Controller.serialize
       ]
     }

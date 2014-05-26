@@ -32,3 +32,17 @@ exports.writeStream = function (stream, filename, headers) {
   });
   return deferred.promise;
 };
+
+exports.destroy = function(paths, headers) {
+  var deferred = when.defer();
+
+  var req = exports.client.deleteMultiple(paths, function(err, res) {
+    if (err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve(paths); // paths removed! win.
+    }
+  });
+
+  return deferred.promise;
+};
