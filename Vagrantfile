@@ -17,6 +17,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # using a specific IP.
     dev.vm.network "private_network", ip: NETWORK_IP
 
+    dev.vm.network "forwarded_port", guest: 80, host: 8080
+
     dev.vm.provision :file, :source => AWS_KEY_SOURCE, :destination => '~/.aws/config'
 
     # Many commands in the bootstrap.sh file are run as sudo, but in general we want to not run every command as a privileged
