@@ -80,6 +80,7 @@ var classProps = {
       assert.isDefined(props.original_url, "original_url is required");
       assert.isDefined(props.images, "images are required");
       assert.isArray(props.images, "images should be defined");
+      assert.isTrue(props.images.length > 0, "at least one image is required");
 
       props.is_published = true;
 

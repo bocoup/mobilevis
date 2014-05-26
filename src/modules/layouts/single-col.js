@@ -97,7 +97,9 @@ define(function(require) {
       });
 
       addView.on('error', function(response) {
-        flash.display(response.message);
+        flash.display(response.message || response.errors.map(function(e) {
+          return e.message;
+        }).join("<br>"));
       });
     },
 
