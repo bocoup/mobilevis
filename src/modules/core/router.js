@@ -11,6 +11,24 @@ define(function(require){
       this.currentLayout = null;
     },
 
+    _setCurrentLayout : function(layout) {
+      var self = this;
+      self.currentLayout = layout;
+
+      self.currentLayout.on('tag:show', function(tag_id) {
+        self.navigate('tag/' + tag_id, { trigger : true });
+      });
+
+      self.currentLayout.on('submission:show', function(submission_id) {
+        self.navigate('submission/' + submission_id, { trigger : true });
+      });
+
+      self.currentLayout.on('submission:created', function(submission) {
+        // TODO: navigate to individual submission rather than index.
+        self.navigate('', { trigger: true });
+      });
+    },
+
     routes: {
       "" : "index",
       "add": "add",
@@ -22,19 +40,11 @@ define(function(require){
       var self = this;
 
       Session.getProfile().always(function(user) {
-        self.currentLayout = new SingleColLayout({
+        self._setCurrentLayout(new SingleColLayout({
           el: "#main",
           user: user,
           page: "index"
-        }).render().place();
-
-        self.currentLayout.on('submission:show', function(submission_id) {
-          self.navigate('submission/' + submission_id, { trigger : true });
-        });
-
-        self.currentLayout.on('tag:show', function(tag_id) {
-          self.navigate('tag/' + tag_id, { trigger : true });
-        });
+        }).render().place());
       });
     },
 
@@ -42,30 +52,25 @@ define(function(require){
       var self = this;
 
       Session.getProfile().then(function(user) {
-        self.currentLayout = new SingleColLayout({
+        self._setCurrentLayout(new SingleColLayout({
           el: "#main",
           user: user,
           page: "add"
-        }).render().place();
-
-        self.currentLayout.on('submission:created', function(submission) {
-          // TODO: navigate to individual submission rather than index.
-          self.navigate('', { trigger: true });
-        });
+        }).render().place());
       });
     },
 
     show: function(id) {
       var self = this;
       Session.getProfile().always(function(user) {
-        self.currentLayout = new SingleColLayout({
+        self._setCurrentLayout(new SingleColLayout({
           el: "#main",
           user: user,
           page: "show",
           options: {
             id : id
           }
-        }).render().place();
+        }).render().place());
       });
     },
 
@@ -73,22 +78,14 @@ define(function(require){
       var self = this;
 
       Session.getProfile().always(function(user) {
-        self.currentLayout = new SingleColLayout({
+        self._setCurrentLayout(new SingleColLayout({
           el: "#main",
           user: user,
           page: "tagSubmissionShow",
           options: {
             id : id
           }
-        }).render().place();
-
-        self.currentLayout.on('submission:show', function(submission_id) {
-          self.navigate('submission/' + submission_id, { trigger : true });
-        });
-
-        self.currentLayout.on('tag:show', function(tag_id) {
-          self.navigate('tag/' + tag_id, { trigger : true });
-        });
+        }).render().place());
       });
     }
 

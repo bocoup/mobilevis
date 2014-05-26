@@ -107,15 +107,20 @@ define(function(require) {
       var self = this;
       var def = $.Deferred();
 
+      var showView;
       new Submission({ id : self.options.id })
         .fetch()
         .then(function(submission) {
-          var showView = self.addSubView({
+          showView = self.addSubView({
             viewType : SubmissionShowView,
             container: '.content',
             options: {
               model : new Submission(submission)
             }
+          });
+
+          showView.on('tag:show', function(id) {
+            self.trigger('tag:show', id);
           });
 
           def.resolve(showView);
