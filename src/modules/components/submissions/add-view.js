@@ -35,7 +35,12 @@ define(function(require) {
           previewTemplate: imagePreviewTemplate(),
           autoQueue: false,
           previewsContainer: "#image-previews",
-          clickable: '.fileinput-button'
+          clickable: '.fileinput-button',
+          acceptedFiles: 'image/gif,image/jpeg,image/pjpeg,image/png'
+        });
+
+        myDropzone.on('error', function() {
+          console.log(arguments);
         });
       },1000);
 
@@ -100,7 +105,16 @@ define(function(require) {
           self.trigger('created', submission);
         },
         error: function(jqXhr) {
-          self.trigger('error', JSON.parse(jqXhr.responseText));
+          if (jqXhr.status === 413) {
+            self.trigger('error', "One of your files is too large!");
+          } else {
+            try {
+              self.trigger('error', JSON.parse(jqXhr.responseText));
+            } catch (e) {
+              self.trigger('error', jqXhr.responseText);
+            }
+          }
+
         }
       });
 
