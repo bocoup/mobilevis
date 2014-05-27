@@ -17,6 +17,7 @@ require.config({
     'dropzone': 'bower_components/dropzone/downloads/dropzone-amd-module',
     'swiper': 'bower_components/swiper/dist/idangerous.swiper',
     'imagesloaded': 'bower_components/imagesloaded/imagesloaded.pkgd',
+    'jquery-select': 'bower_components/select2/select2',
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
@@ -39,6 +40,11 @@ require.config({
     'masonry' : {
       deps: ['jquery'],
       exports: 'Masonry'
+    },
+
+    'jquery-select' : {
+      deps: ['jquery'],
+      exports: 'Select2'
     }
   }
 
