@@ -5,6 +5,7 @@ const SubmissionImage = require('./image');
 const when = require('when');
 const Validator = require('validator');
 const sequence = require('when/sequence');
+const sanitizeHtml = require('sanitize-html');
 
 var chai = require("chai");
 var assert = chai.assert;
@@ -90,16 +91,47 @@ var classProps = {
         assert(Validator.isURL(props.original_url), "original_url isn't a URL");
       }
 
+      // sanitize all the things
+      var textFieldOpts = {
+         allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
+      };
+      var inputFieldOpts = {
+        allowedTags: []
+      };
+
+      if (props.description) {
+        props.description = sanitizeHtml(props.description, textFieldOpts);
+      }
+
+      props.name = sanitizeHtml(props.name, inputFieldOpts);
+      props.creator = sanitizeHtml(props.creator, inputFieldOpts);
+
       // if we have any tags, make sure the exist
       // create the ones that don't, and substitute
       // the whole array with ids.
       if (props.tags && props.tags.length) {
+
         var tagSaving = [];
         var tags = [];
 
+        // sanitize tags
+        props.tags = sanitizeHtml(props.tags, inputFieldOpts);
+
+        if (typeof props.tags === "string") {
+          props.tags = props.tags.split(",");
+        }
+
         // save all tags
         props.tags.forEach(function(tag) {
-          tagSaving.push(function() { return Tag.findOrCreate({ tag : tag.trim() }) });
+
+          // sanitizing might reduce the tag to nothing, so just drop it.
+          if (tag.trim().length) {
+            tagSaving.push(function() {
+              return Tag.findOrCreate({
+                tag : tag.trim()
+              });
+            });
+          }
         });
 
         sequence(tagSaving).then(function(tags) {

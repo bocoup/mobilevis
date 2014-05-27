@@ -41,7 +41,7 @@ var classProps = {
 
       // sanitize content
       props.comment = sanitizeHtml(props.comment, {
-         allowedTags: [ 'b', 'i', 'em', 'strong' ]
+         allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
       });
 
       // verify comment still exists after sanitization.
