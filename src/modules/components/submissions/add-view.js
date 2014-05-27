@@ -1,6 +1,9 @@
 define(function(require) {
 
+  var API = require('src/modules/services/api');
   var $ = require('jquery');
+  require('jquery-select');
+
   var BaseView = require('src/modules/core/base-view');
   var template = require('tmpl!src/modules/components/submissions/add-view');
   var imagePreviewTemplate = require('tmpl!src/modules/components/submissions/add-image-preview');
@@ -34,7 +37,33 @@ define(function(require) {
           previewsContainer: "#image-previews",
           clickable: '.fileinput-button'
         });
-    },1000);
+      },1000);
+
+      $.ajax({
+        url : API.tags.show,
+        method: 'GET'
+      }).then(function(tags) {
+
+        // add select with all available tags
+        self.$el.find('#tags').select2({
+          multiple: true,
+          width: "300px",
+          data: tags.map(function(tag) {
+            return {
+              id: tag.tag,
+              text: tag.tag
+            };
+          }),
+          createSearchChoice:function(term, data) {
+            if ( $(data).filter( function() {
+             return this.text.localeCompare(term)===0;
+            }).length===0) {
+             return {id:term, text:term};
+            }
+          }
+        });
+
+      });
 
     },
 
@@ -58,9 +87,6 @@ define(function(require) {
         var file = files[i];
         data.append('image-mobile['+i+']', file);
       }
-
-
-      console.log(data);
 
       $.ajax({
         url: '/api/v1/submissions/',
