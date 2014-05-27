@@ -99,7 +99,7 @@ var classProps = {
 
         // save all tags
         props.tags.forEach(function(tag) {
-          tagSaving.push(function() { return Tag.findOrCreate({ tag : tag }) });
+          tagSaving.push(function() { return Tag.findOrCreate({ tag : tag.trim() }) });
         });
 
         sequence(tagSaving).then(function(tags) {
