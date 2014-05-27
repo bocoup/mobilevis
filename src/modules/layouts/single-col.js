@@ -97,9 +97,19 @@ define(function(require) {
       });
 
       addView.on('error', function(response) {
-        flash.display(response.message || response.errors.map(function(e) {
-          return e.message;
-        }).join("<br>"));
+        if (typeof response === "string") {
+          flash.display(response);
+        } else {
+          if (response.message) {
+            flash.display(response.message);
+          } else if (response.errors) {
+            flash.display(response.errors.map(function(e) {
+              return e.message;
+            }).join("<br>"));
+          } else {
+            flash.display("Unknown Error");
+          }
+        }
       });
     },
 
