@@ -30,7 +30,7 @@ define(function(require) {
 
       new Masonry( this.el, {
         itemSelector: 'li.submission',
-        columnWidth: 240
+        columnWidth: 95
       });
 
     },
