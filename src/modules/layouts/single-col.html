@@ -1,20 +1,26 @@
 <header>
   <div class="block">
-    <a class="logo" href="/"></a>
-
-    <ul class="menu">
+    <h1></h1>
+  </div>
+</header>
+<nav class="links">
+  <div class="block">
+    <ul>
+      <li><a href="/">home</a></li>
       <% if (loggedIn) { %>
-        <li><a href="/user/<%= user.get("username") %>"><img src="src/assets/temp-pic.jpeg" width="24px"> @<%= user.get("username") %></a></li>
+        <li><a href="/add">add</a></li>
+        <li><span>Logged in as</span> <a href="/profile">@<%= user.get("username") %></a></li>
         <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
-        <li><a class="upload" href="/add"><img src="src/assets/upload.svg" width="24px"></a></li>
       <% } else { %>
-        <li><a href="<%= routes.auth.twitter_login %>">login with twitter</a>
+        <li><a href="<%= routes.auth.twitter_login %>">
+            login with twitter
+          </a>
         </li>
       <% } %>
     </ul>
-
   </div>
-</header>
+</nav>
+
 
 <section>
   <div class="block">

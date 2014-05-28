@@ -1,42 +1,40 @@
 header {
   background: #9654A1;
-  color: $link_color;
+  color: white;
   padding: 20px;
   width: 100%;
-  overflow: auto;
-  margin-bottom: .5em;
 
-  a.logo {
+  h1 {
     margin-top : 0px;
     background-image: url(src/assets/mobilevis-logo.png);
-    background-repeat: no-repeat;
-    width: 213px;
-    height: 63px;
-    float: left;
-    position: relative;
+    height: 107px;
+    width: 357px;
+    margin: auto;
   }
+}
 
-  ul.menu {
+.links {
+  background: #80508C;
+  text-align: center;
+
+  ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    float: right;
-    line-height: 4.5em;
 
     li {
+      display: inline-block;
       float: left;
-      margin-left: 1em;
+      margin-right: 2em;
+      line-height: 3em;
 
       a {
         text-decoration: none;
         color: $link_color;
-        background: #80508C;
-        padding: 0.8em;
-        border-radius: 5px;
+      }
 
-        &:hover {
-          background: #6B4375;
-        }
+      a:hover {
+        color: $link_color_hover;
       }
     }
   }
