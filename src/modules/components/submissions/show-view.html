@@ -11,9 +11,13 @@
     </div>
 
     <div class="controls">
+      [
+        <a href="<%= submission.original_url %>">See live</a>
       <% if (user && user.isAdmin) { %>
-        [<a href="#" id="delete">Delete</a>]
+        | <a href="#" id="delete">Delete</a>
       <% } %>
+
+      ]
     </div>
 
     <div class="description">
