@@ -3,15 +3,26 @@
 @import "../../bower_components/swiper/dist/idangerous.swiper.css"
 @import "../../src/assets/select2.css"
 
-* {
-  box-sizing: border-box;
-}
-gr
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
 body {
   font-family: "Museo Sans",sans-serif;
   margin: 0;
   padding: 0;
   background: #F8F8F8;
+  color: #6D6C6C;
+
+  .container {
+    width: 100%
+    padding: 0;
+
+    .block {
+      max-width: 1140px;
+      margin: auto;  
+    }
+  }
 }
 
 #flash {
@@ -21,8 +32,5 @@ body {
   border: 1px solid yellow;
 }
 
-.content {
-  padding: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+
+
