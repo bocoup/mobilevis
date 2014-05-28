@@ -58,24 +58,4 @@
 
   </div>
 
-  <% if (user && user.isAdmin) { %>
-    <div class="row col-md-12">
-      Submission output:
-      [<a id="download-submission" onclick="downloadInnerHtml()">download</a>]
-
-      <script>
-        function downloadInnerHtml(ev) {
-          var link = document.getElementById("download-submission");
-          var fileName =  '<%= submission.id %>.json';
-          var content = '<%=encodeURIComponent(JSON.stringify(submission, null, 2))%>';
-          var mimeType = 'text/plain';
-
-          link.setAttribute('download', fileName);
-          link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + content);
-          return false;
-        }
-      </script>
-    </div>
-  <% } %>
-
 </div>
