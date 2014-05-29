@@ -13,6 +13,7 @@ module.exports = function(grunt) {
       src: [
         'src/styles/app.styl',
         'src/modules/**/*.styl',
+        'src/styles/media-queries.styl',
       ],
       dest: 'public/app.css',
     },
