@@ -4,47 +4,50 @@ ul.submissions {
   padding: 0px;
 
   li.submission {
-    background-color: white;
     display: inline-block;
-    width: 267px;
-    cursor: pointer;
-    margin-top: 17px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.2);
-    border-radius: 3px;
+    width: 280px;
 
-    .image {
-      div {
-        background-position: 50% 25%;
-        display: inline-block;
-        height: 200px;
-        position: relative;
-        transition: ease 750ms background-position;
-        width: 100%;
-        border-bottom: 1px solid #F8F8F8;
+    .submission-content {
+      background-color: $link_color;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      border-radius: 3px;
+      margin: .7em .5em;
+
+      .image {
+        div {
+          background-position: 50% 25%;
+          display: inline-block;
+          height: 200px;
+          position: relative;
+          transition: ease 750ms background-position;
+          width: 100%;
+          border-bottom: 1px solid #F8F8F8;
+        }
+
+        div:hover {
+          background-color: #eee;
+          background-position: 50% 75%;
+          text-decoration: none;
+        }
       }
 
-      div:hover {
-        background-color: #eee;
-        background-position: 50% 75%;
-        text-decoration: none;
-      }
-    }
+      .submission-info {
+        padding: 1em;
 
-    .submission-info {
-      margin: 1.5em;
+        h3.title {
+          margin-bottom: 0px;
+          margin-top: 0px;
+        }
 
-      h3.title {
-        margin-bottom: 0px;
-        margin-top: 0px;
-      }
+        div.creator {
+          font-size: 0.8em;
+          margin-bottom: 10px;
+        }
 
-      div.creator {
-        font-size: 0.8em;
-        margin-bottom: 10px;
-      }
-
-      div.submitted_by {
-        font-size: 0.8em;
+        div.submitted_by {
+          font-size: 0.8em;
+        }
       }
     }
   }
