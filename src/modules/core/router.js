@@ -37,7 +37,8 @@ define(function(require){
       "" : "index",
       "add": "add",
       "submission/:id": "show",
-      "tag/:id": "tagSubmissionShow"
+      "tag/:id": "tagSubmissionShow",
+      "user/:twittername" : "showUserSubmissions"
     },
 
     index: function() {
@@ -73,6 +74,21 @@ define(function(require){
           page: "show",
           options: {
             id : id
+          }
+        }).render().place());
+      });
+    },
+
+    showUserSubmissions: function(twitter_handle) {
+      var self = this;
+
+      Session.getProfile().always(function(user) {
+        self._setCurrentLayout(new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "showUserSubmissions",
+          options: {
+            twitter_handle: twitter_handle
           }
         }).render().place());
       });

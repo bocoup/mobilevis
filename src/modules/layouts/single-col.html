@@ -7,7 +7,7 @@
           <li><a href="/">home</a></li>
           <% if (loggedIn) { %>
             <li><a href="/add">add</a></li>
-            <li>Logged in as <a href="/profile">@<%= user.get("username") %></a></li>
+            <li>Logged in as <a href="/user/<%= user.get("username") %>">@<%= user.get("username") %></a></li>
             <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
           <% } else { %>
             <li><a href="<%= routes.auth.twitter_login %>">

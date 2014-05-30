@@ -5,7 +5,10 @@ define(function(require) {
 
   // user specific routes
   routes.user = {
-    profile : routes.prefix + "users/profile"
+    profile : routes.prefix + "users/profile",
+    submissions : function(username) {
+      return routes.prefix + "users/submissions/" + username;
+    }
   };
 
   // image routes
