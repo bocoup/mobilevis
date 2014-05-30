@@ -4,7 +4,8 @@
 
     <ul class="menu">
       <% if (loggedIn) { %>
-        <li><a href="/user/<%= user.get("username") %>"><img src="src/assets/temp-pic.jpeg" width="24px"> @<%= user.get("username") %></a></li>
+        <li><a href="/user/<%= user.get("username") %>">
+          <img src="<%= user.get("photos")[0].value %>" width="24px"> @<%= user.get("username") %></a></li>
         <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
         <li><a class="upload" href="/add"><img src="src/assets/upload.svg" width="24px"></a></li>
       <% } else { %>
