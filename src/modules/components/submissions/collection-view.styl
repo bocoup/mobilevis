@@ -4,47 +4,49 @@ ul.submissions {
   padding: 0px;
 
   li.submission {
-    background-color: #eaeaea;
     display: inline-block;
-    float: left;
-    width: 220px;
-    border: 1px solid #ddd;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 20px;
-    cursor: pointer;
+    width: 280px;
 
-    h3.title {
-      margin-bottom: 0px;
-      margin-top: 0px;
-    }
+    .submission-content {
+      background-color: $link_color;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      border-radius: 3px;
+      margin: .7em .5em;
 
-    div.creator {
-      font-size: 0.8em;
-      color: #444;
-      margin-bottom: 10px;
-    }
+      .image {
+        div {
+          background-position: 50% 25%;
+          height: 200px;
+          position: relative;
+          transition: ease 750ms background-position;
+          width: 100%;
+          border-bottom: 1px solid #F8F8F8;
+        }
 
-    div.submitted_by {
-      font-size: 0.8em;
-      color: #444;
-    }
-
-    div.image {
-      div {
-        margin-top: 10px;
-        background-position: 50% 25%;
-        display: inline-block;
-        height: 180px;
-        position: relative;
-        transition: ease 750ms background-position;
-        width: 180px;
+        div:hover {
+          background-color: #eee;
+          background-position: 50% 75%;
+          text-decoration: none;
+        }
       }
 
-      div:hover {
-        background-color: #eee;
-        background-position: 50% 75%;
-        text-decoration: none;
+      .submission-info {
+        padding: 1em 1em .7em 1em;
+
+        h3.title {
+          margin: 0;
+        }
+
+        div.creator {
+          margin-bottom: 1em;
+          border-bottom: 1px solid #E7E7E7;
+          padding-bottom: 1em;
+        }
+
+        div.submitted_by {
+          font-size: 0.8em;
+        }
       }
     }
   }
