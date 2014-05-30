@@ -28,8 +28,7 @@ define(function(require){
       });
 
       self.currentLayout.on('submission:created', function(submission) {
-        // TODO: navigate to individual submission rather than index.
-        self.navigate('', { trigger: true });
+        self.navigate('submission/' + submission.id, { trigger : true });
       });
     },
 
