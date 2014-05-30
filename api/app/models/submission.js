@@ -71,132 +71,150 @@ var classProps = {
 
     var self = this;
     var def = when.defer();
+    var checkExistance = when.defer();
     var tagDef = when.defer();
 
     try {
 
-      // validate props
-      assert.isDefined(props.name, "name is required");
-      assert.isDefined(props.twitter_handle, "twitter_handle is required");
-      assert.isDefined(props.creator, "creator is required");
-      assert.isDefined(props.original_url, "original_url is required");
-      assert.isDefined(props.images, "images are required");
-      assert.isArray(props.images, "images should be defined");
-      assert.isTrue(props.images.length > 0, "at least one image is required");
-
-      props.is_published = true;
-
       // if we have an original url, make sure it's a url
       if (props.original_url && props.original_url.length) {
         assert(Validator.isURL(props.original_url), "original_url isn't a URL");
-      }
 
-      // sanitize all the things
-      var textFieldOpts = {
-         allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
-      };
-      var inputFieldOpts = {
-        allowedTags: []
-      };
-
-      if (props.description) {
-        props.description = sanitizeHtml(props.description, textFieldOpts);
-      }
-
-      props.name = sanitizeHtml(props.name, inputFieldOpts);
-      props.creator = sanitizeHtml(props.creator, inputFieldOpts);
-
-      // if we have any tags, make sure the exist
-      // create the ones that don't, and substitute
-      // the whole array with ids.
-      if (props.tags && props.tags.length) {
-
-        var tagSaving = [];
-        var tags = [];
-
-        // sanitize tags
-        props.tags = sanitizeHtml(props.tags, inputFieldOpts);
-
-        if (typeof props.tags === "string") {
-          props.tags = props.tags.split(",");
-        }
-
-        // save all tags
-        props.tags.forEach(function(tag) {
-
-          // sanitizing might reduce the tag to nothing, so just drop it.
-          if (tag.trim().length) {
-            tagSaving.push(function() {
-              return Tag.findOrCreate({
-                tag : tag.trim()
-              });
-            });
+        // check if this already exists, based on URL. if it does, exit.
+        self.forge({ original_url : props.original_url }).fetch().then(function(submission) {
+          console.log(submission);
+          if (typeof submission !== "undefined" && submission !== null) {
+            checkExistance.reject("This example already exists. Id " + submission.id);
+          } else {
+            checkExistance.resolve();
           }
         });
-
-        sequence(tagSaving).then(function(tags) {
-          delete props.tags;
-          tagDef.resolve(tags.map(function(t) { return t.attributes.id; }));
-
-        }, function(err) {
-          tagDef.reject(err);
-        });
-      } else {
-        tagDef.resolve();
       }
 
-      tagDef.promise.then(function(tag_ids) {
+      checkExistance.promise.then(function() {
 
-        // save images before saving
-        var propImages = props.images;
-        delete props.images;
+        // validate props
+        assert.isDefined(props.name, "name is required");
+        assert.isDefined(props.twitter_handle, "twitter_handle is required");
+        assert.isDefined(props.creator, "creator is required");
+        assert.isDefined(props.original_url, "original_url is required");
+        assert.isDefined(props.images, "images are required");
+        assert.isArray(props.images, "images should be defined");
+        assert.isTrue(props.images.length > 0, "at least one image is required");
 
-        self.create(props).then(function(submission) {
+        props.is_published = true;
 
-          // create tags
-          var tagAdd = tag_ids.map(function(tag_id) {
-            return function() {
-              return new SubmissionTag({
-                submission_id : submission.attributes.id,
-                tag_id: tag_id
-              }).save().then(function(t) {
-                return t;
+        // sanitize all the things
+        var textFieldOpts = {
+           allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
+        };
+        var inputFieldOpts = {
+          allowedTags: []
+        };
+
+        if (props.description) {
+          props.description = sanitizeHtml(props.description, textFieldOpts);
+        }
+
+        props.name = sanitizeHtml(props.name, inputFieldOpts);
+        props.creator = sanitizeHtml(props.creator, inputFieldOpts);
+
+        // if we have any tags, make sure the exist
+        // create the ones that don't, and substitute
+        // the whole array with ids.
+        if (props.tags && props.tags.length) {
+
+          var tagSaving = [];
+          var tags = [];
+
+          // sanitize tags
+          props.tags = sanitizeHtml(props.tags, inputFieldOpts);
+
+          if (typeof props.tags === "string") {
+            props.tags = props.tags.split(",");
+          }
+
+          // save all tags
+          props.tags.forEach(function(tag) {
+
+            // sanitizing might reduce the tag to nothing, so just drop it.
+            if (tag.trim().length) {
+              tagSaving.push(function() {
+                return Tag.findOrCreate({
+                  tag : tag.trim()
+                });
               });
-            };
+            }
           });
 
-          // create images
-          var imageAdd = propImages.map(function(image) {
-            return function() {
-              return new SubmissionImage({
-                submission_id : submission.attributes.id,
-                url : image
-              }).save().then(function(i) {
-                return i;
-              });
-            };
+          sequence(tagSaving).then(function(tags) {
+            delete props.tags;
+            tagDef.resolve(tags.map(function(t) { return t.attributes.id; }));
+
+          }, function(err) {
+            tagDef.reject(err);
           });
+        } else {
+          tagDef.resolve();
+        }
 
-          sequence(tagAdd).then(function(tagsAdded) {
-            sequence(imageAdd).then(function(imagesAdded) {
+        tagDef.promise.then(function(tag_ids) {
 
-              new self({ id : submission.id }).fetch({
-                withRelated : ['tags', 'images']
-              }).then(function(fullSubmission) {
-                def.resolve(fullSubmission);
+          // save images before saving
+          var propImages = props.images;
+          delete props.images;
+
+          self.create(props).then(function(submission) {
+
+            // create tags
+            var tagAdd = tag_ids.map(function(tag_id) {
+              return function() {
+                return new SubmissionTag({
+                  submission_id : submission.attributes.id,
+                  tag_id: tag_id
+                }).save().then(function(t) {
+                  return t;
+                });
+              };
+            });
+
+            // create images
+            var imageAdd = propImages.map(function(image) {
+              return function() {
+                return new SubmissionImage({
+                  submission_id : submission.attributes.id,
+                  url : image
+                }).save().then(function(i) {
+                  return i;
+                });
+              };
+            });
+
+            sequence(tagAdd).then(function(tagsAdded) {
+              sequence(imageAdd).then(function(imagesAdded) {
+
+                new self({ id : submission.id }).fetch({
+                  withRelated : ['tags', 'images']
+                }).then(function(fullSubmission) {
+                  def.resolve(fullSubmission);
+                });
+
+              }, function(err) {
+                def.reject(err);
               });
 
             }, function(err) {
               def.reject(err);
             });
-          }, function(err) {
-            def.reject(err);
           });
+
+        }, function(err) {
+          def.reject(err);
         });
+
       }, function(err) {
         def.reject(err);
-      });
-
+      }); // checkExistance deferred.
     } catch (e) {
       def.reject(e);
     }
