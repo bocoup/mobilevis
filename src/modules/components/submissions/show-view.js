@@ -14,6 +14,7 @@ define(function(require) {
       'click .image-control' : 'adjustSlideshow',
       'click .tag' : 'showTagSubmissions',
       'click a#delete' : 'deleteSubmission',
+      'click a#edit' : 'editSubmission',
       "click .creator a" : "showCreatorSubmissions",
       "click .submitted_by a" : "showUserSubmissions"
     },
@@ -86,6 +87,7 @@ define(function(require) {
       this.trigger('user:show', user);
       return false;
     },
+
     deleteSubmission: function(ev) {
       ev.stopPropagation();
       var self = this;
@@ -98,6 +100,12 @@ define(function(require) {
           self.trigger('error', err);
         }
       });
+      return false;
+    },
+
+    editSubmission: function(ev) {
+      ev.stopPropagation();
+      this.trigger('submission:edit', this.model.id);
       return false;
     },
 

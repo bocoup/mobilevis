@@ -31,11 +31,19 @@ define(function(require){
         self.navigate('submission/' + submission_id, { trigger : true });
       });
 
+      self.currentLayout.on('submission:edit', function(submission_id) {
+        self.navigate('submission/' + submission_id + '/edit', { trigger : true });
+      });
+
       self.currentLayout.on('submission:delete', function(submission_id) {
         self.navigate('/', { trigger : true });
       });
 
       self.currentLayout.on('submission:created', function(submission) {
+        self.navigate('submission/' + submission.id, { trigger : true });
+      });
+
+      self.currentLayout.on('submission:updated', function(submission) {
         self.navigate('submission/' + submission.id, { trigger : true });
       });
     },
@@ -44,6 +52,7 @@ define(function(require){
       "" : "index",
       "add": "add",
       "submission/:id": "show",
+      "submission/:id/edit": "edit",
       "tag/:id": "tagSubmissionShow",
       "user/:twittername" : "showUserSubmissions",
       "creator/:creator" : "showCreatorSubmissions"
@@ -69,6 +78,21 @@ define(function(require){
           el: "#main",
           user: user,
           page: "add"
+        }).render().place());
+      });
+    },
+
+    edit: function(id) {
+      var self = this;
+
+      Session.getProfile().then(function(user) {
+        self._setCurrentLayout(new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "edit",
+          options: {
+            id: id
+          }
         }).render().place());
       });
     },

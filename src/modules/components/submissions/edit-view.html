@@ -1,0 +1,64 @@
+<form class="form-horizontal dropzone add-submission" enctype="multipart/form-data">
+  <fieldset>
+
+    <!-- Form Name -->
+    <legend>Edit this example:</legend>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="name">Name</label>
+      <div class="controls">
+        <input id="name" name="name" type="text" placeholder="" class="input-xlarge" required="" value="<%= submission.name %>">
+        <p class="help-block">Visualization Name</p>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="creator">Original author:</label>
+      <div class="controls">
+        <input id="creator" name="creator" type="text" placeholder="" class="input-xlarge" required="" value="<%= submission.creator %>" >
+        <p class="help-block">Name of person or organization that created this visualization</p>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="original_url">URL</label>
+      <div class="controls">
+        <input id="original_url" name="original_url" type="text" placeholder="" class="input-xlarge" value="<%= submission.original_url %>">
+        <p class="help-block">Link to the original visualization</p>
+      </div>
+    </div>
+
+    <!-- Textarea input -->
+    <div class="control-group">
+      <label class="control-label" for="description">About/Description:</label>
+      <div class="controls">
+        <textarea id="description" name="description" rows="3" class="input-xlarge" value="<%= submission.description %>"></textarea>
+        <p class="help-block">Optional. Any comments you'd like to make about this particular visualization.</p>
+      </div>
+    </div>
+
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="tags">Tags</label>
+      <div class="controls">
+        <div class="tag-select-container"></div>
+        <input id="tags" name="tags" type="text" placeholder="" class="input-xlarge" value="<%= _.pluck(submission.tags, 'tag') %>">
+        <p class="help-block">For example: Visualization type like "bar chart" or "scatterplot"</p>
+      </div>
+    </div>
+
+    <h4>Images cannot be modified. Sorry! </h4>
+
+    <!-- Button -->
+    <div class="control-group" style="clear: left;">
+      <div class="controls">
+        <button id="submit" name="submit" class="btn btn-primary">Submit Your Example</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
