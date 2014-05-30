@@ -1,4 +1,3 @@
-var AdminsList = require("../../config/admins");
 const Controller = require('../controllers/creator');
 
 module.exports = {
