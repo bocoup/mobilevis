@@ -41,6 +41,11 @@ chmod 777 /vagrant/deploy/prod/source/update-source
 # NGINX Conf - change this file to eventually point at production url!
 sudo ln -s /vagrant/deploy/prod/nginx/mobilevis.conf /etc/nginx/conf.d/mobilevis.conf
 
+# Set up log rotation
+sudo ln -s /vagrant/deploy/prod/logrotate/mobilevis /etc/logrotate.d/mobilevis
+sudo chown root:root /vagrant/deploy/prod/logrotate/mobilevis
+sudo chmod 644 /vagrant/deploy/prod/logrotate/mobilevis
+
 # TO RUN WITH FOREVER:
 # sudo forever start --debug -l /vagrant/logs/forever-mobilevis.log \
 # -c /usr/bin/node -o /vagrant/logs/upstart-mobilevis.log -a /vagrant/app.js
