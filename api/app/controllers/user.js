@@ -8,8 +8,6 @@ module.exports = BaseController.extend({
   submissions: function(req, res, next) {
     var params = req.params;
 
-    console.log(req.params);
-
     SubmissionModel.collection().query(function(qb) {
       qb.where('twitter_handle', '=', req.params.twitter_handle);
     }).fetch({ withRelated: ['tags','images'] }).then(function(submissions) {
