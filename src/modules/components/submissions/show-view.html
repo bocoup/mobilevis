@@ -1,60 +1,64 @@
 <div class="submission row">
 
-  <div class="metadata col-md-7">
-    <h3 class="title"><%= submission.name %></h3>
-    <div class="creator">by <%= submission.creator %></div>
-    <div class="submitted_by">
-      Submitted by:
-      <a href="http://twitter.com/<%= submission.twitter_handle %>">
-        @<%= submission.twitter_handle %></a>,
-        <%= submission.timestamp %>
-    </div>
-
-    <div class="controls">
-      [
-        <a href="<%= submission.original_url %>">See live</a>
-      <% if (user && user.isAdmin) { %>
-        | <a href="#" id="delete">Delete</a>
-      <% } %>
-
-      ]
-    </div>
-
-    <div class="description">
-      <p>
-        <%= submission.description %>
-      </p>
-    </div>
-    <div class="tags">
-      <% if (submission.tags.length) { %>
-        <% submission.tags.forEach(function(tag) { %>
-          <span class="tag" data-tag="<%= tag.tag %>" data-tag-id="<%= tag.id %>"><%= tag.tag %></span>
-        <% }); %>
-      <% } %>
-    </div>
+  <div class="metadata">
 
     <!-- uses swipe to see multiple images -->
-    <div class="image-container">
+    <div class="col-md-8">
 
-      <% if (submission.images.length > 1) { %>
-        <div class="image-control image-before"></div>
-        <div class="image-control image-after"></div>
-      <% } %>
+      <div class="image-container">
+        <% if (submission.images.length > 1) { %>
+          <div class="image-control image-before"></div>
+          <div class="image-control image-after"></div>
+        <% } %>
 
-      <div class="image" class="images">
-        <div class="swiper-wrapper">
-          <% _.each(submission.images, function(image) { %>
-            <div class="swiper-slide">
-              <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
-            </div>
-          <% }); %>
+        <div class="image" class="images">
+          <div class="swiper-wrapper">
+            <% _.each(submission.images, function(image) { %>
+              <div class="swiper-slide">
+                <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
+              </div>
+            <% }); %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- comments and any extra data goes here -->
-  <div class="extra col-md-5">
+    <div class="col-md-4">
+      <h3 class="title"><%= submission.name %></h3>
+      <div class="creator">by <%= submission.creator %></div>
+      <div class="submitted_by">
+        Submitted by:
+        <a href="http://twitter.com/<%= submission.twitter_handle %>">
+          @<%= submission.twitter_handle %></a>,
+          <%= submission.timestamp %>
+      </div>
+      <div class="description">
+        <p>
+          <%= submission.description %>
+        </p>
+      </div>
+
+       <div class="controls">
+          <a href="<%= submission.original_url %>">See live</a>
+        <% if (user && user.isAdmin) { %>
+          | <a href="#" id="delete">Delete</a>
+        <% } %>
+      </div>
+
+      <h3>Tags</h3>
+      <div class="tags">
+        <% if (submission.tags.length) { %>
+          <% submission.tags.forEach(function(tag) { %>
+            <span class="tag" data-tag="<%= tag.tag %>" data-tag-id="<%= tag.id %>"><%= tag.tag %></span>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <!-- comments and any extra data goes here -->
+      <div class="extra"></div>
+    </div>
 
   </div>
 

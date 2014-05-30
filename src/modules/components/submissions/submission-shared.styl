@@ -1,15 +1,19 @@
 div.tags {
   font-size: 0.8em;
-  margin-top: 10px;
+  margin-top: 1em;
 
   span.tag {
-    margin-top: 3px;
-    padding: 3px;
-    background-color: steelblue;
+    padding: .3em .6em;
+    margin-bottom: .5em;
+    background-color: #B4B4B4;
     color: white;
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 3px;
     cursor: pointer;
     display: inline-block;
+
+    &.tag:hover {
+      background-color: #969393;
+    }
   }
 
   span.tag:hover {
