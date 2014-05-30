@@ -14,8 +14,8 @@ define(function(require) {
     events: {
       "click li" : "show",
       "click .tag" : "showTagSubmissions",
-      "click .creator" : "showCreatorSubmissions",
-      "click .submitted_by" : "showUserSubmissions"
+      "click .creator a" : "showCreatorSubmissions",
+      "click .submitted_by a" : "showUserSubmissions"
     },
 
     initialize: function() {
