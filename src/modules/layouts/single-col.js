@@ -13,6 +13,9 @@ define(function(require) {
   var SubmissionAddView = require('src/modules/components/submissions/add-view');
   var Submission = require('src/modules/components/submissions/model');
 
+  // views: submission edit
+  var SubmissionEditView = require('src/modules/components/submissions/edit-view');
+
   // views: show page
   var SubmissionShowView = require('src/modules/components/submissions/show-view');
 
@@ -57,6 +60,10 @@ define(function(require) {
       view.on('user:show', function(id) {
         self.trigger('user:show', id);
       });
+
+      view.on('submission:edit', function(id) {
+        self.trigger('submission:edit', id);
+      });
     },
 
     postRender: function() {
@@ -66,6 +73,10 @@ define(function(require) {
       }
       if (this.page === "add") {
         this.postRenderAdd();
+        return;
+      }
+      if (this.page === "edit") {
+        this.postRenderEdit();
         return;
       }
       if (this.page === "show") {
@@ -138,6 +149,43 @@ define(function(require) {
             flash.display("Unknown Error");
           }
         }
+      });
+    },
+
+    postRenderEdit: function() {
+      var self = this;
+
+      var submission = new Submission({ id : self.options.id });
+      submission.fetch().then(function() {
+        var editView = self.addSubView({
+          viewType: SubmissionEditView,
+          container: '.content',
+          options: {
+            model: submission
+          }
+        });
+
+        self._enableNavEvents(editView);
+
+        editView.on('updated', function(submission) {
+          self.trigger('submission:updated', submission);
+        });
+
+        editView.on('error', function(response) {
+          if (typeof response === "string") {
+            flash.display(response);
+          } else {
+            if (response.message) {
+              flash.display(response.message);
+            } else if (response.errors) {
+              flash.display(response.errors.map(function(e) {
+                return e.message;
+              }).join("<br>"));
+            } else {
+              flash.display("Unknown Error");
+            }
+          }
+        });
       });
     },
 

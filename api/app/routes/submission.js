@@ -46,6 +46,17 @@ module.exports = BaseRouter.extend({
       ]
     },
 
+    put: {
+
+      // update submission
+      "/:id" : [
+        exports.isAdmin(false), // don't fail if not admin, just set flag.
+        StreamToS3,
+        Controller.update,
+        Controller.serialize
+      ]
+    },
+
     delete: {
       '/:id': [
         exports.isAdmin(true), // actual fail if not admin
