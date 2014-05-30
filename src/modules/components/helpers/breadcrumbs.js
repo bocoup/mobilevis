@@ -12,6 +12,8 @@ define(function(require) {
         this.twitter_handle = options.twitter_handle;
       } else if (options.tag) {
         this.tag = options.tag;
+      } else if (options.creator) {
+        this.creator = options.creator;
       }
     },
 
@@ -22,7 +24,10 @@ define(function(require) {
         data.tag = this.tag.toJSON();
       } else if (this.twitter_handle) {
         data.twitter_handle = this.twitter_handle;
+      } else if (this.creator) {
+        data.creator = this.creator;
       }
+
       return data;
     }
   });

@@ -2,10 +2,12 @@
 
   <div class="metadata col-md-7">
     <h3 class="title"><%= submission.name %></h3>
-    <div class="creator">by <%= submission.creator %></div>
+    <div class="creator">
+      by <a data-creator="<%= submission.creator %>"><%= submission.creator %></a>
+    </div>
     <div class="submitted_by">
       Submitted by:
-      <a href="/user/<%= submission.twitter_handle %>">
+      <a data-user="<%= submission.twitter_handle %>">
         @<%= submission.twitter_handle %></a>,
         <%= submission.timestamp %>
     </div>

@@ -45,7 +45,8 @@ app.use(routeBuilder(express, require('./app/routes/passport')(passport)));
 const resources = [
   'submission',
   'tag',
-  'user'
+  'user',
+  'creator'
 ];
 
 if(!process.env.testing) {
