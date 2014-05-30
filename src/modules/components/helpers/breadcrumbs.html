@@ -1,3 +1,9 @@
 <h4 class="breadcrumbs">
-  Submussions tagged with "<%= tag.tag %>":
+  <% if (typeof tag !== "undefined") { %>
+    Examples tagged with "<%= tag.tag %>":
+  <% } %>
+
+  <% if (typeof twitter_handle !== "undefined") { %>
+    Examples submitted by <a href="http://twitter.com/<%= twitter_handle %>">@<%= twitter_handle %></a>:
+  <% } %>
 </h4>

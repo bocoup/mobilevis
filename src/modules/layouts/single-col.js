@@ -24,6 +24,9 @@ define(function(require) {
   var SubmissionComments = require('src/modules/components/comments/collection');
   var SubmissionCommentsView = require('src/modules/components/comments/collection-view');
 
+  // views: user submissions
+  var User = require('src/modules/components/users/model');
+
   return BaseView.extend({
     template: template,
     initialize: function(options) {
@@ -48,6 +51,10 @@ define(function(require) {
       }
       if (this.page === "tagSubmissionShow") {
         this.postRenderTagSubmissionShow();
+        return;
+      }
+      if (this.page === "showUserSubmissions") {
+        this.postRenderShowUserSubmissions();
         return;
       }
     },
@@ -170,7 +177,7 @@ define(function(require) {
             viewType: BreadcrumbsView,
             container: '#breadcrumbs',
             options: {
-              model : tag
+              tag : tag
             }
           }).render().place();
 
@@ -193,6 +200,43 @@ define(function(require) {
 
 
         });
+    },
+
+    postRenderShowUserSubmissions: function() {
+      var self = this;
+      var twitter_handle = this.options.twitter_handle;
+      var user = new User({
+        twitter_handle : twitter_handle
+      });
+
+      user.fetch().then(function() {
+
+        // add breadcrumbs details
+        self.addSubView({
+          viewType: BreadcrumbsView,
+          container: '#breadcrumbs',
+          options: {
+            twitter_handle : twitter_handle
+          }
+        }).render().place();
+
+        // add submissions gallery
+        var indexView = self.addSubView({
+          viewType : SubmissionsView,
+          container: '.content',
+          options: {
+            collection: user.get('submissions')
+          }
+        });
+
+        indexView.on('tag:show', function(id) {
+          self.trigger('tag:show', id);
+        });
+
+        indexView.on('submission:show', function(id) {
+          self.trigger('submission:show', id);
+        });
+      });
     },
 
     serialize: function() {

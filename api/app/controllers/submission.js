@@ -5,11 +5,11 @@ module.exports = BaseController.extend({
   // ==== GET ====
   getAll: function(req, res, next) {
     req.Model.collection().fetch({
-        withRelated : ['tags', 'images']
-      }).then(function(submissions) {
-        res.data = { models : submissions.models };
-        next();
-      });
+      withRelated : ['tags', 'images']
+    }).then(function(submissions) {
+      res.data = { models : submissions.models };
+      next();
+    });
   },
 
   getOne: function(req, res, next) {
