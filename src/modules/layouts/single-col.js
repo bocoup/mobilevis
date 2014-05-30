@@ -27,6 +27,9 @@ define(function(require) {
   // views: user submissions
   var User = require('src/modules/components/users/model');
 
+  // views: creator submissions
+  var Creator = require('src/modules/components/creators/model');
+
   return BaseView.extend({
     template: template,
     initialize: function(options) {
@@ -34,6 +37,26 @@ define(function(require) {
       this.user = options.user;
       this.page = options.page || "index";
       this.options = options.options || {};
+    },
+
+    _enableNavEvents: function(view) {
+      var self = this;
+
+      view.on('submission:show', function(id) {
+        self.trigger('submission:show', id);
+      });
+
+      view.on('tag:show', function(id) {
+        self.trigger('tag:show', id);
+      });
+
+      view.on('creator:show', function(id) {
+        self.trigger('creator:show', id);
+      });
+
+      view.on('user:show', function(id) {
+        self.trigger('user:show', id);
+      });
     },
 
     postRender: function() {
@@ -57,6 +80,10 @@ define(function(require) {
         this.postRenderShowUserSubmissions();
         return;
       }
+      if (this.page === "showCreatorSubmissions") {
+        this.postRenderShowCreatorSubmissions();
+        return;
+      }
     },
 
     // index page
@@ -76,13 +103,7 @@ define(function(require) {
           }
         });
 
-        indexView.on('submission:show', function(id) {
-          self.trigger('submission:show', id);
-        });
-
-        indexView.on('tag:show', function(id) {
-          self.trigger('tag:show', id);
-        });
+        self._enableNavEvents(indexView);
       });
     },
 
@@ -137,13 +158,7 @@ define(function(require) {
             }
           });
 
-          showView.on('tag:show', function(id) {
-            self.trigger('tag:show', id);
-          });
-
-          showView.on('submission:delete', function(id) {
-            self.trigger('submission:delete', id);
-          });
+          self._enableNavEvents(showView);
 
           def.resolve(showView);
         });
@@ -190,14 +205,7 @@ define(function(require) {
             }
           });
 
-          indexView.on('tag:show', function(id) {
-            self.trigger('tag:show', id);
-          });
-
-          indexView.on('submission:show', function(id) {
-            self.trigger('submission:show', id);
-          });
-
+          self._enableNavEvents(indexView);
 
         });
     },
@@ -229,13 +237,38 @@ define(function(require) {
           }
         });
 
-        indexView.on('tag:show', function(id) {
-          self.trigger('tag:show', id);
+        self._enableNavEvents(indexView);
+      });
+    },
+
+    postRenderShowCreatorSubmissions: function() {
+      var self = this;
+      var creator = this.options.creator;
+      var user = new Creator({
+        creator : creator
+      });
+
+      user.fetch().then(function() {
+
+        // add breadcrumbs details
+        self.addSubView({
+          viewType: BreadcrumbsView,
+          container: '#breadcrumbs',
+          options: {
+            creator : creator
+          }
+        }).render().place();
+
+        // add submissions gallery
+        var indexView = self.addSubView({
+          viewType : SubmissionsView,
+          container: '.content',
+          options: {
+            collection: user.get('submissions')
+          }
         });
 
-        indexView.on('submission:show', function(id) {
-          self.trigger('submission:show', id);
-        });
+        self._enableNavEvents(indexView);
       });
     },
 

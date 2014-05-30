@@ -13,7 +13,9 @@ define(function(require) {
 
     events: {
       "click li" : "show",
-      "click .tag" : "showTagSubmissions"
+      "click .tag" : "showTagSubmissions",
+      "click .creator" : "showCreatorSubmissions",
+      "click .submitted_by" : "showUserSubmissions"
     },
 
     initialize: function() {
@@ -44,6 +46,18 @@ define(function(require) {
       ev.stopPropagation();
       var tag = $(ev.target).data('tag-id');
       this.trigger('tag:show', tag);
+      return false;
+    },
+    showCreatorSubmissions: function(ev) {
+      ev.stopPropagation();
+      var creator = $(ev.target).data('creator');
+      this.trigger('creator:show', creator);
+      return false;
+    },
+    showUserSubmissions: function(ev) {
+      ev.stopPropagation();
+      var user = $(ev.target).data('user');
+      this.trigger('user:show', user);
       return false;
     }
   });

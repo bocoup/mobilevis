@@ -11,6 +11,13 @@ define(function(require) {
     }
   };
 
+  // creator specific routes
+  routes.creator = {
+    submissions : function(creator) {
+      return routes.prefix + "creators/submissions/" + creator;
+    }
+  };
+
   // image routes
   routes.images = {
     add: routes.prefix + "add/image"

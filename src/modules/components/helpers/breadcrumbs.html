@@ -6,4 +6,8 @@
   <% if (typeof twitter_handle !== "undefined") { %>
     Examples submitted by <a href="http://twitter.com/<%= twitter_handle %>">@<%= twitter_handle %></a>:
   <% } %>
+
+  <% if (typeof creator !== "undefined") { %>
+    Examples created by <%= creator %>:
+  <% } %>
 </h4>

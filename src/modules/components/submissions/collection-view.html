@@ -2,12 +2,14 @@
   <% _.each(submissions, function(submission) { %>
     <li class="submission" data-submission-id="<%= submission.id %>">
       <h3 class="title"><%= submission.name %></h3>
-      <div class="creator">by <%= submission.creator %></div>
+      <div class="creator">
+        by <a data-creator="<%= submission.creator %>"><%= submission.creator %></a>
+      </div>
       <div class="submitted_by">
         Submitted by:
-        <a href="/user/<%= submission.twitter_handle %>">
-          @<%= submission.twitter_handle %></a>,
-          <%= submission.timestamp %>
+        <a data-user="<%= submission.twitter_handle %>">
+          @<%= submission.twitter_handle %>
+        </a>, <%= submission.timestamp %>
       </div>
 
       <div class="image">

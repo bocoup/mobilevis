@@ -13,7 +13,9 @@ define(function(require) {
     events: {
       'click .image-control' : 'adjustSlideshow',
       'click .tag' : 'showTagSubmissions',
-      'click a#delete' : 'deleteSubmission'
+      'click a#delete' : 'deleteSubmission',
+      "click .creator a" : "showCreatorSubmissions",
+      "click .submitted_by a" : "showUserSubmissions"
     },
 
     initialize: function(options) {
@@ -72,7 +74,18 @@ define(function(require) {
       this.trigger('tag:show', tag);
       return false;
     },
-
+    showCreatorSubmissions: function(ev) {
+      ev.stopPropagation();
+      var creator = $(ev.target).data('creator');
+      this.trigger('creator:show', creator);
+      return false;
+    },
+    showUserSubmissions: function(ev) {
+      ev.stopPropagation();
+      var user = $(ev.target).data('user');
+      this.trigger('user:show', user);
+      return false;
+    },
     deleteSubmission: function(ev) {
       ev.stopPropagation();
       var self = this;
