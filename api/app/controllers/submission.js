@@ -51,7 +51,6 @@ module.exports = BaseController.extend({
   },
 
   add: function(req, res, next) {
-    console.log(req.body, req.files);
 
     if (req.user.username) {
       // build submission
@@ -79,6 +78,48 @@ module.exports = BaseController.extend({
       res.code = 401;
       res.data = { message : "You must be logged in to add submissions" };
       next();
+    }
+  },
+
+  update: function(req, res, next) {
+    if (req.user.username) {
+
+      // find submission we're editing
+      req.Model.forge({ id : req.params.id }).fetch().then(function(submission) {
+
+        if (typeof submission === "undefined" || submission === null) {
+          res.code = 404;
+          res.data = { message : "This submission doesn't exist!"}
+          next();
+        } else {
+
+          if (submission.get('twitter_handle') === req.user.username || req.isAdmin) {
+            req.Model.update(submission, {
+              name : req.body.name,
+              creator: req.body.creator,
+              original_url: req.body.original_url,
+              description: req.body.description,
+              is_published: true,
+              twitter_handle: req.user.username,
+
+              tags: req.body.tags.split(","),
+              previous_tags: req.body.previous_tags
+
+            }).then(function(submission) {
+              res.data = submission;
+              next();
+            }, function(err) {
+              res.code = 400;
+              res.data = err;
+              next();
+            });
+          } else {
+            res.code = 401;
+            res.data = { message : "You can't edit this submission." };
+            next();
+          }
+        }
+      });
     }
   }
 });

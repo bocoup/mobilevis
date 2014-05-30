@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const BaseModel = require('../base/model');
 const Tag = require('./tag');
 const SubmissionTag = require('./submission_tag');
@@ -9,6 +11,14 @@ const sanitizeHtml = require('sanitize-html');
 
 var chai = require("chai");
 var assert = chai.assert;
+
+// sanitize all the things, settings
+var textFieldOpts = {
+   allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
+};
+var inputFieldOpts = {
+  allowedTags: []
+};
 
 var instanceProps = {
   tableName: 'submissions',
@@ -67,6 +77,91 @@ var classProps = {
 
   },
 
+  update: function(submission, props) {
+    var def = when.defer();
+
+    try {
+      // validate props
+      assert.isDefined(props.name, "name is required");
+      assert.isDefined(props.twitter_handle, "twitter_handle is required");
+      assert.isDefined(props.creator, "creator is required");
+      assert.isDefined(props.original_url, "original_url is required");
+      assert(Validator.isURL(props.original_url), "original_url isn't a URL");
+
+      // sanitize all the things
+      if (props.description) {
+        props.description = sanitizeHtml(props.description, textFieldOpts);
+      }
+
+      props.name = sanitizeHtml(props.name, inputFieldOpts);
+      props.creator = sanitizeHtml(props.creator, inputFieldOpts);
+
+
+      // TODO: DEAL WITH TAGS LATA;
+      var tags = props.tags;
+      var previous_tags = JSON.parse(props.previous_tags);
+      delete props.tags;
+      delete props.previous_tags;
+
+      // ====
+      // Go through previous tags. If there are any that don't exist in
+      // current tags, delete those submission_tags.
+      if (_.isString(tags)) {
+        tags = tags.split(",").map(function(tag) {
+          return tag.trim();
+        });
+      }
+
+      var changes = [];
+      previous_tags.forEach(function(previous_tag) {
+        if (tags.indexOf(previous_tag.tag) === -1) {
+          changes.push(function() {
+            return new SubmissionTag({
+              submission_id : submission.id,
+              tag_id : previous_tag.id
+            }).fetch().then(function(s) {
+              return s.destroy();
+            }, function(err) {
+              def.reject(err);
+            });
+          });
+        }
+      });
+
+      // =====
+      // Go through new tags. If there are any that don't exist in previous
+      // tags, then create them.
+      var previous_tags_array = previous_tags.map(function(t) {
+        return t.tag;
+      });
+
+      tags.forEach(function(new_tag) {
+        if (previous_tags_array.indexOf(new_tag) === -1) {
+          changes.push(function() {
+            return submission.tagAs(new_tag);
+          });
+        }
+      });
+
+      // try to save now.
+      submission.save(props, { patch: true })
+        .then(function(fullSubmission) {
+          sequence(changes).then(function() {
+            def.resolve(fullSubmission);
+          }, function(err) {
+            def.reject(err);
+          });
+        }, function(err) {
+          def.reject(err);
+        });
+
+    } catch(e) {
+      def.reject(e);
+    }
+
+    return def.promise;
+  },
+
   add : function(props) {
 
     var self = this;
@@ -105,13 +200,6 @@ var classProps = {
         props.is_published = true;
 
         // sanitize all the things
-        var textFieldOpts = {
-           allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
-        };
-        var inputFieldOpts = {
-          allowedTags: []
-        };
-
         if (props.description) {
           props.description = sanitizeHtml(props.description, textFieldOpts);
         }
