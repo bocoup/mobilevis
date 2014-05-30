@@ -19,6 +19,14 @@ define(function(require){
         self.navigate('tag/' + tag_id, { trigger : true });
       });
 
+      self.currentLayout.on('user:show', function(user) {
+        self.navigate('user/' + user, { trigger : true });
+      });
+
+      self.currentLayout.on('creator:show', function(creator) {
+        self.navigate('creator/' + creator, { trigger : true });
+      });
+
       self.currentLayout.on('submission:show', function(submission_id) {
         self.navigate('submission/' + submission_id, { trigger : true });
       });
@@ -37,7 +45,8 @@ define(function(require){
       "add": "add",
       "submission/:id": "show",
       "tag/:id": "tagSubmissionShow",
-      "user/:twittername" : "showUserSubmissions"
+      "user/:twittername" : "showUserSubmissions",
+      "creator/:creator" : "showCreatorSubmissions"
     },
 
     index: function() {
@@ -88,6 +97,21 @@ define(function(require){
           page: "showUserSubmissions",
           options: {
             twitter_handle: twitter_handle
+          }
+        }).render().place());
+      });
+    },
+
+     showCreatorSubmissions: function(creator) {
+      var self = this;
+
+      Session.getProfile().always(function(user) {
+        self._setCurrentLayout(new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "showCreatorSubmissions",
+          options: {
+            creator: creator
           }
         }).render().place());
       });
