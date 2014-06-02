@@ -55,7 +55,8 @@ define(function(require){
       "submission/:id/edit": "edit",
       "tag/:id": "tagSubmissionShow",
       "user/:twittername" : "showUserSubmissions",
-      "creator/:creator" : "showCreatorSubmissions"
+      "creator/:creator" : "showCreatorSubmissions",
+      "about" : "about"
     },
 
     index: function() {
@@ -152,6 +153,17 @@ define(function(require){
           options: {
             id : id
           }
+        }).render().place());
+      });
+    },
+
+    about: function() {
+      var self = this;
+      Session.getProfile().always(function(user) {
+        self._setCurrentLayout(new SingleColLayout({
+          el: "#main",
+          user: user,
+          page: "about"
         }).render().place());
       });
     }
