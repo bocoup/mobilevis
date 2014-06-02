@@ -15,6 +15,7 @@ define(function(require) {
   var TagIndexFunction = require('src/modules/layouts/single-col/tagShow');
   var UserIndexFunction = require('src/modules/layouts/single-col/userShow');
   var CreatorIndexFunction = require('src/modules/layouts/single-col/creatorShow');
+  var AboutFunction = require('src/modules/layouts/single-col/about');
 
 
   return BaseView.extend({
@@ -79,6 +80,10 @@ define(function(require) {
         this.postRenderCreatorSubmissionsIndex();
         return;
       }
+      if (this.page === "about") {
+        this.postRenderAbout();
+        return;
+      }
     },
 
     // index page
@@ -101,6 +106,9 @@ define(function(require) {
 
     // index, by creator
     postRenderCreatorSubmissionsIndex: CreatorIndexFunction,
+
+    // about page
+    postRenderAbout: AboutFunction,
 
     serialize: function() {
       return {
