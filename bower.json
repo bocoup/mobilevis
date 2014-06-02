@@ -34,6 +34,7 @@
     "dropzone": "~3.10.1",
     "swiper": "~2.6.1",
     "imagesloaded": "~3.1.5",
-    "select2": "~3.4.8"
+    "select2": "~3.4.8",
+    "jquery-cookie": "~1.4.1"
   }
 }

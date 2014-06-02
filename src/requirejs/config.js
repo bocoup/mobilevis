@@ -18,6 +18,7 @@ require.config({
     'swiper': 'bower_components/swiper/dist/idangerous.swiper',
     'imagesloaded': 'bower_components/imagesloaded/imagesloaded.pkgd',
     'jquery-select': 'bower_components/select2/select2',
+    'jquery-cookie': 'bower_components/jquery-cookie/jquery.cookie',
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
@@ -45,6 +46,10 @@ require.config({
     'jquery-select' : {
       deps: ['jquery'],
       exports: 'Select2'
+    },
+
+    'jquery-cookie' : {
+      deps : ['jquery']
     }
   }
 
