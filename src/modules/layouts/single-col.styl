@@ -8,12 +8,12 @@ header {
 
   a.logo {
     margin-top : 0px;
+    background-image: url(src/assets/mobilevis-logo.png);
+    background-repeat: no-repeat;
+    width: 215px;
+    height: 63px;
     float: left;
     position: relative;
-
-    img {
-      max-width: 100%;
-    }
   }
 
   ul.menu {
@@ -57,22 +57,4 @@ header {
       }
     }
   }
-}
-
-/* Dropdown menu */
-
-nav label {
-  display: none;
-  cursor: pointer;
-  -webkit-user-select: none;
-}
-
-nav input[type=checkbox] {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-}
-
-nav.f-nav {
-  background-color: rgba(0,0,0,1);
 }

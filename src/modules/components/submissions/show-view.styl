@@ -11,7 +11,7 @@
   }
 
   div.submitted_by {
-    margin-bottom: .6em;
+    font-size: 0.8em;
   }
 
   .col-md-8 {
@@ -33,25 +33,20 @@
       height: 100%;
       z-index: 900;
       cursor: pointer;
-      background: #E9E9E9;
-
-      &:hover {
-        background: #DADADA;
-      }
     }
 
     .image-control.image-after {
       background-image: url(src/assets/arrow-right.png);
       background-repeat: no-repeat;
-      background-position: 10px center;
-      right: 0;
+      background-position: right center;
+      right: 10px;
     }
 
     .image-control.image-before {
       background-image: url(src/assets/arrow-left.png);
       background-repeat: no-repeat;
-      background-position: 10px center;
-      left: 0;
+      background-position: 3px center;
+      left: 10px;
     }
 
     div.image {
@@ -65,8 +60,6 @@
       .swiper-slide {
         text-align:center;
         display:table-cell;
-        padding: 2em 3em;
-
         img {
           max-width: 100%;
         }
