@@ -4,6 +4,7 @@
 
     <ul class="menu">
       <li><a href="/about">about</a></li>
+      <li><a href="http://patterns.mobilev.is">patterns</a></li>
       <% if (loggedIn) { %>
         <li><a href="/profile"><img src="src/assets/temp-pic.jpeg" width="24px"> @<%= user.get("username") %></a></li>
         <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
