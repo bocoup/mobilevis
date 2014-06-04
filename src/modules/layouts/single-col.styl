@@ -10,7 +10,7 @@ header {
     margin-top : 0px;
     background-image: url(src/assets/mobilevis-logo.png);
     background-repeat: no-repeat;
-    width: 213px;
+    width: 215px;
     height: 63px;
     float: left;
     position: relative;
@@ -28,14 +28,31 @@ header {
       margin-left: 1em;
 
       a {
+        position: relative;
         text-decoration: none;
         color: $link_color;
         background: #80508C;
-        padding: 0.8em;
+        padding: 0.7em;
         border-radius: 5px;
 
         &:hover {
           background: #6B4375;
+        }
+
+        img {
+          margin: 0 2px 2px 0;
+        }
+      }
+
+      .twitter-login {
+        background: #4EADF0;
+
+        &:hover {
+          background: #469BD6;
+        }
+
+        img {
+          margin: 0 6px 5px 0;
         }
       }
     }

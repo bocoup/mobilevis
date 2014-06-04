@@ -10,7 +10,7 @@
         <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
         <li><a class="upload" href="/add"><img src="/src/assets/upload.svg" width="24px"></a></li>
       <% } else { %>
-        <li><a href="<%= routes.auth.twitter_login %>">login with twitter</a>
+        <li><a class="twitter-login" href="<%= routes.auth.twitter_login %>"><img src="/src/assets/twitter-icon.svg" width="25px">login with twitter</a>
         </li>
       <% } %>
     </ul>
