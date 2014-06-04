@@ -4,6 +4,7 @@
 
     <ul class="menu">
       <li><a href="/about">about</a></li>
+      <li><a href="http://patterns.mobilev.is">patterns</a></li>
       <% if (loggedIn) { %>
         <li><a href="/user/<%= user.get("username") %>">
           <img src="<%= user.get("photos")[0].value %>" width="24px"> @<%= user.get("username") %></a></li>
