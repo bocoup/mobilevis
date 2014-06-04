@@ -1,5 +1,4 @@
 <div class="submission row">
-
   <div class="metadata">
 
     <!-- uses swipe to see multiple images -->
@@ -25,10 +24,10 @@
 
     <div class="col-md-4">
       <h3 class="title"><%= submission.name %></h3>
-      <div class="creator">by <%= submission.creator %></div>
+      <div class="creator">by <a data-creator="<%= submission.creator %>"><%= submission.creator %></a></div>
       <div class="submitted_by">
         Submitted by:
-        <a href="http://twitter.com/<%= submission.twitter_handle %>">
+        <a data-user="<%= submission.twitter_handle %>">
           @<%= submission.twitter_handle %></a>,
           <%= submission.timestamp %>
       </div>
@@ -39,7 +38,11 @@
       </div>
 
        <div class="controls">
-          <a href="<%= submission.original_url %>">See live</a>
+        <a class="see-live" href="<%= submission.original_url %>">See live</a>
+        <% if (user && (user.isAdmin || submission.twitter_handle === user.username)) { %>
+          | <a href="#" id="edit">Edit</a>
+        <% } %>
+
         <% if (user && user.isAdmin) { %>
           | <a href="#" id="delete">Delete</a>
         <% } %>
@@ -58,25 +61,5 @@
     </div>
 
   </div>
-
-  <% if (user && user.isAdmin) { %>
-    <div class="row col-md-12">
-      Submission output:
-      [<a id="download-submission" onclick="downloadInnerHtml()">download</a>]
-
-      <script>
-        function downloadInnerHtml(ev) {
-          var link = document.getElementById("download-submission");
-          var fileName =  '<%= submission.id %>.json';
-          var content = '<%=encodeURIComponent(JSON.stringify(submission, null, 2))%>';
-          var mimeType = 'text/plain';
-
-          link.setAttribute('download', fileName);
-          link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + content);
-          return false;
-        }
-      </script>
-    </div>
-  <% } %>
 
 </div>
