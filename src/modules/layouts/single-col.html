@@ -1,23 +1,19 @@
 <header>
   <div class="block">
-    <a class="logo" href="/"><img src="/src/assets/mobilevis-logo.png"></a>
-    <nav>
-      <input type="checkbox" id="button">
-      <label for="button" onclick=""></label>
-      <ul class="menu" id="menu" role="custom-dropdown">
-        <li><a href="/about">about</a></li>
-        <li><a href="http://patterns.mobilev.is">patterns</a></li>
-        <% if (loggedIn) { %>
-          <li><a href="/user/<%= user.get("username") %>">
-            <img src="<%= user.get("photos")[0].value %>" width="24px"> @<%= user.get("username") %></a></li>
-          <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
-          <li><a class="upload" href="/add"><img src="/src/assets/upload.svg" width="24px"></a></li>
-        <% } else { %>
-          <li><a class="twitter-login" href="<%= routes.auth.twitter_login %>"><img src="/src/assets/twitter-icon.svg" width="25px">login with twitter</a>
-          </li>
-        <% } %>
-      </ul>
-    </nav>
+    <a class="logo" href="/"></a>
+
+    <ul class="menu">
+      <li><a href="/about">about</a></li>
+      <% if (loggedIn) { %>
+        <li><a href="/user/<%= user.get("username") %>">
+          <img src="<%= user.get("photos")[0].value %>" width="24px"> @<%= user.get("username") %></a></li>
+        <li><a href="<%= routes.auth.twitter_logout %>">logout</a></li>
+        <li><a class="upload" href="/add"><img src="/src/assets/upload.svg" width="24px"></a></li>
+      <% } else { %>
+        <li><a class="twitter-login" href="<%= routes.auth.twitter_login %>"><img src="/src/assets/twitter-icon.svg" width="25px">login with twitter</a>
+        </li>
+      <% } %>
+    </ul>
 
   </div>
 </header>
