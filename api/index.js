@@ -39,7 +39,7 @@ app.configure(function(){
 // ====== Routes ======
 
 // == Non resource routes:
-app.use(routeBuilder(express, require('./app/routes/passport')(passport)));
+app.use(routeBuilder(express, require('./app/routes/passport')(passport, app)));
 
 // == Resource routes:
 const resources = [
