@@ -5,6 +5,7 @@ exports.up = function (knex) {
     t.text('name').notNullable();
     t.text('creator');
     t.text('original_url');
+    t.text('description');
     t.timestamp('timestamp').notNullable().defaultTo(knex.raw('CURRENT_TIMESTAMP'));
     t.boolean('is_published').defaultTo(false);
   });
