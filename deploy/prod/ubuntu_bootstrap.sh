@@ -9,6 +9,8 @@ echo ">>> Running prod specific setup"
 eval "$(ssh-agent)"
 
 # add our key to the ssh agent (setup in vagrant file.)
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
 ssh-add ~/.ssh/id_rsa
 
 # add github to hosts
