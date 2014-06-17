@@ -36,6 +36,7 @@
     "imagesloaded": "~3.1.5",
     "select2": "~3.4.8",
     "jquery-cookie": "~1.4.1",
-    "requirejs-google-analytics": "~0.1.11"
+    "requirejs-google-analytics": "~0.1.11",
+    "alameda": "~0.2.0"
   }
 }

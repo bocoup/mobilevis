@@ -2,7 +2,7 @@ define(function(require){
   "use strict";
 
   var Backbone = require("backbone");
-  var GA = require("GA");
+  var GA = require("GoogleAnalytics");
 
   var SingleColLayout = require("src/modules/layouts/single-col");
   var Session = require("src/modules/core/session");
@@ -50,7 +50,7 @@ define(function(require){
     },
 
     _logActivity: function(pathOrObject) {
-      GA.ready(function(ga) {
+      GA.ready(function() {
         GA.view(pathOrObject);
       });
     },

@@ -4,7 +4,12 @@ require.config({
     'GA' : {
       // google analytics tracking
       'id' : 'UA-36449087-3'
+    },
+    'ga' : {
+      // google analytics tracking
+      'id' : 'UA-36449087-3'
     }
+
   },
 
   // Make all requires relative to /.
@@ -27,7 +32,7 @@ require.config({
     'jquery-select': 'bower_components/select2/select2',
     'jquery-cookie': 'bower_components/jquery-cookie/jquery.cookie',
     'EventEmitter': 'bower_components/event-emitter/dist/EventEmitter',
-    'GA': 'bower_components/requirejs-google-analytics/dist/GoogleAnalytics',
+    'GoogleAnalytics': 'bower_components/requirejs-google-analytics/dist/GoogleAnalytics',
 
 
     // Commonly-used application subdirectories
@@ -62,7 +67,7 @@ require.config({
       deps : ['jquery']
     },
 
-    'GA' : {
+    'GoogleAnalytics' : {
       deps: ['EventEmitter']
     }
   }

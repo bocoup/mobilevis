@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         mainConfigFile: 'src/requirejs/config.js',
         include: ['src/requirejs/config'],
         insertRequire: ['src/requirejs/config'],
-        name: 'bower_components/almond/almond',
+        name: 'bower_components/alameda/alameda',
         out: 'public/main.js',
         optimize: 'uglify2',
         generateSourceMaps: true,
