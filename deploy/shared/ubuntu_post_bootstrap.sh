@@ -10,7 +10,7 @@ touch /vagrant/logs/nginx-mobilevis-error.log
 
 # Configure Postgres restart postgres
 sudo -u postgres createuser -s bocoup
-sudo ln -sf /vagrant/deploy/shared/postgres/pg_hba.conf /etc/postgresql/9.1/main/pg_hba.conf
+sudo ln -sf /vagrant/deploy/shared/postgres/pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
 sudo service postgresql restart
 
 # Restore the base level backup which will also create the DB
