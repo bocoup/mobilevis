@@ -1,5 +1,12 @@
 require.config({
 
+  config: {
+    'GA' : {
+      // google analytics tracking
+      'id' : 'UA-36449087-3'
+    }
+  },
+
   // Make all requires relative to /.
   baseUrl: '../',
 
@@ -19,6 +26,9 @@ require.config({
     'imagesloaded': 'bower_components/imagesloaded/imagesloaded.pkgd',
     'jquery-select': 'bower_components/select2/select2',
     'jquery-cookie': 'bower_components/jquery-cookie/jquery.cookie',
+    'EventEmitter': 'bower_components/event-emitter/dist/EventEmitter',
+    'GA': 'bower_components/requirejs-google-analytics/dist/GoogleAnalytics',
+
 
     // Commonly-used application subdirectories
     'core': 'src/modules/core',
@@ -50,6 +60,10 @@ require.config({
 
     'jquery-cookie' : {
       deps : ['jquery']
+    },
+
+    'GA' : {
+      deps: ['EventEmitter']
     }
   }
 
