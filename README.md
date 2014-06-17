@@ -1,6 +1,6 @@
 # MobileV.is App
- Start the machine setup by running `vagrant up dev
-MobileV.is is a collection of data visualization examples, specifically the way
+
+[MobileV.is](http://mobilev.is) is a collection of data visualization examples, specifically the way
 in which they appear on mobile devices.
 
 http://MobileV.is is an actual website you can visit.
