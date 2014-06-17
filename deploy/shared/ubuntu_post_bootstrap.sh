@@ -23,6 +23,7 @@ sudo npm install -g grunt-cli bower
 sudo rmdir ~/tmp
 npm install
 bower --config.interactive=false install
+grunt build
 
 # Daemonize API
 # upstart HATES symlinks so we have to manually reload the upstart configuration
