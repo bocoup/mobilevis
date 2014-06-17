@@ -1,4 +1,4 @@
 module.exports = {
-  //db_config : "../../test/config/db"
+  // default db is sqlite.
   db_config : "../../config/db_sqlite"
 };

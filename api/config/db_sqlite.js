@@ -1,3 +1,6 @@
+/*
+Configuration for local sqlite3 connection
+ */
 module.exports = {
   database: {
     client: "sqlite3",

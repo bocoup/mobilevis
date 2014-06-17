@@ -1,3 +1,6 @@
+/*
+  Twitter app key and secret for passport authentication
+ */
 module.exports = {
   CONSUMER_KEY : 'YOUR KEY',
   CONSUMER_SECRET : 'YOUR SECRET',

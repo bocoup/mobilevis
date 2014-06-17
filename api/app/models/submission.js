@@ -12,7 +12,8 @@ const sanitizeHtml = require('sanitize-html');
 var chai = require("chai");
 var assert = chai.assert;
 
-// sanitize all the things, settings
+// sanitize all the things. These are the tags that are allowed
+// for the content of text fields.
 var textFieldOpts = {
    allowedTags: [ 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li' ]
 };
@@ -22,16 +23,37 @@ var inputFieldOpts = {
 
 var instanceProps = {
   tableName: 'submissions',
+
+  /**
+   * A submission has many images: 1..*
+   * @return {Relation}
+   */
   images: function () {
     return this.hasMany(require('./image'));
   },
+
+  /**
+   * A submission has many tags, through the submission tags table: 1..*
+   * @return {Relation}
+   */
   tags: function () {
     return this.belongsToMany(require('./tag'))
       .through(require('./submission_tag'));
   },
+
+  /**
+   * A submission has many comments: 1..*
+   * @return {Relation}
+   */
   comments: function () {
     return this.hasMany(require('./comment'));
   },
+
+  /**
+   * Tags a submission with a certain tag name, if it doesn't already exist.
+   * @param  {String} tagName
+   * @return {Promise}
+   */
   tagAs: function(tagName) {
     var instance = this;
 
@@ -45,6 +67,11 @@ var instanceProps = {
       });
     });
   },
+
+  /**
+   * Serializes a submission
+   * @return {Object} json
+   */
   toJSON: function() {
     var result = BaseModel.prototype.toJSON.apply(this);
     if (result.is_published === 1) {
@@ -56,6 +83,10 @@ var instanceProps = {
   }
 };
 
+/**
+ * Class properties
+ * @type {Object}
+ */
 var classProps = {
   fields: [
     'id',
@@ -69,14 +100,22 @@ var classProps = {
   ],
   links: ['images', 'tags', 'comments'],
 
+  /**
+   * Finds a submission by name
+   * @param  {String} name
+   * @param  {[Object]} opts
+   * @return {Promise}
+   */
   findByName: function(name, opts) {
     return this.forge({ name : name }).fetch(opts||{});
   },
 
-  findByTag: function(tag_id) {
-
-  },
-
+  /**
+   * Updates a submission
+   * @param  {Object} submission Submission to Update
+   * @param  {Object} props New Properties
+   * @return {Promise}
+   */
   update: function(submission, props) {
     var def = when.defer();
 
@@ -162,6 +201,10 @@ var classProps = {
     return def.promise;
   },
 
+  /**
+   * Adds a new submission
+   * @param {Object} props Submission details.
+   */
   add : function(props) {
 
     var self = this;

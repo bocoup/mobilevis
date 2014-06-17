@@ -3,6 +3,12 @@ const BaseController = require('endpoints-controller');
 module.exports = BaseController.extend({
 
   // ==== GET ====
+  /**
+   * Gets all submissions
+   * @param  {Request}   req
+   * @param  {Response}   res
+   * @param  {Function} next
+   */
   getAll: function(req, res, next) {
     req.Model.collection().fetch({
       withRelated : ['tags', 'images']
@@ -12,6 +18,14 @@ module.exports = BaseController.extend({
     });
   },
 
+  /**
+   * Gets a specific submission.
+   * Request Object must have:
+   *   - params : { id : submission_id }
+   * @param  {Request}   req
+   * @param  {Response}   res
+   * @param  {Function} next
+   */
   getOne: function(req, res, next) {
     (new req.Model({ id : req.params.id })).fetch({
         withRelated : ['tags', 'images']
@@ -39,7 +53,16 @@ module.exports = BaseController.extend({
 
   // ==== POST ====
 
-  // tag a submission with a new tag
+
+  /**
+   * tag a submission with a new tag.
+   * Request Object must have:
+   *  - params : { id : submission_id }
+   *  - body: { tag : tag_name }
+   * @param  {Request}   req
+   * @param  {Response}  res
+   * @param  {Function} next
+   */
   tag: function(req, res, next) {
     (new req.Model({ id : req.params.id }))
       .fetch().then(function(submission) {
@@ -50,6 +73,22 @@ module.exports = BaseController.extend({
       });
   },
 
+  /**
+   * Adds a new submission.
+   * Request Object must have:
+   *  - user: { username : twitter_handle }
+   *  - body: {
+   *    name : submission_name,
+   *    creator: submission_creator,
+   *    original_url: original_url_of_live_submission,
+   *    description: description_of_submission,
+   *    tags: array_of_tags,
+   *    images: array_of_image_uuids
+   *  }
+   * @param {Request}   req
+   * @param {Response}   res
+   * @param {Function} next
+   */
   add: function(req, res, next) {
 
     if (req.user.username) {
@@ -81,6 +120,15 @@ module.exports = BaseController.extend({
     }
   },
 
+  /**
+   * Updates a submission details.
+   * Request Object must have:
+   *  - user : {username : twitter_handle },
+   *  - body : << See add >>
+   * @param  {Request}   req
+   * @param  {Response}   res
+   * @param  {Function} next
+   */
   update: function(req, res, next) {
     if (req.user.username) {
 
@@ -89,7 +137,7 @@ module.exports = BaseController.extend({
 
         if (typeof submission === "undefined" || submission === null) {
           res.code = 404;
-          res.data = { message : "This submission doesn't exist!"}
+          res.data = { message : "This submission doesn't exist!"};
           next();
         } else {
 

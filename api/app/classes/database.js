@@ -4,6 +4,14 @@ const sequence = require('when/sequence');
 
 var config;
 var newDB = false;
+
+/*
+When initializing a database connection, check the environment variable
+'testing'. If set, then use the sqlite db. Otherwise, if the second
+argument to the run is 'sqlite3', use a sqlite db as well. Otherwise,
+if no additional arguments were provided, use the postgres connection.
+It's messy, but so it goes...
+ */
 if (process.env.testing) {
   console.log('Connecting to SQLite3 testing database...');
   config = require('../../test/config/db');
@@ -19,6 +27,12 @@ if (process.env.testing) {
 const db = Bookshelf.initialize(config.database);
 
 if (!process.env.testing) {
+
+  /*
+    When the application starts, it will check to see which migrations last ran
+    and run any newer migrations. This will also load some base data if this is a
+    new database.
+   */
   db.knex.migrate.latest(config).then(function () {
 
     // if running sqlite3 in development on initial load, insert test data

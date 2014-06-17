@@ -7,6 +7,10 @@ module.exports = BaseRouter.extend({
   controller: Controller,
   routes: {
     get : {
+
+      /*
+        Gets all submissions tagged as this tag id.
+       */
       "/:id" : [
         Controller.submissions,
         Controller.serialize

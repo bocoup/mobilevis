@@ -1,3 +1,6 @@
+/*
+  Configuration for local postgres connection
+ */
 module.exports = {
   database: {
     client: "pg",

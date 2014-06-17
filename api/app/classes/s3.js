@@ -8,11 +8,16 @@ const mime = require('mime');
 exports.config = config;
 exports.client = knox.createClient(config);
 
+/**
+ * Writes an image stream to an s3 bucket
+ * @param  {Stream} stream
+ * @param  {String} filename
+ * @param  {[Object]} headers
+ * @return {Promise}
+ */
 exports.writeStream = function (stream, filename, headers) {
   var deferred = when.defer();
   var uuid = require('node-uuid').v4();
-
-  console.log("content type", mime.lookup(filename));
 
   var params = {
     client: exports.client,
@@ -33,10 +38,16 @@ exports.writeStream = function (stream, filename, headers) {
   return deferred.promise;
 };
 
+/**
+ * Removes files from an s3 bucket
+ * @param  {String[]} paths
+ * @param  {[Object]} headers
+ * @return {Promise}
+ */
 exports.destroy = function(paths, headers) {
   var deferred = when.defer();
 
-  var req = exports.client.deleteMultiple(paths, function(err, res) {
+  exports.client.deleteMultiple(paths, function(err, res) {
     if (err) {
       deferred.reject(err);
     } else {

@@ -7,13 +7,26 @@ const sanitizeHtml = require('sanitize-html');
 const chai = require("chai");
 const assert = chai.assert;
 
+/**
+ * Comment instance properties
+ * @type {Object}
+ */
 var instanceProps = {
   tableName: 'comments',
+
+  /**
+   * Many comments belong to a single submission: *..1
+   * @return {Relation}
+   */
   submission: function () {
     return this.belongsTo(require('./submission'));
   }
 };
 
+/**
+ * Class properties for Comment model.
+ * @type {Object}
+ */
 var classProps = {
   fields: [
     'id',
@@ -23,12 +36,26 @@ var classProps = {
     'timestamp'
   ],
 
+  /**
+   * Finds comments for a submission
+   * @param  {Object} props Must contain submission_id.
+   * @return {Promise}
+   */
   findBySubmissionId: function(props) {
     return this.collection().query({
       where : { submission_id : props.submission_id }
     }).fetch();
   },
 
+  /**
+   * Adds a comment
+   * Props must contain:
+   *   - twitter_handle
+   *   - comment
+   *   - submission_id
+   * @param {Object} props
+   * @returns {Promise}
+   */
   add: function(props) {
     var self = this;
     var def = when.defer();

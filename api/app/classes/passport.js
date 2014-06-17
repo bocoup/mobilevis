@@ -1,5 +1,9 @@
 module.exports = {
 
+  /**
+   * Initializes twitter authentication details.
+   * @return {Passport}
+   */
   init: function() {
     var passport = require('passport'),
         TwitterStrategy = require('passport-twitter').Strategy,

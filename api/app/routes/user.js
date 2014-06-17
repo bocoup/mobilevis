@@ -3,6 +3,10 @@ const Controller = require('../controllers/user');
 
 module.exports = {
   get : {
+
+    /*
+      Gets user profile. Called everytime to verify authentication.
+     */
     "/profile" : [
       function(req, res) {
         if (req.user) {
@@ -16,6 +20,9 @@ module.exports = {
       }
     ],
 
+    /*
+      Gets all submissions by a single user
+     */
     "/submissions/:twitter_handle" : [
       Controller.submissions,
       Controller.serialize

@@ -4,7 +4,14 @@ var Model = require('../models/comment');
 
 module.exports = BaseController.extend({
 
-  // get all comments for as submission
+  /**
+   * get all comments for submission. GET.
+   * Request object must have:
+   *  - params: { id : submission_id }
+   * @param  {Request}   req
+   * @param  {Response}   res
+   * @param  {Function} next
+   */
   getAll: function(req, res, next) {
     var params = req.params;
     Model.findBySubmissionId({ submission_id : params.id })
@@ -17,7 +24,6 @@ module.exports = BaseController.extend({
             ]
           };
         } else {
-          console.log(comments);
           res.data = comments.models;
         }
         next();
@@ -32,6 +38,16 @@ module.exports = BaseController.extend({
   },
 
   // ===== post =====
+  /**
+   * Adds a new comment to a submission. POST.
+   * Request Object must have:
+   *  - user: logged in user details
+   *  - params: { id : submission_id }
+   *  - body: { comment : comment_text }
+   * @param {Request}   req
+   * @param {Response}   res
+   * @param {Function} next
+   */
   add: function(req, res, next) {
 
     if (req.user.username) {
