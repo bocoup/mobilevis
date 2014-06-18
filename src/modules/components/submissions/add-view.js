@@ -79,6 +79,10 @@ define(function(require) {
       var form = $(e.target);
       var data = new FormData();
 
+      // hide button
+      form.find('#submit').hide();
+      form.find("#loader-gif").show();
+
       data.append('name', form.find('#name').val());
       data.append('creator', form.find('#creator').val());
       data.append('original_url', form.find('#original_url').val());
@@ -105,6 +109,11 @@ define(function(require) {
           self.trigger('created', submission);
         },
         error: function(jqXhr) {
+
+          // show button so people can resubmit
+          form.find('#submit').show();
+          form.find("#loader-gif").hide();
+
           if (jqXhr.status === 413) {
             self.trigger('error', "One of your files is too large!");
           } else {
