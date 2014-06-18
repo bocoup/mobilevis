@@ -49,6 +49,10 @@ define(function(require) {
       view.on('submission:edit', function(id) {
         self.trigger('submission:edit', id);
       });
+
+      view.on('submission:delete', function(id) {
+        self.trigger('submission:delete', id);
+      });
     },
 
     postRender: function() {

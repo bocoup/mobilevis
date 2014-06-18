@@ -94,7 +94,7 @@ define(function(require) {
       this.model.destroy({
         wait: true,
         success: function(model) {
-          self.trigger('submission:delete', model);
+          self.trigger('submission:delete', model.id);
         },
         error: function(err) {
           self.trigger('error', err);
