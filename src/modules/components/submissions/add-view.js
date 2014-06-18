@@ -87,7 +87,25 @@ define(function(require) {
       data.append('creator', form.find('#creator').val());
       data.append('original_url', form.find('#original_url').val());
       data.append('description', form.find('#description').val());
-      data.append('tags', form.find('#tags').val());
+
+      // process tags
+      var tags;
+
+      try {
+         tags = form.find('#tags')
+          .val()
+          .split(",")
+          .map(function(t) {
+            return t.trim();
+          }).filter(function(t) {
+            return t.length > 0;
+          })
+          .join(",");
+      } catch(exp) {
+        tags = form.find('#tags');
+      }
+
+      data.append('tags', tags);
 
       // attach images to the data
       // var files = form.find('#image-mobile')[0].files;
