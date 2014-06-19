@@ -10,8 +10,11 @@ module.exports = BaseController.extend({
    * @param  {Function} next
    */
   getAll: function(req, res, next) {
-    req.Model.collection().fetch({
-      withRelated : ['tags', 'images']
+
+    req.Model.collection().query(function(qb) {
+      qb.orderBy('timestamp', 'desc');
+    }).fetch({
+      withRelated: ['tags', 'images']
     }).then(function(submissions) {
       res.data = { models : submissions.models };
       next();
