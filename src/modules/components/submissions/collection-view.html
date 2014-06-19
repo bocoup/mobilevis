@@ -13,7 +13,14 @@
             Submitted by:
             <a data-user="<%= submission.twitter_handle %>">
               @<%= submission.twitter_handle %>
-            </a>, <%= submission.timestamp %>
+            </a>, <%= submission.timestamp %>.
+            <br/>
+            <% if (submission.images.length > 1) { %>
+              There are <b><%= submission.images.length %></b> screenshots.
+            <% } else { %>
+              There is <b>1</b> screenshot.
+            <% } %>
+
           </div>
           <div class="tags">
             <% if (submission.tags.length) { %>
