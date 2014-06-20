@@ -1,4 +1,5 @@
 const BaseModel = require('../base/model');
+const when = require('when');
 
 /**
  * Image instance properties. A submission has many images.
@@ -26,7 +27,19 @@ var classProps = {
     'submission_id',
     'url',
     'timestamp'
-  ]
+  ],
+
+  update: function(image, newProps) {
+    var def = when.defer();
+
+    image.save(newProps, { patch: true }).then(function(image) {
+      def.resolve(image);
+    }, function(err) {
+      def.reject(err);
+    });
+
+    return def.promise;
+  }
 };
 
 module.exports = BaseModel.extend(instanceProps, classProps);

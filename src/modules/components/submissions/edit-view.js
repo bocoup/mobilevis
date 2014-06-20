@@ -71,6 +71,7 @@ define(function(require) {
       data.append('description', form.find('#description').val());
       data.append('tags', form.find('#tags').val());
       data.append('previous_tags', JSON.stringify(this.model.get('tags')));
+      data.append('preview_image', form.find('input[name="preview_image"]:checked').val());
 
       // image assembly stuff was here...
 

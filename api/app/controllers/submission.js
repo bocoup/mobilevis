@@ -1,4 +1,5 @@
 const BaseController = require('endpoints-controller');
+var SubmissionImage = require('../models/image');
 
 module.exports = BaseController.extend({
 
@@ -152,13 +153,35 @@ module.exports = BaseController.extend({
               description: req.body.description,
               is_published: true,
               twitter_handle: req.user.username,
-
               tags: req.body.tags.split(","),
               previous_tags: req.body.previous_tags
 
             }).then(function(submission) {
-              res.data = submission;
-              next();
+
+              // update image as preview
+              if (req.body.preview_image) {
+                new SubmissionImage({ id : +req.body.preview_image}).fetch().then(function(image) {
+
+                  if (typeof image === "undefined" || image === null) {
+                    // we won't update an image, but that's ok.
+                    next();
+                  } else {
+
+                    // update the image as the preview thumbnail
+                    SubmissionImage.update(image, {
+                      isPreview : true
+                    }).then(function(image) {
+                      res.data = submission;
+                      next();
+                    }, function(err) {
+                      res.code = 400;
+                      res.data = err;
+                      next();
+                    });
+                  }
+                });
+              }
+
             }, function(err) {
               res.code = 400;
               res.data = err;

@@ -1,4 +1,4 @@
-<form class="form-horizontal dropzone add-submission" enctype="multipart/form-data">
+<form class="form-horizontal dropzone add-submission edit-submission" enctype="multipart/form-data">
   <fieldset>
 
     <!-- Form Name -->
@@ -51,8 +51,17 @@
       </div>
     </div>
 
-    <h4>Images cannot be modified. Sorry! </h4>
-
+    <div class="control-group">
+      <label class="control-label" for="isPreview">Which image should be the preview thumbnail?</label>
+      <ul>
+      <% submission.images.forEach(function(image) { %>
+        <li>
+          <input type="radio" name="preview_image" value="<%= image.id %>">
+          <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
+        </li>
+      <% }); %>
+      </ul>
+    </div>
     <!-- Button -->
     <div class="control-group" style="clear: left;">
       <div class="controls">
