@@ -1,4 +1,4 @@
-const BaseModel = require('../base/model');
+const BaseModel = require('../classes/model');
 
 /**
  * Instance properties for a submission tag, a link table

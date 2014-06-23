@@ -1,4 +1,4 @@
-const BaseModel = require('../base/model');
+const BaseModel = require('../classes/model');
 const when = require('when');
 
 /**

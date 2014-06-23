@@ -1,4 +1,4 @@
-const BaseModel = require('../base/model');
+const BaseModel = require('../classes/model');
 const when = require('when');
 const Validator = require('validator');
 const moment = require('moment');

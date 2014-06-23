@@ -26,7 +26,7 @@
     "passport": "~0.2.0",
     "passport-twitter": "~1.0.2",
     "validator": "~3.11.0",
-    "chai": "~1.9.1",
+    "chai": "~1.8.0",
     "knox": "~0.8.9",
     "knox-mpu": "~0.1.6",
     "busboy": "~0.2.5",
@@ -35,10 +35,10 @@
     "sanitize-html": "~1.1.4",
     "moment": "~2.6.0",
     "mocha": "~1.14.0",
-    "chai": "~1.8.0",
     "chai-as-promised": "~4.1.0",
     "mocha-as-promised": "~2.0.0",
-    "sqlite3": "~2.2.0"
+    "sqlite3": "~2.2.0",
+    "endpoints-model": "^0.1.1"
   },
   "devDependencies": {
     "grunt-express-server": "~0.4.17",
