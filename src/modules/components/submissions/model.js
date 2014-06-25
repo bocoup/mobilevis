@@ -11,17 +11,25 @@ define(function(require) {
     toJSON: function() {
       var attrs = Backbone.Model.prototype.toJSON.apply(this);
 
-      attrs.timestamp = moment(attrs.timestamp).fromNow();
-
-      // find preview image, or make the first one the preview image.
-      attrs.main_image = attrs.images.filter(function(i) {
-        return i.isPreview === true;
-      });
-
-      if (attrs.main_image.length === 0) {
-        attrs.main_image = attrs.images[0];
+      if (attrs.timestamp) {
+        attrs.timestamp = moment(attrs.timestamp).fromNow();
       } else {
-        attrs.main_image = attrs.main_image[0];
+        attrs.timestamp = moment().fromNow();
+      }
+
+      attrs.main_image = null;
+
+      if (attrs.images && attrs.images.length > 0) {
+        // find preview image, or make the first one the preview image.
+        attrs.main_image = attrs.images.filter(function(i) {
+          return i.isPreview === true;
+        });
+
+        if (attrs.main_image.length === 0) {
+          attrs.main_image = attrs.images[0];
+        } else {
+          attrs.main_image = attrs.main_image[0];
+        }
       }
 
       return attrs;
