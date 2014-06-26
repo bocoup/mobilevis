@@ -1,5 +1,6 @@
 const BaseController = require('endpoints-controller');
 var SubmissionImage = require('../models/image');
+var path = require('path');
 
 module.exports = BaseController.extend({
 
@@ -75,6 +76,15 @@ module.exports = BaseController.extend({
           next();
         });
       });
+  },
+
+  feed: function(req, res, next) {
+    req.Model.generateFeed(path.resolve("/vagrant/public/rss.xml")).then(function() {
+      next();
+    }, function(err) {
+      console.log("feed making failed!", err);
+      next();
+    });
   },
 
   /**

@@ -8,6 +8,9 @@ const when = require('when');
 const Validator = require('validator');
 const sequence = require('when/sequence');
 const sanitizeHtml = require('sanitize-html');
+const fs = require('fs');
+const RSS = require('rss');
+const UrlDetails = require('../../config/twitter');
 
 var chai = require("chai");
 var assert = chai.assert;
@@ -108,6 +111,54 @@ var classProps = {
    */
   findByName: function(name, opts) {
     return this.forge({ name : name }).fetch(opts||{});
+  },
+
+  /**
+   * Generates an RSS feed
+   * @param {String} writeTo The path to write the RSS feed to.
+   * @return {Promise}
+   */
+  generateFeed: function(writeTo) {
+    var def = when.defer();
+    var feed = new RSS({
+      title: "MobileVis Gallery",
+      description: "Examples of Data Visualization on Mobile Devices",
+      feed_url: UrlDetails.redirect_host + "/rss.xml",
+      site_url: UrlDetails.redirect_host,
+      image_url: UrlDetails.redirect_host + "/src/assets/mobilevis-logo.png",
+      author: "Irene Ros",
+      webMaster: "Irene Ros",
+      copyright: "2014 Irene Ros",
+      language: "en",
+      pubDate: new Date(),
+      ttl: "3600"
+    });
+
+    this.collection().query(function(qb) {
+      qb.orderBy('timestamp', 'desc');
+    }).fetch().then(function(submissions) {
+      submissions.models.forEach(function(s) {
+        var sub = s.attributes;
+        feed.item({
+          title: sub.name,
+          description: sub.description,
+          url: UrlDetails.redirect_host + '/submission/' + sub.id,
+          guid: sub.id,
+          author: sub.twitter_handle,
+          date: sub.timestamp
+        });
+      });
+
+      var xml = feed.xml();
+      fs.writeFile(writeTo, xml, function(err) {
+        if (err) { def.reject(err); }
+        def.resolve(writeTo);
+      });
+    }, function(err) {
+      def.reject(err);
+    });
+
+    return def.promise;
   },
 
   /**

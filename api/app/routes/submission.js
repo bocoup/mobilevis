@@ -62,6 +62,7 @@ module.exports = BaseRouter.extend({
       "/" : [
         StreamToS3,
         Controller.add,
+        Controller.feed,
         Controller.serialize
       ]
     },
@@ -75,6 +76,7 @@ module.exports = BaseRouter.extend({
         exports.isAdmin(false), // don't fail if not admin, just set flag.
         StreamToS3,
         Controller.update,
+        Controller.feed,
         Controller.serialize
       ]
     },
@@ -89,6 +91,7 @@ module.exports = BaseRouter.extend({
         Controller.findById,
         RemoveFromS3,
         Controller.destroyCascade,
+        Controller.feed,
         Controller.serialize
       ]
     }
