@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const BaseModel = require('../base/model');
+const BaseModel = require('../classes/model');
 const Tag = require('./tag');
 const SubmissionTag = require('./submission_tag');
 const SubmissionImage = require('./image');
