@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # This directory should be the same as the site_path setting in
   # deploy/ansible/group_vars/all.yml
-  config.vm.synced_folder '.', '/mnt/site'
+  config.vm.synced_folder '.', '/mnt/synced'
 
   # Ideally, this IP will be unique, so entry added to /etc/hosts won't
   # conflict with that of another project.
@@ -28,6 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # group so its vars are used when provisioning.
     ansible.groups = {'localdev' => ['vagrant']}
     # Do ansible stuff!
-    ansible.playbook = 'deploy/ansible/provision.yml'
+    ansible.playbook = 'deploy/ansible/development.yml'
   end
 end

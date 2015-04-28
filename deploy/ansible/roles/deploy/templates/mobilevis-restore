@@ -1,0 +1,54 @@
+#!/bin/bash
+# mobilevis-restore
+# Shell script that takes a timestamp of a backup which is available on S3, downloads the backup,
+# decrypts it, and restores it. This should be re-written to be more general in the future
+#
+
+if [ "$#" -ne 3 ]
+then
+  # TECH DEBT: Ideally we'd list out all available files
+  echo "ERROR: Must provide the timestamp of the backup to restore in %Y%m%d%H%M format. Check S3 for available backups."
+  echo "Example usage: mobilevis-restore 201404031353"
+  echo "would restore the file from here: s3://mobilevis-backup/mobilevis-backup-201404031353.sql.gz"
+  echo "Use the string 'base' for a lean data set or to bootstrap a clean postgres install: mobilevis-restore base"
+  exit 1
+fi
+
+args=("$@");
+timestamp=${args[0]}
+fullOrData=${args[1]}
+folder=${args[2]}
+
+WORKING_DIR={{site_path}}
+
+if [ $1 = "base" ]
+then
+  BACKUP_FILE_NAME=schema.sql
+
+  # drop existing
+  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+
+  # setup new one
+  psql -U bocoup -d postgres < ${WORKING_DIR}deploy/shared/db/${BACKUP_FILE_NAME}
+
+else
+
+  # drop existing
+  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+
+  if [ $2 = "full" ]
+  then
+    BACKUP_FILE_NAME=mobilevis-backup-${timestamp}.sql.gz
+  else
+    BACKUP_FILE_NAME=mobilevis-backup-${timestamp}-data.sql.gz
+  fi
+
+  aws s3 cp s3://mobilevis.bocoup.com/${folder}/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
+
+  #gunzip it
+  gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U bocoup -d postgres
+
+  #cleanup
+  rm ${WORKING_DIR}${BACKUP_FILE_NAME}
+fi
+

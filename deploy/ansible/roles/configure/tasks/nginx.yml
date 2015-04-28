@@ -1,9 +1,6 @@
 # Generate nginx config files (and ssl configuration, if ssl was specified),
 # rolling back changes if any part of the config is invalid.
 
-- include: ssl.yml
-  when: ssl
-
 - name: ensure default nginx server is not present
   file: path=/etc/nginx/sites-enabled/default state=absent
 

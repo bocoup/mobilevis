@@ -4,7 +4,7 @@ local_user: "{{ lookup('env', 'USER') }}"
 project_name: mobilevis
 
 # Git repo address. Modify as-needed.
-git_repo: git@github.com:bocoup/{{project_name}}.git
+git_repo: http://github.com/bocoup/{{project_name}}.git
 
 # Parent directory for cloned repository directories.
 base_path: /mnt
@@ -30,3 +30,6 @@ public_path: "{{site_path}}/public"
 # different server naming scheme or don't work at Bocoup ;)
 hostname: "mobilev.is"
 app_fqdn: "mobilev.is"
+
+# bocoup secrets store
+secrets_fqdn: nest.bocoup.com

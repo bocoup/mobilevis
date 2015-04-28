@@ -9,6 +9,8 @@
 
 - include: checkout.yml
   when: force or not commit_dir.stat.exists
+  tags:
+    - code
 
 - name: link sha-named clone to make it live
   file: path={{site_path}} state=link src={{base_path}}/{{sha.stdout|default(commit)}} force=yes
@@ -34,3 +36,18 @@
   args:
     chdir: "{{base_path}}"
   when: keep_n_most_recent is defined
+
+- name: download configuration files
+  include: config.yml
+  tags:
+    - config
+
+- name: setup backup scripts
+  include: backups.yml
+  tags:
+    - backups
+
+- name: setup upstart script
+  include: upstart.yml
+  tags:
+    - upstart

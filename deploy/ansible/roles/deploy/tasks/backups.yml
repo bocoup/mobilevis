@@ -1,0 +1,6 @@
+#
+# move backup and restore scripts to the correct places
+#
+- name: copy backup and restore scripts
+  template: src={{item}} dest=/usr/local/bin/{{item}} mode=755
+  with_items: backup_scripts

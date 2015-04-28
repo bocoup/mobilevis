@@ -24,6 +24,5 @@ npm_global_modules:
   - { name: bower }
   - { name: forever }
 
-awscli_config_file: mobilevis
-secrets_fqdn: nest.bocoup.com
+awscli_config_file: mobilevis.aws
 

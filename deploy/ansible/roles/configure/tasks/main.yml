@@ -33,3 +33,9 @@
     - logs
     - configure
 
+
+- name: configure nginx
+  include: nginx.yml
+  tags:
+    - nginx
+    - configure

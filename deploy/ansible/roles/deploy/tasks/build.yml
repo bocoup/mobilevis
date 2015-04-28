@@ -13,7 +13,7 @@
     chdir: "{{clone_path}}"
 
 - name: build production version
-  shell: npm run build
+  shell: grunt build
   args:
     chdir: "{{clone_path}}"
 
