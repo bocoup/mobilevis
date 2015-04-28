@@ -1,0 +1,12 @@
+#
+# configure logging related info
+#
+- name: setup logs folder
+  file: path={{base_path}}/logs state=directory
+
+- name: setup log files
+  file: path={{base_path}}/{{item}} state=touch mode=755
+  with_items: logs
+
+- name: copy log rotate instructions
+  template: src=logrotate dest=/etc/logrotate.d/{{project_name}} owner=root group=root mode=644

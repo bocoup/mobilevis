@@ -1,0 +1,9 @@
+#
+# ssh agent
+#
+- name: ensure ssh agent socket environment variable persists when sudoing
+  lineinfile: dest=/etc/sudoers
+    insertafter='^Defaults'
+    line='Defaults env_keep += "SSH_AUTH_SOCK"'
+    state=present
+    validate='visudo -cf %s'

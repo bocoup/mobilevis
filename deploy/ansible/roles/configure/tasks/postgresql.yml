@@ -1,0 +1,25 @@
+#
+# Configure postgres
+#
+- name: postgresql version is known
+  shell: ls -r /etc/postgresql | head -1
+  register: postgresql_version
+
+- name: postgresql is configured
+  template: "src=pg_hba.conf dest=/etc/postgresql/{{postgresql_version.stdout}}/main/pg_hba.conf mode=0644"
+  notify: restart postgresql
+
+- meta: flush_handlers
+
+- name: PGUSER is set to postgres for all bash sessions
+  template: "src=pguser.sh dest=/etc/profile.d/pguser.sh"
+  notify: restart postgresql
+
+- name: create postgres user
+  postgresql_user: name=bocoup login_host=127.0.0.1 state=present
+
+- name: copy schema file
+  copy: src=schema.sql dest={{base_path}}/schema.sql
+
+- name: setup base database from schema dump
+  shell: psql -U postgres -f {{base_path}}/schema.sql

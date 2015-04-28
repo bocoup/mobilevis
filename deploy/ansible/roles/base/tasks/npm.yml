@@ -1,0 +1,10 @@
+#
+# npm modules
+#
+- name: update npm to latest
+  npm: name=npm state=latest global=yes
+
+- name: install global npm modules
+  npm: name={{item.name}} version={{item.version|default(omit)}} global=yes
+  with_items: npm_global_modules
+
