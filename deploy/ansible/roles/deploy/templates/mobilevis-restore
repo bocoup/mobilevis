@@ -19,17 +19,17 @@ timestamp=${args[0]}
 fullOrData=${args[1]}
 folder=${args[2]}
 
-WORKING_DIR={{site_path}}
+WORKING_DIR={{site_path}}/
 
 if [ $1 = "base" ]
 then
   BACKUP_FILE_NAME=schema.sql
 
   # drop existing
-  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+  psql -U postgres -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
 
   # setup new one
-  psql -U bocoup -d postgres < ${WORKING_DIR}deploy/shared/db/${BACKUP_FILE_NAME}
+  psql -U postgres -d postgres < ${WORKING_DIR}deploy/shared/db/${BACKUP_FILE_NAME}
 
 else
 
@@ -46,7 +46,7 @@ else
   aws s3 cp s3://mobilevis.bocoup.com/${folder}/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
 
   #gunzip it
-  gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U bocoup -d postgres
+  gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U postgres -d postgres
 
   #cleanup
   rm ${WORKING_DIR}${BACKUP_FILE_NAME}
