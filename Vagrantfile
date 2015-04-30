@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Automatically add an entry to /etc/hosts for this vagrant box. This
   # requires sudo. This should match the app_fqdn setting specified in the
   # ansible "localdev" config.
-  config.hostsupdater.aliases = ['mobilev.is.loc']
+  config.hostsupdater.aliases = ['mobilevis.local']
 
   # A specific name looks much better than "default" in ansible output.
   config.vm.define 'vagrant'
