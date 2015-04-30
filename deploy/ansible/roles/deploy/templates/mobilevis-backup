@@ -10,8 +10,8 @@ BACKUP_FILE_NAME=mobilevis-backup-$(date -d "today" +"%Y%m%d%H%M").sql.gz
 BACKUP_DATA_FILE_NAME=mobilevis-backup-$(date -d "today" +"%Y%m%d%H%M")-data.sql.gz
 
 # dump from postgres, encrypt
-pg_dump --create mobilevis -U bocoup | gzip -c > ${WORKING_DIR}${BACKUP_FILE_NAME}
-pg_dump --data-only --create mobilevis -U bocoup | gzip -c > ${WORKING_DIR}${BACKUP_DATA_FILE_NAME}
+pg_dump mobilevis -Fc -U bocoup > ${WORKING_DIR}${BACKUP_FILE_NAME}
+pg_dump --data-only -Fc mobilevis -U bocoup > ${WORKING_DIR}${BACKUP_DATA_FILE_NAME}
 
 # copy to S3
 aws s3 cp ${WORKING_DIR}${BACKUP_FILE_NAME} s3://{{s3_bucket}}/$@/

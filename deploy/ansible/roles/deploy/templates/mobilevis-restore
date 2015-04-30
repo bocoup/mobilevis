@@ -46,11 +46,13 @@ then
     --key ${BACKUP_FILE_NAME} ${WORKING_DIR}${FILE_NAME}
 
   # drop existing
-  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+  psql -U postgres -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
 
   # load new one
   # cat ${WORKING_DIR}/schema.sql | psql -U postgres -d postgres
-  gunzip -c ${WORKING_DIR}${FILE_NAME} | psql -U postgres -d postgres
+  # psql -U postgres -d postgres -f ${WORKING_DIR}${FILE_NAME}
+  createdb -U postgres mobilevis
+  pg_restore -U postgres -d mobilevis ${WORKING_DIR}${FILE_NAME}
 
   #cleanup
   rm ${WORKING_DIR}${FILE_NAME}
@@ -69,10 +71,12 @@ else
   aws s3 cp s3://{{s3_bucket}}/${folder}/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
 
   # drop existing
-  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+  psql -U postgres -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+
+  createdb -U postgres mobilevis
 
   #gunzip it
-  gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U postgres -d postgres
+  pg_restore -U postgres -d mobilevis ${WORKING_DIR}${BACKUP_FILE_NAME}
 
   #cleanup
   rm ${WORKING_DIR}${BACKUP_FILE_NAME}
