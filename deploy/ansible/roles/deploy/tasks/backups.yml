@@ -6,3 +6,6 @@
 - name: copy backup and restore scripts
   template: src={{item}} dest=/usr/local/bin/{{item}} mode=755
   with_items: backup_scripts
+
+- name: load latest backup
+  shell: mobilevis-restore latest

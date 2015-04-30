@@ -14,3 +14,5 @@ ssl: false
 # cert/key files will be auto-generated if they don't already exist.
 ssl_cert_path: /etc/ssl/server.cert
 ssl_key_path: /etc/ssl/server.key
+
+home_dir: /home/vagrant/

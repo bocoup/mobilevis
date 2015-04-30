@@ -10,3 +10,5 @@ ssl: false
 # via cloud-init, scp, etc).
 ssl_cert_path: /etc/ssl/star.bocoup.com.cert
 ssl_key_path: /etc/ssl/star.bocoup.com.key
+
+home_dir: /root/

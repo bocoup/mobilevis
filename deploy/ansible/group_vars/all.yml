@@ -37,3 +37,4 @@ secrets_fqdn: nest.bocoup.com
 # bucket for backups and images
 s3_bucket: mobilevis.bocoup.com
 backup_folder: db-backups
+
