@@ -26,3 +26,9 @@
     - python
     - secrets
     - install
+
+
+- name: setup downloadable things
+  include: wget.yml
+  tags:
+    - jq

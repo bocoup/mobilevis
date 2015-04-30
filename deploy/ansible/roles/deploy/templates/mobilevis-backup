@@ -14,8 +14,8 @@ pg_dump --create mobilevis -U bocoup | gzip -c > ${WORKING_DIR}${BACKUP_FILE_NAM
 pg_dump --data-only --create mobilevis -U bocoup | gzip -c > ${WORKING_DIR}${BACKUP_DATA_FILE_NAME}
 
 # copy to S3
-aws s3 cp ${WORKING_DIR}${BACKUP_FILE_NAME} s3://mobilevis.bocoup.com/$@/
-aws s3 cp ${WORKING_DIR}${BACKUP_DATA_FILE_NAME} s3://mobilevis.bocoup.com/$@/
+aws s3 cp ${WORKING_DIR}${BACKUP_FILE_NAME} s3://{{s3_bucket}}/$@/
+aws s3 cp ${WORKING_DIR}${BACKUP_DATA_FILE_NAME} s3://{{s3_bucket}}/$@/
 
 # cleanup
 rm ${WORKING_DIR}${BACKUP_FILE_NAME}

@@ -4,22 +4,19 @@
 # decrypts it, and restores it. This should be re-written to be more general in the future
 #
 
-if [ "$#" -ne 3 ]
+if [ "$#" -ne 1 ]
 then
-  # TECH DEBT: Ideally we'd list out all available files
-  echo "ERROR: Must provide the timestamp of the backup to restore in %Y%m%d%H%M format. Check S3 for available backups."
-  echo "Example usage: mobilevis-restore 201404031353"
-  echo "would restore the file from here: s3://mobilevis-backup/mobilevis-backup-201404031353.sql.gz"
-  echo "Use the string 'base' for a lean data set or to bootstrap a clean postgres install: mobilevis-restore base"
+  echo "Available commands are:"
+  echo "mobilevis-restore base - will restore base setup"
+  echo "mobilevis-restore latest - will restore latest in s3"
+  echo "mobilevis-restore 201404031353 - will restore specific dump"
   exit 1
 fi
 
 args=("$@");
-timestamp=${args[0]}
-fullOrData=${args[1]}
-folder=${args[2]}
+folder={{backup_folder}}
 
-WORKING_DIR={{site_path}}/
+WORKING_DIR={{base_path}}/
 
 if [ $1 = "base" ]
 then
@@ -31,10 +28,36 @@ then
   # setup new one
   psql -U postgres -d postgres < ${WORKING_DIR}deploy/shared/db/${BACKUP_FILE_NAME}
 
-else
+elif [ $1 = "latest" ]
+then
+
+  BACKUP_FILE_NAME=`aws s3api list-objects --bucket {{s3_bucket}} \
+    --prefix {{backup_folder}}/ \
+    | jq '.Contents | sort_by(.LastModified) \
+    | reverse | .[1] | .Key' | tail -1 | sed 's/\"//g'`
+
+  FILE_NAME=`aws s3api list-objects --bucket {{s3_bucket}} \
+    --prefix {{backup_folder}}/ \
+    | jq '.Contents | sort_by(.LastModified) \
+    | reverse | .[1] | .Key | split("/")[1]' | tail -1 | sed 's/\"//g'`
+
+  echo "Restoring ${FILE_NAME}"
+  aws s3api get-object --bucket {{s3_bucket}} \
+    --key ${BACKUP_FILE_NAME} ${WORKING_DIR}${FILE_NAME}
 
   # drop existing
   psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
+
+  # load new one
+  # cat ${WORKING_DIR}/schema.sql | psql -U postgres -d postgres
+  gunzip -c ${WORKING_DIR}${FILE_NAME} | psql -U postgres -d postgres
+
+  #cleanup
+  rm ${WORKING_DIR}${FILE_NAME}
+
+else
+
+  timestamp=${args[0]}
 
   if [ $2 = "full" ]
   then
@@ -43,7 +66,10 @@ else
     BACKUP_FILE_NAME=mobilevis-backup-${timestamp}-data.sql.gz
   fi
 
-  aws s3 cp s3://mobilevis.bocoup.com/${folder}/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
+  aws s3 cp s3://{{s3_bucket}}/${folder}/${BACKUP_FILE_NAME} ${WORKING_DIR}${BACKUP_FILE_NAME}
+
+  # drop existing
+  psql -U bocoup -d postgres -c "DROP DATABASE IF EXISTS mobilevis"
 
   #gunzip it
   gunzip -c ${WORKING_DIR}${BACKUP_FILE_NAME} | psql -U postgres -d postgres
