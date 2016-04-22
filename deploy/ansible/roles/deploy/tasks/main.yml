@@ -37,11 +37,6 @@
     chdir: "{{base_path}}"
   when: keep_n_most_recent is defined
 
-- name: download configuration files
-  include: config.yml
-  tags:
-    - config
-
 - name: setup backup scripts
   include: backups.yml
   tags:

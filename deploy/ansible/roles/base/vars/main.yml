@@ -23,6 +23,3 @@ npm_global_modules:
   - { name: grunt-cli }
   - { name: bower }
   - { name: forever }
-
-awscli_config_file: mobilevis.aws
-

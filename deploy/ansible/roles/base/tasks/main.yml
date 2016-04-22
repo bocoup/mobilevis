@@ -20,14 +20,6 @@
     - python
     - install
 
-- name: setup secrets
-  include: secrets.yml
-  tags:
-    - python
-    - secrets
-    - install
-
-
 - name: setup downloadable things
   include: wget.yml
   tags:

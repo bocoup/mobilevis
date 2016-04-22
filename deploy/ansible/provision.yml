@@ -3,9 +3,17 @@
 # changes or need to update any installed apt modules to their latest versions.
 
 - hosts: all
-  sudo: yes
+  become: yes
+  become_method: sudo
   roles:
     - base
     - configure
   handlers:
-    - include: handlers/handlers.yml
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+    - name: restart postgresql
+      service: name=postgresql state=restarted
+
+    - name: restart mobilevis
+      service: name=mobilevis state=restarted

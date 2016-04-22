@@ -3,11 +3,19 @@
 # commit (overridable via extra vars) on the server.
 
 - hosts: all
-  sudo: yes
+  become: yes
+  become_method: sudo
   vars:
     commit: master
     force: false
   roles:
     - deploy
   handlers:
-    - include: handlers/handlers.yml
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+    - name: restart postgresql
+      service: name=postgresql state=restarted
+
+    - name: restart mobilevis
+      service: name=mobilevis state=restarted
