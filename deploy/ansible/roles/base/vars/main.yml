@@ -1,0 +1,28 @@
+apt_keys:
+  - "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+apt_ppas:
+  - "deb https://deb.nodesource.com/node_0.10 trusty main"
+  - "ppa:git-core/ppa"
+apt_packages:
+  - build-essential
+  - nginx
+  - git
+  - nodejs
+  - curl
+  - python-software-properties
+  - python
+  - python-pip
+  - python-pycurl
+  - python-psycopg2
+  - libpq-dev
+  - g++
+  - make
+  - imagemagick
+  - logrotate
+npm_global_modules:
+  - { name: grunt-cli }
+  - { name: bower }
+  - { name: forever }
+
+awscli_config_file: mobilevis.aws
+

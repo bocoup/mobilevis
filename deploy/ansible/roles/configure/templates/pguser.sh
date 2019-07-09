@@ -1,0 +1,2 @@
+PGUSER=postgres
+export PGUSER

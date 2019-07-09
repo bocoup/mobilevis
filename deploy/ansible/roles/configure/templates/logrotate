@@ -1,0 +1,15 @@
+{{base_path}}/logs/*.log {
+  monthly
+  missingok
+  rotate 7
+  size 50M
+  compress
+  delaycompress
+  copytruncate
+  notifempty
+  create 644 ubuntu ubuntu
+  mailfirst
+  mail irene@bocoup.com
+  maxage 30
+  rotate 5
+}

@@ -1,0 +1,22 @@
+#!/bin/bash
+# mobilevis-backup
+# Dumps the bocoup database from postgres, encrypts it and copies it to S3, expects:
+#  - aws cli is installed (@see: http://aws.amazon.com/cli/)
+#
+# This should be refactored so it can be used as a generic postgres backup helper
+
+WORKING_DIR={{site_path}}
+BACKUP_FILE_NAME=mobilevis-backup-$(date -d "today" +"%Y%m%d%H%M").sql.gz
+BACKUP_DATA_FILE_NAME=mobilevis-backup-$(date -d "today" +"%Y%m%d%H%M")-data.sql.gz
+
+# dump from postgres, encrypt
+pg_dump mobilevis -Fc -U bocoup > ${WORKING_DIR}${BACKUP_FILE_NAME}
+pg_dump --data-only -Fc mobilevis -U bocoup > ${WORKING_DIR}${BACKUP_DATA_FILE_NAME}
+
+# copy to S3
+aws s3 cp ${WORKING_DIR}${BACKUP_FILE_NAME} s3://{{s3_bucket}}/$@/
+aws s3 cp ${WORKING_DIR}${BACKUP_DATA_FILE_NAME} s3://{{s3_bucket}}/$@/
+
+# cleanup
+rm ${WORKING_DIR}${BACKUP_FILE_NAME}
+rm ${WORKING_DIR}${BACKUP_DATA_FILE_NAME}

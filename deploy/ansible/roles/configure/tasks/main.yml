@@ -1,0 +1,41 @@
+# Configure the box. This happens after system dependencies are installed,
+# but before the project is cloned or built.
+
+- name: configure local host
+  include: localhost.yml
+  tags:
+    - local
+    - configure
+
+- name: configure github connection
+  include: github.yml
+  tags:
+    - github
+    - configure
+
+
+- name: configure ssh agent
+  include: ssh-agent.yml
+  tags:
+    - ssh-agent
+    - configure
+
+
+- name: configure postgres
+  include: postgresql.yml
+  tags:
+    - postgres
+    - configure
+
+- name: configure logs
+  include: logs.yml
+  tags:
+    - logs
+    - configure
+
+
+- name: configure nginx
+  include: nginx.yml
+  tags:
+    - nginx
+    - configure

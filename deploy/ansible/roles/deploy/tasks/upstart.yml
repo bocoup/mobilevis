@@ -1,0 +1,13 @@
+#
+# setup upstart task
+#
+- name: copy upstart config
+  template: src=upstart.conf dest=/etc/init/{{project_name}}.conf
+
+- name: reload configuration
+  sudo: true
+  shell: initctl reload-configuration
+  notify:
+    - restart nginx
+    - restart postgresql
+    - restart mobilevis

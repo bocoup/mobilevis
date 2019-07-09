@@ -1,0 +1,24 @@
+#
+# apt installs
+#
+- name: add keys to apt
+  apt_key: url={{item}} state=present
+  with_items: apt_keys
+
+- name: add ppas to apt
+  apt_repository: repo="{{item}}" update_cache=yes
+  with_items: apt_ppas
+
+- name: install apt packages
+  apt: name={{item}} state=latest update_cache=yes
+  with_items: apt_packages
+
+- name: postgresql is installed
+  apt: name=postgresql state=present
+  environment:
+    LC_ALL: en_US.UTF-8
+  tags:
+    - postgres
+
+- name: postgresql contrib extensions are installed
+  apt: name=postgresql-contrib state=present

@@ -1,0 +1,34 @@
+# Get the box up and running. These tasks run before the box is configured
+# or the project is cloned or built. All system dependencies should be
+# installed here.
+
+- name: install apt
+  include: apt.yml
+  tags:
+    - apt
+    - install
+
+- name: install npm
+  include: npm.yml
+  tags:
+    - node
+    - install
+
+- name: install awscli
+  include: pip.yml
+  tags:
+    - python
+    - install
+
+- name: setup secrets
+  include: secrets.yml
+  tags:
+    - python
+    - secrets
+    - install
+
+
+- name: setup downloadable things
+  include: wget.yml
+  tags:
+    - jq

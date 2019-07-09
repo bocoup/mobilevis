@@ -1,0 +1,6 @@
+#
+# install downloadable things
+#
+
+- name: download jq
+  get_url: url=http://stedolan.github.io/jq/download/linux64/jq dest=/usr/bin/ mode="755"

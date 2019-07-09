@@ -1,0 +1,40 @@
+local_user: "{{ lookup('env', 'USER') }}"
+
+# This is used as the basis of a few other variables, eg. hostname, app_fqdn.
+project_name: mobilevis
+
+# Git repo address. Modify as-needed.
+git_repo: http://github.com/bocoup/{{project_name}}.git
+
+# Parent directory for cloned repository directories.
+base_path: /mnt
+
+# Where the production site symlink will exist. This value needs to be the
+# same as the config.vm.synced_folder setting in the Vagrantfile.
+site_path: "{{base_path}}/site"
+
+# Temporary location where the git repo will be cloned and the build scripts
+# will be run before going live.
+clone_path: "{{base_path}}/temp"
+
+# If this variable is defined, a file containing build information, including
+# the timestamp, commit, sha, and a few other useful values will be generated
+# after the build has completed. This file is relative to your project root.
+build_info_path: "public/build.txt"
+
+# The directory that nginx will serve as the production site. This is typically
+# where your index.html file exists (or will exist after the build process).
+public_path: "{{site_path}}/public"
+
+# The server hostname and FQDN. These might need to change if you have a
+# different server naming scheme or don't work at Bocoup ;)
+hostname: "mobilev.is"
+app_fqdn: "mobilev.is"
+
+# bocoup secrets store
+secrets_fqdn: nest.bocoup.com
+
+# bucket for backups and images
+s3_bucket: mobilevis.bocoup.com
+backup_folder: db-backups
+

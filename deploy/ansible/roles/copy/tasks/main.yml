@@ -1,0 +1,5 @@
+#
+# copy local source to remote destination, to run the setup
+#
+- name: copy local working folder
+  copy: src=../mobilevis dest={{base_path}}/synced

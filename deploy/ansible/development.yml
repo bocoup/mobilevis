@@ -1,0 +1,15 @@
+# Provision server. This playbook must be run when a server is first created
+# and is typically only run once. It may be run again if you make server-level
+# changes or need to update any installed apt modules to their latest versions.
+
+- hosts: all
+  sudo: yes
+  vars:
+    commit: master
+    force: false
+  roles:
+    - base
+    - configure
+    - deploy
+  handlers:
+    - include: handlers/handlers.yml

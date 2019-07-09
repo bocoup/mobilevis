@@ -1,0 +1,4 @@
+default ansible_ssh_host=192.168.33.99 ansible_ssh_user=vagrant
+
+[vars]
+backup_folder=db-backups

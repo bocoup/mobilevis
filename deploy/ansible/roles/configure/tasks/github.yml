@@ -1,0 +1,12 @@
+#
+# Configure github connection
+#
+- name: get github public key
+  command: /usr/bin/ssh-keyscan github.com
+  register: github_keyscan
+
+- name: add github key to ssh known hosts
+  lineinfile: dest=/etc/ssh/ssh_known_hosts
+    create=yes
+    regexp='^github.com'
+    line="{{github_keyscan.stdout}}"
