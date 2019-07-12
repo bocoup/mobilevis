@@ -1,7 +1,7 @@
 apt_keys:
   - "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
 apt_ppas:
-  - "deb https://deb.nodesource.com/node_0.10 trusty main"
+  - "deb https://deb.nodesource.com/node_10.x trusty main"
   - "ppa:git-core/ppa"
 apt_packages:
   - build-essential
