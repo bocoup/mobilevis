@@ -6,7 +6,8 @@ module.exports = {
     client: "pg",
     debug: (process.env.NODE_ENV !== 'development'),
     connection: {
-      host: "rds.bocoup.com",
+      host: "localhost",
+      port: 5431,
       user: "mobilevis",
       database: "mobilevis",
       password: "AZ2NG14iJQhUsVBrF5q469kJ6UlauL2D"
