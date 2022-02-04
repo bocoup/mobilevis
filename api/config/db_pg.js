@@ -6,9 +6,10 @@ module.exports = {
     client: "pg",
     debug: (process.env.NODE_ENV !== 'development'),
     connection: {
-      host: "localhost",
-      user: "bocoup",
-      database: "mobilevis"
+      host: "rds.bocoup.com",
+      user: "mobilevis",
+      database: "mobilevis",
+      password: "AZ2NG14iJQhUsVBrF5q469kJ6UlauL2D"
     }
   },
   directory: __dirname+"/../db/migrations",

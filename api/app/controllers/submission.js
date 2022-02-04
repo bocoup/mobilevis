@@ -14,6 +14,7 @@ module.exports = BaseController.extend({
   getAll: function(req, res, next) {
 
     req.Model.collection().query(function(qb) {
+      console.log(qb);
       qb.orderBy('timestamp', 'desc');
     }).fetch({
       withRelated: ['tags', 'images']
