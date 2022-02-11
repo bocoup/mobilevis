@@ -6,7 +6,7 @@ define(function(require) {
   return Backbone.Model.extend({
 
     url : function() {
-      return API.tags.show + this.get('id');
+      return API.tags.show + this.get('id') + '.json';
     },
 
     // overwrite submissions array
