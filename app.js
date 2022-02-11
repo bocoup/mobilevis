@@ -9,7 +9,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use('/src', express.static(__dirname + '/src'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
-app.use(require(__dirname + '/api'));
+app.use('/data', express.static(__dirname + '/data'));
 
 app.get('*', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');

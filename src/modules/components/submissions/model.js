@@ -5,7 +5,7 @@ define(function(require) {
 
   return Backbone.Model.extend({
     url : function() {
-      return API.submissions.show + this.get('id');
+      return API.submissions.show + this.get('id') + '.json';
     },
 
     toJSON: function() {

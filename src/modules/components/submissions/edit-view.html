@@ -57,7 +57,7 @@
       <% submission.images.forEach(function(image) { %>
         <li>
           <input type="radio" name="preview_image" value="<%= image.id %>">
-          <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
+          <img src="/data/images/<%= image.url %>" />
         </li>
       <% }); %>
       </ul>
