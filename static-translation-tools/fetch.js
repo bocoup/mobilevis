@@ -56,8 +56,21 @@ const fetchJSON = limit(5, (url) => {
   });
 });
 
-const fetchJSONWithCache = async (url) => {
-  const fileName = path.join('data', encodeURIComponent(url));
+const mkDirP = (filePath) => {
+  const mkdir = (dirName) => console.log(dirName) || fs.mkdir(dirName)
+    .catch((err) => { if (err.code !== 'EEXIST') { throw err; } });
+
+  return filePath
+    .split(path.sep)
+    .map((_, index, parts) => path.join(...parts.slice(0, index + 1)))
+    .reduce(
+      (promise, dirName) => promise.then(() => mkdir(dirName)),
+      Promise.resolve()
+    );
+};
+
+const fetchJSONWithCache = async (domain, urlPath) => {
+  const fileName = path.join('data', path.normalize(urlPath) + '.json');
   const json = await (fs.readFile(fileName, 'utf8').catch(() => {}));
 
   if (json) {
@@ -68,23 +81,24 @@ const fetchJSONWithCache = async (url) => {
     }
   }
 
-  const data = await fetchJSON(url);
+  const data = await fetchJSON(`${domain}/${urlPath}`);
 
+  await mkDirP(path.dirname(fileName));
   await fs.writeFile(fileName, JSON.stringify(data), 'utf8');
 
   return data;
 };
 
 (async () => {
-  const fetchMobileVis = (path) => fetchJSONWithCache(`http://mobilev.is/${path}`);
-  const submissions = await fetchMobileVis('api/v1/submissions/');
+  const fetchMobileVis = fetchJSONWithCache.bind(null, 'http://mobilev.is');
+  const submissions = await fetchMobileVis('api/v1/submissions');
 
   await Promise.all(
     submissions.map((submission) => {
       return Promise.all([
-        fetchMobileVis(`api/v1/submissions/${submission.id}/`),
-        fetchMobileVis(`api/v1/submissions/${submission.id}/comments/`),
-        ...submission.tags.map((tag) => fetchMobileVis(`api/v1/tags/${tag.id}/`))
+        fetchMobileVis(`api/v1/submissions/${submission.id}`),
+        fetchMobileVis(`api/v1/submissions/${submission.id}/comments`),
+        ...submission.tags.map((tag) => fetchMobileVis(`api/v1/tags/${tag.id}`))
       ]);
     })
   );
