@@ -57,7 +57,7 @@ const fetchJSON = limit(5, (url) => {
 });
 
 const mkDirP = (filePath) => {
-  const mkdir = (dirName) => console.log(dirName) || fs.mkdir(dirName)
+  const mkdir = (dirName) => fs.mkdir(dirName)
     .catch((err) => { if (err.code !== 'EEXIST') { throw err; } });
 
   return filePath
@@ -98,6 +98,7 @@ const fetchJSONWithCache = async (domain, urlPath) => {
       return Promise.all([
         fetchMobileVis(`api/v1/submissions/${submission.id}`),
         fetchMobileVis(`api/v1/submissions/${submission.id}/comments`),
+        fetchMobileVis(`api/v1/users/submissions/${submission.twitter_handle}`),
         ...submission.tags.map((tag) => fetchMobileVis(`api/v1/tags/${tag.id}`))
       ]);
     })
