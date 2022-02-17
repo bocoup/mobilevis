@@ -70,7 +70,7 @@ const mkDirP = (filePath) => {
 };
 
 const fetchJSONWithCache = async (domain, urlPath) => {
-  const fileName = path.join('data', path.normalize(urlPath) + '.json');
+  const fileName = path.join('data', decodeURIComponent(path.normalize(urlPath)) + '.json');
   const json = await (fs.readFile(fileName, 'utf8').catch(() => {}));
 
   if (json) {
@@ -99,6 +99,7 @@ const fetchJSONWithCache = async (domain, urlPath) => {
         fetchMobileVis(`api/v1/submissions/${submission.id}`),
         fetchMobileVis(`api/v1/submissions/${submission.id}/comments`),
         fetchMobileVis(`api/v1/users/submissions/${submission.twitter_handle}`),
+        fetchMobileVis(`api/v1/creators/submissions/${encodeURIComponent(submission.creator)}`),
         ...submission.tags.map((tag) => fetchMobileVis(`api/v1/tags/${tag.id}`))
       ]);
     })
