@@ -6,4 +6,4 @@ deploy/shared/keys/id_rsa.pub
 
 .vagrant/**/*
 
-public/app.css
+public/
