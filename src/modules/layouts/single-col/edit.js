@@ -1,8 +1,8 @@
 define(function(require) {
 
-  var Submission = require('src/modules/components/submissions/model');
-  var SubmissionEditView = require('src/modules/components/submissions/edit-view');
-  var flash = require('src/modules/core/flash');
+  var Submission = require('modules/components/submissions/model');
+  var SubmissionEditView = require('modules/components/submissions/edit-view');
+  var flash = require('modules/core/flash');
 
   return function() {
     var self = this;

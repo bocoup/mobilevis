@@ -1,8 +1,8 @@
 define(function(require) {
 
-  var BreadcrumbsView = require('src/modules/components/helpers/breadcrumbs');
-  var SubmissionsView = require('src/modules/components/submissions/collection-view');
-  var Creator = require('src/modules/components/creators/model');
+  var BreadcrumbsView = require('modules/components/helpers/breadcrumbs');
+  var SubmissionsView = require('modules/components/submissions/collection-view');
+  var Creator = require('modules/components/creators/model');
 
   return function() {
     var self = this;

@@ -11,7 +11,7 @@ module.exports = function(grunt) {
   // Register alias tasks.
   grunt.registerTask('build',
     'Build site files for testing or deployment.',
-    ['jshint', 'clean', 'jade:public', 'requirejs:public', 'stylus:public', 'cssmin']);
+    ['jshint', 'clean', 'copy:public', 'jade:public', 'requirejs:public', 'stylus:public', 'cssmin']);
 
   grunt.registerTask('dev',
     'Start a live-reloading dev webserver on localhost.',

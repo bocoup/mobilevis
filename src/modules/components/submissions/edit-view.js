@@ -1,13 +1,13 @@
 define(function(require) {
 
-  var API = require('src/modules/services/api');
+  var API = require('modules/services/api');
   var $ = require('jquery');
   require('jquery-select');
 
-  var BaseView = require('src/modules/core/base-view');
-  var template = require('tmpl!src/modules/components/submissions/edit-view');
+  var BaseView = require('modules/core/base-view');
+  var template = require('tmpl!modules/components/submissions/edit-view');
 
-  // var imagePreviewTemplate = require('tmpl!src/modules/components/submissions/add-image-preview');
+  // var imagePreviewTemplate = require('tmpl!modules/components/submissions/add-image-preview');
 
   // var Dropzone = require('dropzone');
   // var myDropzone;

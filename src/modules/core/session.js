@@ -1,7 +1,7 @@
 define(function(require){
 
   var $ = require("jquery");
-  var API = require("src/modules/services/api");
+  var API = require("modules/services/api");
   var Backbone = require("backbone");
 
   var user = null;

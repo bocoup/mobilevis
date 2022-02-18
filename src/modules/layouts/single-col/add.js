@@ -1,8 +1,8 @@
 define(function(require) {
 
-  var SubmissionAddView = require('src/modules/components/submissions/add-view');
-  var Submission = require('src/modules/components/submissions/model');
-  var flash = require('src/modules/core/flash');
+  var SubmissionAddView = require('modules/components/submissions/add-view');
+  var Submission = require('modules/components/submissions/model');
+  var flash = require('modules/core/flash');
 
   return function() {
 

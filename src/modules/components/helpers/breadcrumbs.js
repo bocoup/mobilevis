@@ -1,7 +1,7 @@
 define(function(require) {
 
-  var BaseView = require('src/modules/core/base-view');
-  var template = require('tmpl!src/modules/components/helpers/breadcrumbs');
+  var BaseView = require('modules/core/base-view');
+  var template = require('tmpl!modules/components/helpers/breadcrumbs');
 
   return BaseView.extend({
     template: template,

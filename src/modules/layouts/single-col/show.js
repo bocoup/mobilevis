@@ -2,10 +2,10 @@ define(function(require) {
 
   var $ = require('jquery');
 
-  var Submission = require('src/modules/components/submissions/model');
-  var SubmissionShowView = require('src/modules/components/submissions/show-view');
-  var SubmissionComments = require('src/modules/components/comments/collection');
-  var SubmissionCommentsView = require('src/modules/components/comments/collection-view');
+  var Submission = require('modules/components/submissions/model');
+  var SubmissionShowView = require('modules/components/submissions/show-view');
+  var SubmissionComments = require('modules/components/comments/collection');
+  var SubmissionCommentsView = require('modules/components/comments/collection-view');
 
   return function(options) {
     var self = this;

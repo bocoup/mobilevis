@@ -1,11 +1,11 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var Model = require('src/modules/components/comments/model');
+  var Model = require('modules/components/comments/model');
   var moment = require('moment');
 
 
   // var moment = require('moment');
-  var API = require("src/modules/services/api");
+  var API = require("modules/services/api");
 
   return Backbone.Collection.extend({
 

@@ -1,7 +1,7 @@
 define(function(require) {
 
-  var BaseView = require('src/modules/core/base-view');
-  var template = require('tmpl!src/modules/components/comments/collection-view');
+  var BaseView = require('modules/core/base-view');
+  var template = require('tmpl!modules/components/comments/collection-view');
   var $ = require('jquery');
 
   return BaseView.extend({

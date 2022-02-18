@@ -9,7 +9,8 @@
     "build": "grunt build",
     "dev": "grunt",
     "install": "bower install",
-    "start": "node app.js",
+    "start": "node app.js development",
+    "start-production": "npm run build && node app.js production",
     "test": "grunt jshint"
   },
   "engines": {

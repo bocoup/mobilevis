@@ -1,8 +1,8 @@
 define(function(require) {
 
-  var Tag = require('src/modules/components/tags/model');
-  var BreadcrumbsView = require('src/modules/components/helpers/breadcrumbs');
-  var SubmissionsView = require('src/modules/components/submissions/collection-view');
+  var Tag = require('modules/components/tags/model');
+  var BreadcrumbsView = require('modules/components/helpers/breadcrumbs');
+  var SubmissionsView = require('modules/components/submissions/collection-view');
 
   return function() {
     var self = this;
