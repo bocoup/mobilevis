@@ -7,9 +7,8 @@
   "main": "api/app.js",
   "scripts": {
     "install": "bower install",
-    "sqlite3": "node app.js sqlite3",
     "start": "node app.js",
-    "test": "mocha -R spec api/test/test.js"
+    "test": "grunt jshint"
   },
   "dependencies": {
     "express": "~3.4.8",
