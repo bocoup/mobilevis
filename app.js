@@ -1,6 +1,5 @@
-const config = require('./config.json');
-const port = process.env.PORT || config.port;
-const host = process.env.HOST || config.host;
+const port = process.env.PORT || '8000';
+const host = process.env.HOST || '127.0.0.1';
 const express = require('express');
 const app = express();
 
