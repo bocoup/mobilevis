@@ -8,8 +8,6 @@ module.exports = function(grunt) {
   // Load Grunt plugins.
   grunt.loadTasks('tasks');
 
-  grunt.registerTask('test', ['simplemocha']);
-
   // Register alias tasks.
   grunt.registerTask('build',
     'Build site files for testing or deployment.',
