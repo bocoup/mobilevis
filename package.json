@@ -6,6 +6,7 @@
   "author": "Irene Ros",
   "main": "api/app.js",
   "scripts": {
+    "build": "grunt build",
     "dev": "grunt",
     "install": "bower install",
     "start": "node app.js",
