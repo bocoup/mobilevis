@@ -6,7 +6,7 @@ const app = express();
 const env = process.argv[2] === 'development' ? 'development' : 'production';
 
 if (env === 'development') {
-  app.use(express.static(__dirname + '/src'));
+  app.use('/src', express.static(__dirname + '/src'));
   app.use('/bower_components', express.static(__dirname + '/bower_components'));
   app.use('/data', express.static(__dirname + '/data'));
 }

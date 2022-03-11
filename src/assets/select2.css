@@ -96,7 +96,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     text-decoration: none;
 
     border: 0;
-    background: url('assets/select2.png') right top no-repeat;
+    background: url('src/assets/select2.png') right top no-repeat;
     cursor: pointer;
     outline: 0;
 }
@@ -200,7 +200,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     display: block;
     width: 100%;
     height: 100%;
-    background: url('assets/select2.png') no-repeat 0 1px;
+    background: url('src/assets/select2.png') no-repeat 0 1px;
 }
 
 .select2-search {
@@ -234,11 +234,11 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     -webkit-box-shadow: none;
             box-shadow: none;
 
-    background: #fff url('assets/select2.png') no-repeat 100% -22px;
-    background: url('assets/select2.png') no-repeat 100% -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee));
-    background: url('assets/select2.png') no-repeat 100% -22px, -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%);
-    background: url('assets/select2.png') no-repeat 100% -22px, -moz-linear-gradient(center bottom, #fff 85%, #eee 99%);
-    background: url('assets/select2.png') no-repeat 100% -22px, linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0;
+    background: #fff url('src/assets/select2.png') no-repeat 100% -22px;
+    background: url('src/assets/select2.png') no-repeat 100% -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee));
+    background: url('src/assets/select2.png') no-repeat 100% -22px, -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%);
+    background: url('src/assets/select2.png') no-repeat 100% -22px, -moz-linear-gradient(center bottom, #fff 85%, #eee 99%);
+    background: url('src/assets/select2.png') no-repeat 100% -22px, linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0;
 }
 
 .select2-drop.select2-drop-above .select2-search input {
@@ -557,7 +557,7 @@ html[dir="rtl"] .select2-container-multi .select2-choices .select2-search-choice
 
     font-size: 1px;
     outline: none;
-    background: url('assets/select2.png') right top no-repeat;
+    background: url('src/assets/select2.png') right top no-repeat;
 }
 html[dir="rtl"] .select2-search-choice-close {
     right: auto;
