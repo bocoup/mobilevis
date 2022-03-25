@@ -1,20 +1,20 @@
 define(function(require) {
   var routes = {
-    prefix: "/api/v1/"
+    prefix: "/data/"
   };
 
   // user specific routes
   routes.user = {
     profile : routes.prefix + "users/profile",
     submissions : function(username) {
-      return routes.prefix + "users/submissions/" + username;
+      return routes.prefix + "users/submissions/" + username + '.json';
     }
   };
 
   // creator specific routes
   routes.creator = {
     submissions : function(creator) {
-      return routes.prefix + "creators/submissions/" + creator;
+      return routes.prefix + "creators/submissions/" + creator + '.json';
     }
   };
 
@@ -31,14 +31,14 @@ define(function(require) {
 
   // submission routes
   routes.submissions = {
-    all: routes.prefix + "submissions/",
+    all: routes.prefix + "submissions.json",
     show: routes.prefix + "submissions/"
   };
 
   // comment routes
   routes.comments = {
     submission: function(submissionId) {
-      return routes.prefix + "submissions/" + submissionId + "/comments";
+      return routes.prefix + "submissions/" + submissionId + "/comments.json";
     }
   };
 

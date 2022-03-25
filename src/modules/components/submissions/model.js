@@ -1,11 +1,11 @@
 define(function(require) {
   var Backbone = require('backbone');
   var moment = require('moment');
-  var API = require("src/modules/services/api");
+  var API = require("modules/services/api");
 
   return Backbone.Model.extend({
     url : function() {
-      return API.submissions.show + this.get('id');
+      return API.submissions.show + this.get('id') + '.json';
     },
 
     toJSON: function() {

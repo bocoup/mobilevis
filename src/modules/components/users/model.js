@@ -1,8 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var API = require("src/modules/services/api");
+  var API = require("modules/services/api");
 
-  var SubmissionsCollection = require('src/modules/components/submissions/collection');
+  var SubmissionsCollection = require('modules/components/submissions/collection');
   return Backbone.Model.extend({
 
     initialize: function(options) {

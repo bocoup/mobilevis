@@ -1,6 +1,6 @@
 define(function(require) {
 
-  var AboutView = require('src/modules/components/helpers/about');
+  var AboutView = require('modules/components/helpers/about');
 
   return function() {
     var self = this;

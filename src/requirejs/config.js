@@ -13,7 +13,7 @@ require.config({
   },
 
   // Make all requires relative to /.
-  baseUrl: '../',
+  baseUrl: '/',
 
   deps: ['src/main'],
 
@@ -36,6 +36,7 @@ require.config({
 
 
     // Commonly-used application subdirectories
+    'modules': 'src/modules',
     'core': 'src/modules/core',
     'components': 'src/modules/components',
     'layouts': 'src/modules/layouts',

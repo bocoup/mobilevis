@@ -14,7 +14,7 @@
           <div class="swiper-wrapper">
             <% _.each(submission.images, function(image) { %>
               <div class="swiper-slide">
-                <img src="https://s3.amazonaws.com/mobilevis.bocoup.com/images/<%= image.url %>" />
+                <img src="/data/images/<%= image.url %>" />
               </div>
             <% }); %>
           </div>

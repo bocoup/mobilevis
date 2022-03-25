@@ -1,8 +1,8 @@
 define(function(require) {
 
   var $ = require('jquery');
-  var BaseView = require('src/modules/core/base-view');
-  var template = require('tmpl!src/modules/components/submissions/collection-view');
+  var BaseView = require('modules/core/base-view');
+  var template = require('tmpl!modules/components/submissions/collection-view');
 
   var Masonry = require('masonry');
 

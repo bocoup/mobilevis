@@ -1,12 +1,12 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var API = require("src/modules/services/api");
-  var SubmissionCollection = require("src/modules/components/submissions/collection");
+  var API = require("modules/services/api");
+  var SubmissionCollection = require("modules/components/submissions/collection");
 
   return Backbone.Model.extend({
 
     url : function() {
-      return API.tags.show + this.get('id');
+      return API.tags.show + this.get('id') + '.json';
     },
 
     // overwrite submissions array

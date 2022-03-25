@@ -1,21 +1,21 @@
 define(function(require) {
-  var BaseView = require('src/modules/core/base-view');
-  var template = require('tmpl!src/modules/layouts/single-col');
-  var API = require("src/modules/services/api");
-  // var flash = require('src/modules/core/flash');
+  var BaseView = require('modules/core/base-view');
+  var template = require('tmpl!modules/layouts/single-col');
+  var API = require("modules/services/api");
+  // var flash = require('modules/core/flash');
   //var $ = require('jquery');
 
   // ==== sub layouts ====
-  var IndexFunction = require('src/modules/layouts/single-col/index');
-  var AddFunction = require('src/modules/layouts/single-col/add');
-  var EditFunction = require('src/modules/layouts/single-col/edit');
+  var IndexFunction = require('modules/layouts/single-col/index');
+  var AddFunction = require('modules/layouts/single-col/add');
+  var EditFunction = require('modules/layouts/single-col/edit');
 
   // == show
-  var ShowFunction = require('src/modules/layouts/single-col/show');
-  var TagIndexFunction = require('src/modules/layouts/single-col/tagShow');
-  var UserIndexFunction = require('src/modules/layouts/single-col/userShow');
-  var CreatorIndexFunction = require('src/modules/layouts/single-col/creatorShow');
-  var AboutFunction = require('src/modules/layouts/single-col/about');
+  var ShowFunction = require('modules/layouts/single-col/show');
+  var TagIndexFunction = require('modules/layouts/single-col/tagShow');
+  var UserIndexFunction = require('modules/layouts/single-col/userShow');
+  var CreatorIndexFunction = require('modules/layouts/single-col/creatorShow');
+  var AboutFunction = require('modules/layouts/single-col/about');
 
 
   return BaseView.extend({

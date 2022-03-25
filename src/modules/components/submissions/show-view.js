@@ -1,7 +1,7 @@
 define(function(require) {
 
-  var BaseView = require('src/modules/core/base-view');
-  var template = require('tmpl!src/modules/components/submissions/show-view');
+  var BaseView = require('modules/core/base-view');
+  var template = require('tmpl!modules/components/submissions/show-view');
   var $ = require('jquery');
   var Swiper = require('swiper');
   var imagesLoaded = require('imagesloaded');

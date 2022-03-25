@@ -4,8 +4,8 @@ define(function(require){
   var Backbone = require("backbone");
   var GA = require("GoogleAnalytics");
 
-  var SingleColLayout = require("src/modules/layouts/single-col");
-  var Session = require("src/modules/core/session");
+  var SingleColLayout = require("modules/layouts/single-col");
+  var Session = require("modules/core/session");
 
   var Router = Backbone.Router.extend({
     initialize: function() {

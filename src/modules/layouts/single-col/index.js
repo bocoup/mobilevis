@@ -3,9 +3,9 @@ define(function(require) {
   var $ = require('jquery');
   require('jquery-cookie');
 
-  var Submissions = require('src/modules/components/submissions/collection');
-  var SubmissionsView = require('src/modules/components/submissions/collection-view');
-  var WelcomeMessageView = require('src/modules/components/helpers/welcome-view');
+  var Submissions = require('modules/components/submissions/collection');
+  var SubmissionsView = require('modules/components/submissions/collection-view');
+  var WelcomeMessageView = require('modules/components/helpers/welcome-view');
 
 
   return function() {
