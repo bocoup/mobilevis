@@ -2,6 +2,8 @@
 
 set -e
 
+npm run build
+
 cd public
 rm -rf .git
 cp -r ../.git .
