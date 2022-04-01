@@ -5,7 +5,6 @@ define(function(require){
   var GA = require("GoogleAnalytics");
 
   var SingleColLayout = require("modules/layouts/single-col");
-  var Session = require("modules/core/session");
 
   var Router = Backbone.Router.extend({
     initialize: function() {
@@ -71,9 +70,7 @@ define(function(require){
 	 */
     routes: {
       "" : "index",
-      "add": "add",
       "submission/:id(/)": "show",
-      "submission/:id/edit(/)": "edit",
       "tag/:id(/)": "tagSubmissionShow",
       "user/:twittername(/)" : "showUserSubmissions",
       "creator/:creator(/)" : "showCreatorSubmissions",
@@ -83,50 +80,10 @@ define(function(require){
     index: function() {
       var self = this;
 
-      Session.getProfile().always(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "index"
-        }).render().place());
-      });
-    },
-
-    add: function() {
-      var self = this;
-
-      self._logActivity({
-        title: "Adding a submission",
-        page: "/submission/add"
-      });
-
-      Session.getProfile().then(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "add"
-        }).render().place());
-      });
-    },
-
-    edit: function(id) {
-      var self = this;
-
-      self._logActivity({
-        title: "Edit a submission",
-        page: "/submission/" + id + "/edit"
-      });
-
-      Session.getProfile().then(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "edit",
-          options: {
-            id: id
-          }
-        }).render().place());
-      });
+      self._setCurrentLayout(new SingleColLayout({
+        el: "#main",
+        page: "index"
+      }).render().place());
     },
 
     show: function(id) {
@@ -137,16 +94,13 @@ define(function(require){
         page: "/submission/" + id
       });
 
-      Session.getProfile().always(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "show",
-          options: {
-            id : id
-          }
-        }).render().place());
-      });
+      self._setCurrentLayout(new SingleColLayout({
+        el: "#main",
+        page: "show",
+        options: {
+          id : id
+        }
+      }).render().place());
     },
 
     showUserSubmissions: function(twitter_handle) {
@@ -157,16 +111,13 @@ define(function(require){
         page: "/user/" + twitter_handle
       });
 
-      Session.getProfile().always(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "showUserSubmissions",
-          options: {
-            twitter_handle: twitter_handle
-          }
-        }).render().place());
-      });
+      self._setCurrentLayout(new SingleColLayout({
+        el: "#main",
+        page: "showUserSubmissions",
+        options: {
+          twitter_handle: twitter_handle
+        }
+      }).render().place());
     },
 
      showCreatorSubmissions: function(creator) {
@@ -177,17 +128,13 @@ define(function(require){
         page: "/creator/" + creator
       });
 
-
-      Session.getProfile().always(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "showCreatorSubmissions",
-          options: {
-            creator: creator
-          }
-        }).render().place());
-      });
+      self._setCurrentLayout(new SingleColLayout({
+        el: "#main",
+        page: "showCreatorSubmissions",
+        options: {
+          creator: creator
+        }
+      }).render().place());
     },
 
     tagSubmissionShow: function(id) {
@@ -198,16 +145,13 @@ define(function(require){
         page: "/tag/" + id
       });
 
-      Session.getProfile().always(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "tagSubmissionShow",
-          options: {
-            id : id
-          }
-        }).render().place());
-      });
+      self._setCurrentLayout(new SingleColLayout({
+        el: "#main",
+        page: "tagSubmissionShow",
+        options: {
+          id : id
+        }
+      }).render().place());
     },
 
     about: function() {
@@ -218,16 +162,11 @@ define(function(require){
         page: "/about"
       });
 
-      Session.getProfile().always(function(user) {
-        self._setCurrentLayout(new SingleColLayout({
-          el: "#main",
-          user: user,
-          page: "about"
-        }).render().place());
-      });
+      self._setCurrentLayout(new SingleColLayout({
+        el: "#main",
+        page: "about"
+      }).render().place());
     }
-
-
   });
 
   return new Router();

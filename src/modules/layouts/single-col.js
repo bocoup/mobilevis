@@ -7,8 +7,6 @@ define(function(require) {
 
   // ==== sub layouts ====
   var IndexFunction = require('modules/layouts/single-col/index');
-  var AddFunction = require('modules/layouts/single-col/add');
-  var EditFunction = require('modules/layouts/single-col/edit');
 
   // == show
   var ShowFunction = require('modules/layouts/single-col/show');
@@ -95,12 +93,6 @@ define(function(require) {
 
     // submission
     postRenderShow: ShowFunction,
-
-    // add page
-    postRenderAdd: AddFunction,
-
-    // edit submission page
-    postRenderEdit: EditFunction,
 
     // index, by tag
     postRenderTagSubmissionIndex: TagIndexFunction,
