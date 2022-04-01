@@ -5,17 +5,6 @@ const app = express();
 
 const env = process.argv[2] === 'development' ? 'development' : 'production';
 
-// Traditional HTML file servers will respond to requests for a directory with
-// the file named `index.html` within that directory, if present. The following
-// route implements that behavior.
-app.get('*', function (req, res, next) {
-  res.sendfile(
-    req.path + '/index.html',
-    {root: __dirname + '/public/'},
-    function(err) { if (err) { next(); } else { res.end(); } }
-  );
-});
-
 app.use(express.static(__dirname + '/public'));
 
 if (env === 'development') {
@@ -27,6 +16,17 @@ if (env === 'development') {
     res.sendfile(__dirname + '/public/index.html');
   });
 }
+
+// Traditional HTML file servers will respond to requests for a directory with
+// the file named `index.html` within that directory, if present. The following
+// route implements that behavior.
+app.get('*', function (req, res, next) {
+  res.sendfile(
+    req.path + '/index.html',
+    {root: __dirname + '/public/'},
+    function(err) { if (err) { next(); } else { res.end(); } }
+  );
+});
 
 app.listen(port, host);
 

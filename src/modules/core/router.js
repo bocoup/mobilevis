@@ -55,15 +55,29 @@ define(function(require){
       });
     },
 
+    /**
+	 * The original deployment of this application (first launched in 2014) used
+	 * HTML pushState and a custom web server to support routes without a
+	 * trailing "forward slash" character.
+	 *
+	 * In 2022, the application was redeployed as a fully-static site hosted on
+	 * GitHub Pages. In order to preserve functionality of hyperlinks on the
+	 * web while hosted on this simpler system, a build process was introduced
+	 * to generate the file system hierarchy suggested by the route
+	 * structure. However, the GitHub Pages service provides "redirect"
+	 * responses (i.e. HTTP 301) for directory requests without a trailing
+	 * forward slash. For this reason, the application must recognize routes
+	 * with and without a trailing forward slash.
+	 */
     routes: {
       "" : "index",
       "add": "add",
-      "submission/:id": "show",
-      "submission/:id/edit": "edit",
-      "tag/:id": "tagSubmissionShow",
-      "user/:twittername" : "showUserSubmissions",
-      "creator/:creator" : "showCreatorSubmissions",
-      "about" : "about"
+      "submission/:id(/)": "show",
+      "submission/:id/edit(/)": "edit",
+      "tag/:id(/)": "tagSubmissionShow",
+      "user/:twittername(/)" : "showUserSubmissions",
+      "creator/:creator(/)" : "showCreatorSubmissions",
+      "about(/)" : "about"
     },
 
     index: function() {
