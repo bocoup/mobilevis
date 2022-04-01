@@ -111,7 +111,6 @@ define(function(require) {
 
     serialize: function() {
 
-      console.log(this.user);
       return {
         submission: this.model.toJSON(),
         user: this.user ? this.user.toJSON() : {}

@@ -40,7 +40,7 @@ define(function(require) {
         });
 
         myDropzone.on('error', function() {
-          console.log(arguments);
+          console.error(arguments);
         });
       },1000);
 

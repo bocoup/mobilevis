@@ -6,7 +6,6 @@ define(function(require) {
 
     toJSON: function() {
       var attrs = Backbone.Model.prototype.toJSON.apply(this);
-      console.log(attrs.timestamp);
       attrs.timestamp = moment(attrs.timestamp).fromNow();
       return attrs;
     }
